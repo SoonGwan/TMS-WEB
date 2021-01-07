@@ -1,0 +1,26 @@
+.PageTemplate {
+  display: flex;
+
+  &-NavBar {
+    width: 4vw;
+    height: 100vh;
+    box-shadow: 0px 4px 15px rgba($color: #000000, $alpha: 0.25);
+    display: flex;
+    justify-content: center;
+    & > img {
+      position: absolute;
+      bottom: 10px;
+    }
+  }
+
+  &-Children {
+    width: 96vw;
+    height: 100vh;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
