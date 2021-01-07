@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './TitleBar.scss'
+
 interface ITitleBar {
   title: string;
 }
