@@ -1,7 +1,15 @@
-@import 'styles/palettes.scss';
+@import 'styles/palette.scss';
 
 .TitleBar {
   width: 100%;
-  height: 10%;
+  height: 80px;
+  padding: 20px;
   background-color: $blue_F4F7FB;
+  display: flex;
+  align-items: center;
+
+  &-Title {
+    font-size: 28px;
+    color: $gray_C4C4C4;
+  }
 }
