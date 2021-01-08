@@ -4,7 +4,6 @@ import logo from 'assets/logo.svg';
 interface IPageTemplate {
   children: React.ReactNode;
 }
-
 const PageTemplate = ({ children }: IPageTemplate) => {
   return (
     <div className="PageTemplate">

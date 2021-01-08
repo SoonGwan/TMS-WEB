@@ -18,8 +18,20 @@
       justify-content: center;
       align-items: center;
       color: $gray_C4C4C4;
-      font-weight: bold;
+      font-weight: 500;
       font-size: 36px;
     }
+  }
+  &-InputWrapper {
+    margin-top: 5.4vh;
+    & > * + * {
+      margin-top: 1.2vh;
+    }
+  }
+  &-ButtonWrap {
+    margin-top: 3.5vh;
+  }
+  &-PureRadio {
+    margin-top: 10px;
   }
 }
