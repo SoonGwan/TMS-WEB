@@ -13,8 +13,8 @@ const MediumBtn = ({
   title,
   onClick,
   className = 'MediumBtn',
-  color = palette.blue_F4F7FB,
-  fontColor = palette.black_000000 }: IMediumBtn) => {
+  color = palette.gray_444444,
+  fontColor = palette.gray_F1F3F5 }: IMediumBtn) => {
 
   const styles: CSSProperties = {
     backgroundColor: color,

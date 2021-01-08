@@ -13,6 +13,8 @@ const DriverContainer = (): JSX.Element => {
   const [selectableDrivers, setSelectableDrivers] = useState<ISelectableDriver[]>([]);
   const [memberFilterType, setMemberFilterType] = useState<MemberType>(MemberType.ENTIRE);
 
+  const selectedDriverIds = selectableDrivers.filter(driver => driver.selected);
+
   const handleSetDrivers = useCallback(async () => {
     try {
       const drivers = await DriverRepository.getDrivers();
@@ -76,12 +78,9 @@ const DriverContainer = (): JSX.Element => {
     );
   })
 
-  const selectedDriverIds = selectableDrivers.filter(driver => driver.selected);
-
   return (
     <div>
       <TitleBar title='드라이버 관리' />
-      {selectedDriverIds.length}
       <DriverTable
         driverItems={driverTableItems}
         memberFilterType={memberFilterType}

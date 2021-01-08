@@ -2,6 +2,8 @@ import { DeliveryStatus } from 'enum/Driver';
 import { ISelectableDriver } from 'interface/Member';
 import React from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai'
+import palette from 'styles/palette';
+import { parseConfigFileTextToJson } from 'typescript';
 
 import './DriverTableItem.scss';
 
@@ -16,13 +18,24 @@ const DriverTableItem = ({
 }: IDriverTableItem): JSX.Element => {
   const { id, username, allow, delivery_status, selected } = driver;
 
-  const composeDeliveryStatus = (): string | undefined => {
+  const composeDeliveryStatusLabel = (): JSX.Element | undefined => {
+    if (allow === false) {
+      return undefined;
+    }
     switch (delivery_status) {
       case DeliveryStatus.AWAIT:
-        return '대기 중';
+        return (
+          <div className='DriverTableItem-DeliveryStatus-Await'>
+            <span>대기 중</span>
+          </div>
+        )
 
       case DeliveryStatus.DELIVERY:
-        return '배송 중';
+        return (
+          <div className='DriverTableItem-DeliveryStatus-Delivery'>
+            <span>배송 중</span>
+          </div>
+        )
 
       // no default
     }
@@ -45,14 +58,14 @@ const DriverTableItem = ({
       </td>
 
       <td className="DriverTableItem-AllowStatus">
-        <AiOutlineCheckCircle />
+        <AiOutlineCheckCircle color={allow ? palette.blue_6685A8 : palette.orange_FF6600} />
         <span>{allow ? '승인' : '대기'}</span>
       </td>
 
       <td>
-        <span>{composeDeliveryStatus()}</span>
+        {composeDeliveryStatusLabel()}
       </td>
-    </tr>
+    </tr >
   )
 }
 

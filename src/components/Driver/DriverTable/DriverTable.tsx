@@ -27,13 +27,15 @@ const DriverTable = ({
 
   return (
     <div className="DriverTable">
-      <div className="DriverTable-Filter">
+      <div className="DriverTable-Util">
         <MediumBtn
           onClick={handleMemberTypeFilter}
           title={composeMemberTypeText()}
-          className='DriverTable-Filter-await' />
-        <MediumBtn title='승인' className='DriverTable-Filter-allow' />
-        <MediumBtn title='거절' className='DriverTable-Filter-deny' />
+          className='DriverTable-Util-Filter' />
+        <div>
+          <MediumBtn title='승인' className='DriverTable-Util-Allow' />
+          <MediumBtn title='거절' className='DriverTable-Util-Deny' />
+        </div>
       </div>
 
       <table className="DriverTable-Table">
