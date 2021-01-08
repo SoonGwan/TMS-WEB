@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { SetStateAction, Dispatch } from 'react';
 import './AuthLogin.scss';
 import palette from 'styles/palette';
 import RadioButton from 'components/common/RadioButton/RadioButton';
 import WideInputBox from 'components/common/WideInputBox';
 import WideButton from 'components/common/WideButton/WideButton';
 
-const AuthLogin = () => {
+interface IAuthLogin {
+  id: string;
+  setId: Dispatch<SetStateAction<string>>;
+  pw: string;
+  setPw: Dispatch<SetStateAction<string>>;
+  handleGetAuthLogin: () => void;
+  isAutoLogin: boolean;
+  setIsAutoLogin: Dispatch<SetStateAction<boolean>>;
+}
+
+const AuthLogin = ({
+  id,
+  setId,
+  pw,
+  setPw,
+  handleGetAuthLogin,
+  isAutoLogin,
+  setIsAutoLogin,
+}: IAuthLogin) => {
   return (
     <div className="AuthLogin">
       <div className="AuthLogin-Wrapper">
@@ -15,11 +33,15 @@ const AuthLogin = () => {
             className="AuthLogin-InputWrapper-Input"
             type="text"
             placeholder="id"
+            inputValue={id}
+            setInputValue={setId}
           />
           <WideInputBox
             className="AuthLogin-InputWrapper-Input"
             type="password"
             placeholder="pw"
+            inputValue={pw}
+            setInputValue={setPw}
           />
         </div>
         <div className="AuthLogin-ButtonWrap">
@@ -28,9 +50,14 @@ const AuthLogin = () => {
             text="로그인"
             fontSize="24px"
             fontColor={palette.white_FFFFFF}
+            ButtonClick={handleGetAuthLogin}
           />
           <div className="AuthLogin-PureRadio">
-            <RadioButton labelText={'자동 로그인'} />
+            <RadioButton
+              labelText={'자동 로그인'}
+              labelValue={isAutoLogin}
+              setLabelValue={setIsAutoLogin}
+            />
           </div>
         </div>
       </div>
