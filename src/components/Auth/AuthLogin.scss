@@ -1,0 +1,49 @@
+@import 'styles/palette.scss';
+
+.AuthLogin {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $blue_E2E8F1;
+  &-Wrapper {
+    width: 47.7vw;
+    height: 69vh;
+    background-color: $white_FFFFFF;
+    border-radius: 5px;
+    padding: 8.6111vh 4.5959vw;
+    &-Title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $gray_C4C4C4;
+      font-weight: 500;
+      font-size: 36px;
+    }
+  }
+  &-InputWrapper {
+    margin-top: 5.4vh;
+    &-Input {
+      width: 100%;
+      height: 7.03vh;
+      border-color: $blue_E2E8F1;
+      border-radius: 5px;
+    }
+
+    & > * + * {
+      margin-top: 1.2vh;
+    }
+  }
+  &-ButtonWrap {
+    margin-top: 3.5vh;
+    &-Button {
+      width: 100%;
+      height: 6.787vh;
+      font-weight: 500;
+    }
+  }
+  &-PureRadio {
+    margin-top: 10px;
+  }
+}
