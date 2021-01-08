@@ -2,17 +2,36 @@ import React from 'react';
 import MediumBtn from 'components/common/MediumBtn';
 
 import './DriverTable.scss';
+import { MemberType } from 'enum/Driver';
 
 interface IDriverTable {
   driverItems: JSX.Element[];
+  handleMemberTypeFilter: () => void;
+  memberFilterType: MemberType,
 }
 
-const DriverTable = ({ driverItems }: IDriverTable): JSX.Element => {
+const DriverTable = ({
+  driverItems,
+  handleMemberTypeFilter,
+  memberFilterType,
+}: IDriverTable): JSX.Element => {
+  const composeMemberTypeText = (): string | undefined => {
+    switch (memberFilterType) {
+      case MemberType.ENTIRE:
+        return '전체';
+
+      case MemberType.AWAIT:
+        return '승인 대기';
+    }
+  }
+
   return (
     <div className="DriverTable">
       <div className="DriverTable-Filter">
-        <MediumBtn title='승인 대기' className='DriverTable-Filter-await' />
-        <MediumBtn title='배달 중' className='DriverTable-Filter-delivery' />
+        <MediumBtn
+          onClick={handleMemberTypeFilter}
+          title={composeMemberTypeText()}
+          className='DriverTable-Filter-await' />
         <MediumBtn title='승인' className='DriverTable-Filter-allow' />
         <MediumBtn title='거절' className='DriverTable-Filter-deny' />
       </div>
