@@ -1,0 +1,14 @@
+.MediumBtn {
+  &-btn {
+    font-size: 12px;
+    min-width: 5rem;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+  }
+}
