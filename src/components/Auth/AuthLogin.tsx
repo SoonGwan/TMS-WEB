@@ -1,9 +1,9 @@
 import React from 'react';
 import './AuthLogin.scss';
-import PureInput from 'components/common/PureLayout/PureInput';
 import palette from 'styles/palette';
-import PureButton from 'components/common/PureLayout/PureButton/PureButton';
-import PureRadio from 'components/common/PureLayout/PureRadio/PureRadio';
+import RadioButton from 'components/common/RadioButton/RadioButton';
+import WideInputBox from 'components/common/WideInputBox';
+import WideButton from 'components/common/WideButton/WideButton';
 
 const AuthLogin = () => {
   return (
@@ -11,38 +11,26 @@ const AuthLogin = () => {
       <div className="AuthLogin-Wrapper">
         <div className="AuthLogin-Wrapper-Title">관리자 로그인</div>
         <div className="AuthLogin-InputWrapper">
-          <PureInput
-            width={'100%'}
-            height={'7.03vh'}
-            borderColor={palette.blue_E2E8F1}
-            type={'text'}
-            borderPx={1}
-            borderRadius={5}
-            placeholder={'id'}
+          <WideInputBox
+            className="AuthLogin-InputWrapper-Input"
+            type="text"
+            placeholder="id"
           />
-          <PureInput
-            width={'100%'}
-            height={'7.03vh'}
-            borderColor={palette.blue_E2E8F1}
-            type={'password'}
-            borderPx={1}
-            borderRadius={5}
-            placeholder={'password'}
+          <WideInputBox
+            className="AuthLogin-InputWrapper-Input"
+            type="password"
+            placeholder="pw"
           />
         </div>
         <div className="AuthLogin-ButtonWrap">
-          <PureButton
-            width={'100%'}
-            height={'100%'}
-            backgroundColor={palette.blue_E2E8F1}
-            borderRadius={0}
-            fontSize={'28px'}
+          <WideButton
+            className="AuthLogin-ButtonWrap-Button"
+            text="로그인"
+            fontSize="24px"
             fontColor={palette.white_FFFFFF}
-            text={'로그인'}
-            border={'none'}
           />
           <div className="AuthLogin-PureRadio">
-            <PureRadio labelText={'자동로그인'} />
+            <RadioButton labelText={'자동 로그인'} />
           </div>
         </div>
       </div>

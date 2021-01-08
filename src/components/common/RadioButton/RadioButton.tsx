@@ -1,16 +1,29 @@
-import React from 'react';
-import './PureRadio.scss';
+import React, { Dispatch, SetStateAction } from 'react';
+import './RadioButton.scss';
 
-interface IPureRadio {
+interface IRadioButton {
   labelText: string;
+  // labelValue: string;
+  // setLavelValue: Dispatch<SetStateAction<string>>;
 }
 
-const PureRadio = ({ labelText }: IPureRadio) => {
+const RadioButton = ({
+  labelText,
+}: /* labelValue,
+   setLavelValue,*/
+IRadioButton) => {
   return (
     <>
       <label className="PureRadio">
         <span className="PureRadio-Pinput">
-          <input type="checkBox" name="PureRadio"></input>
+          <input
+            type="checkBox"
+            name="PureRadio"
+            // value={labelValue}
+            // onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            //   setLavelValue(event.target.value)
+            // }
+          />
           <span className="PureRadio-Pcontrol">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,4 +46,4 @@ const PureRadio = ({ labelText }: IPureRadio) => {
   );
 };
 
-export default PureRadio;
+export default RadioButton;
