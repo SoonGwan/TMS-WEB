@@ -22,7 +22,7 @@ const DriverTableItem = (): JSX.Element => {
       </td>
 
       <td>
-        <AiOutlineCheckCircle />
+        <AiOutlineCheckCircle className='' />
         <span>승인 대기</span>
       </td>
 
