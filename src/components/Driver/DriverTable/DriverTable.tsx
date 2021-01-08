@@ -1,6 +1,5 @@
 import React from 'react';
 import MediumBtn from 'components/common/MediumBtn';
-import DriverTableItem from '../DriverTableItem';
 
 import './DriverTable.scss';
 
@@ -8,7 +7,7 @@ interface IDriverTable {
   driverItems: JSX.Element[];
 }
 
-const DriverTable = (): JSX.Element => {
+const DriverTable = ({ driverItems }: IDriverTable): JSX.Element => {
   return (
     <div className="DriverTable">
       <div className="DriverTable-Filter">
@@ -20,14 +19,17 @@ const DriverTable = (): JSX.Element => {
 
       <table className="DriverTable-Table">
         <thead>
-          <th />
-          <th>ID</th>
-          <th>이름</th>
-          <th>승인 상태</th>
-          <th>배달 상태</th>
+          <tr>
+            <th />
+            <th>ID</th>
+            <th>이름</th>
+            <th>승인 상태</th>
+            <th>배달 상태</th>
+          </tr>
         </thead>
 
         <tbody>
+          {driverItems}
         </tbody>
       </table>
     </div >

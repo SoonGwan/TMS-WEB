@@ -1,33 +1,56 @@
+import { DeliveryStatus } from 'enum/Driver';
+import { ISelectableDriver } from 'interface/Member';
 import React from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 
 import './DriverTableItem.scss';
 
 interface IDriverTableItem {
+  driver: ISelectableDriver,
+  handleSelectChanged: (id: string) => void,
 }
 
-const DriverTableItem = (): JSX.Element => {
+const DriverTableItem = ({
+  driver,
+  handleSelectChanged
+}: IDriverTableItem): JSX.Element => {
+  const { id, username, allow, delivery_status, selected } = driver;
+
+  const composeDeliveryStatus = (): string | undefined => {
+    switch (delivery_status) {
+      case DeliveryStatus.AWAIT:
+        return '대기 중';
+
+      case DeliveryStatus.DELIVERY:
+        return '배송 중';
+
+      // no default
+    }
+  }
+
   return (
     <tr className="DriverTableItem">
       <td className="DriverTableItem-CheckBox">
-        <input type="checkbox" />
+        <input type="checkbox"
+          checked={selected}
+          onChange={() => handleSelectChanged(id)} />
       </td>
 
       <td>
-        <span>this_is_driver_id</span>
+        <span>{id}</span>
       </td>
 
       <td>
-        <span>최진우</span>
+        <span>{username}</span>
       </td>
 
       <td className="DriverTableItem-AllowStatus">
         <AiOutlineCheckCircle />
-        <span>승인 상태</span>
+        <span>{allow ? '승인' : '대기'}</span>
       </td>
 
       <td>
-        <span>배달 중</span>
+        <span>{composeDeliveryStatus()}</span>
       </td>
     </tr>
   )
