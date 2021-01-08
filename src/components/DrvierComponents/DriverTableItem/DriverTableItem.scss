@@ -1,0 +1,17 @@
+@import 'styles/palette.scss';
+
+.DriverTableItem {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: $white_FFFFFF;
+  width: 100%;
+  font-size: 16px;
+  color: $gray_C4C4C4;
+  border-bottom: 1px solid $gray_C4C4C4;
+
+  td {
+    display: flex;
+    margin: 0 auto;
+  }
+}
