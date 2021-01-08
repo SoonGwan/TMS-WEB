@@ -9,7 +9,7 @@ interface IDriverTableItem {
 const DriverTableItem = (): JSX.Element => {
   return (
     <tr className="DriverTableItem">
-      <td>
+      <td className="DriverTableItem-CheckBox">
         <input type="checkbox" />
       </td>
 
@@ -21,9 +21,9 @@ const DriverTableItem = (): JSX.Element => {
         <span>최진우</span>
       </td>
 
-      <td>
-        <AiOutlineCheckCircle className='' />
-        <span>승인 대기</span>
+      <td className="DriverTableItem-AllowStatus">
+        <AiOutlineCheckCircle />
+        <span>승인 상태</span>
       </td>
 
       <td>

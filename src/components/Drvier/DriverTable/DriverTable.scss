@@ -1,0 +1,17 @@
+@import 'styles/palette.scss';
+
+.DriverTable {
+
+  &-Table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      th {
+        padding: 20px 0;
+        text-align: left;
+        border-bottom: 1px solid $gray_F1F3F5;
+      }
+    }
+  }
+}
