@@ -1,4 +1,5 @@
 /*global kakao*/
+
 import React, { MutableRefObject } from 'react';
 import './RiderControlMap.scss';
 
@@ -13,9 +14,7 @@ const RiderControlMap = () => {
     <>
       <div className="RiderControlMap">
         <div className="RiderControlMap-DriverStatusListWrapper">
-          <div className="RiderControlMap-DriverStatusListWrapper-ListStructure">
-            asdas
-          </div>
+          <div className="RiderControlMap-DriverStatusListWrapper-ListStructure"></div>
         </div>
         <div className="RiderControlMap-Geolocation">
           <div id="map" style={{ width: '70.405vw', height: '100vh' }}></div>
@@ -25,4 +24,4 @@ const RiderControlMap = () => {
   );
 };
 
-export default RiderControlMap;
+export default React.memo(RiderControlMap);
