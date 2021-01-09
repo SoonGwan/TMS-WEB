@@ -1,4 +1,4 @@
-import { DeliveryStatus } from 'enum/Driver';
+import { DeliveryStatus, MemberType } from 'enum/Driver';
 import { ISelectableDriver } from 'interface/Member';
 import React from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai'
@@ -9,11 +9,13 @@ import './DriverTableItem.scss';
 
 interface IDriverTableItem {
   driver: ISelectableDriver,
+  memberFilterType: MemberType,
   handleSelectChanged: (id: string) => void,
 }
 
 const DriverTableItem = ({
   driver,
+  memberFilterType,
   handleSelectChanged
 }: IDriverTableItem): JSX.Element => {
   const { id, username, allow, delivery_status, selected } = driver;
@@ -45,6 +47,9 @@ const DriverTableItem = ({
     <tr className="DriverTableItem">
       <td className="DriverTableItem-CheckBox">
         <input type="checkbox"
+          style={{
+            visibility: memberFilterType === MemberType.AWAIT ? 'visible' : 'hidden',
+          }}
           checked={selected}
           onChange={() => handleSelectChanged(id)} />
       </td>

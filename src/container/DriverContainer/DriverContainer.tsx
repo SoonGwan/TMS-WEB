@@ -73,6 +73,7 @@ const DriverContainer = (): JSX.Element => {
   const driverTableItems = selectableDrivers.map((driver, i) => {
     return (
       <DriverTableItem key={i}
+        memberFilterType={memberFilterType}
         driver={driver}
         handleSelectChanged={handleSelectedChanged} />
     );
