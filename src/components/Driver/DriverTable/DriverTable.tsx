@@ -38,21 +38,23 @@ const DriverTable = ({
         </div>
       </div>
 
-      <table className="DriverTable-Table">
-        <thead>
-          <tr>
-            <th />
-            <th>ID</th>
-            <th>이름</th>
-            <th>승인 상태</th>
-            <th>배달 상태</th>
-          </tr>
-        </thead>
+      <div className="DriverTable-Wrapper">
+        <table className="DriverTable-Wrapper-Table">
+          <thead>
+            <tr>
+              <th />
+              <th>ID</th>
+              <th>이름</th>
+              <th>승인 상태</th>
+              <th>배달 상태</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {driverItems}
-        </tbody>
-      </table>
+          <tbody>
+            {driverItems}
+          </tbody>
+        </table>
+      </div >
     </div >
   )
 }
