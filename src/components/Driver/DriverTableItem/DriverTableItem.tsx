@@ -3,7 +3,6 @@ import { ISelectableDriver } from 'interface/Member';
 import React from 'react';
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import palette from 'styles/palette';
-import { parseConfigFileTextToJson } from 'typescript';
 
 import './DriverTableItem.scss';
 
