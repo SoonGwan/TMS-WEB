@@ -1,7 +1,6 @@
 import { DeliveryStatus } from 'enum/Driver';
 import { ISelectableDriver } from 'interface/Member';
 import { RadarChartPoint, RadialChart } from 'react-vis';
-import palette from 'styles/palette';
 
 import './DriverDeliveryChart.scss';
 
@@ -32,18 +31,16 @@ const DriverDeliveryChart = ({
   return (
     <div className="DriverDeliveryChart">
       <div className="DriverDeliveryChart-Title">드라이버 배달 현황</div>
-      <RadialChart
-        className="DriverDeliveryChart-Chart"
-        data={chartData}
-        showLabels={true}
-        labelsAboveChildren={false}
-        labelsStyle={{
-          backgroundColor: palette.gray_444444,
-        }}
-        width={400}
-        height={400}>
-      </RadialChart>
-    </div>
+      <div className="DriverDeliveryChart-Wrapper">
+        <RadialChart
+          className="DriverDeliveryChart-Wrapper-Chart"
+          data={chartData}
+          showLabels={true}
+          width={400}
+          height={400}>
+        </RadialChart>
+      </div>
+    </div >
   )
 }
 

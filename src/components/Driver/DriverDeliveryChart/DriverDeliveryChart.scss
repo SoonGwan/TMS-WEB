@@ -8,10 +8,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 500px;
   width: 500px;
+  height: 500px;
   margin: 0 auto;
-  border: 1px solid $gray_C4C4C4;
 
   &-Title {
     display: flex;
@@ -23,8 +22,19 @@
     color: $gray_F1F3F5;
   }
 
-  &-Chart {
-    margin: 0 auto;
-    // color: $gray_444444;
+  &-Wrapper {
+    border: 1px solid $gray_C4C4C4;
+    border-top: none;
+    width: 100%;
+    padding: 50px 0;
+
+    &-Chart {
+      margin: 0 auto;
+    }
+
   }
+}
+
+.rv-xy-plot__series--label-text {
+  // fill: $gray_444444;
 }
