@@ -1,6 +1,10 @@
 @import 'styles/palette.scss';
 
 .DriverDeliveryChart {
+  @media (max-width: 1200px) {
+    display: none;
+  }
+
   display: flex;
   flex-direction: column;
   align-items: center;
