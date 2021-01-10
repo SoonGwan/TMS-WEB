@@ -1,8 +1,10 @@
 import { DeliveryStatus } from 'enum/Driver';
 import { ISelectableDriver } from 'interface/Member';
-import { RadarChartPoint, RadialChart } from 'react-vis';
+import { PieOptions } from '@antv/g2plot';
+import { PieChart } from '@opd/g2plot-react';
 
 import './DriverDeliveryChart.scss';
+import palette from 'styles/palette';
 
 interface IDriverDeliveryChart {
   drivers: ISelectableDriver[],
@@ -17,28 +19,42 @@ const DriverDeliveryChart = ({
   const deliveryDrivers = drivers.filter(driver =>
     driver.delivery_status === DeliveryStatus.DELIVERY);
 
-  const chartData: RadarChartPoint[] = [
-    {
-      angle: awaitDrivers.length,
-      label: `대기 중  ${awaitDrivers.length}`,
+  const pieOption: PieOptions = {
+    angleField: 'value',
+    colorField: 'name',
+    animation: false,
+    label: {
+      style: {
+        fontSize: 16,
+        fill: palette.blue_6685A8,
+      }
     },
-    {
-      angle: deliveryDrivers.length,
-      label: `배달 중  ${deliveryDrivers.length}`,
-    }
-  ];
+    legend: {
+      position: 'bottom',
+      background: {
+        padding: [60, 0, 0, 0],
+        style: {
+          stroke: null,
+        }
+      }
+    },
+    data: [
+      {
+        name: '대기 중',
+        value: awaitDrivers.length,
+      },
+      {
+        name: '배달 중',
+        value: deliveryDrivers.length,
+      }
+    ]
+  }
 
   return (
     <div className="DriverDeliveryChart">
       <div className="DriverDeliveryChart-Title">드라이버 배달 현황</div>
       <div className="DriverDeliveryChart-Wrapper">
-        <RadialChart
-          className="DriverDeliveryChart-Wrapper-Chart"
-          data={chartData}
-          showLabels={true}
-          width={400}
-          height={400}>
-        </RadialChart>
+        <PieChart {...pieOption} />
       </div>
     </div >
   )
