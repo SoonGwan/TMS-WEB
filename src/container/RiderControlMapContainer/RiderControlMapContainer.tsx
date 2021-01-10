@@ -60,8 +60,10 @@ const RiderControlMapContainer = () => {
 
       let zoomControl = new ZoomControl();
       map.addControl(zoomControl, ControlPosition.RIGHT);
+    },
+    [kakao.maps]
+  );
 
-    
   const getGeolocation = useCallback(() => {
     navigator.geolocation.getCurrentPosition((data) => {
       const { longitude, latitude } = data && data.coords;
