@@ -1,0 +1,52 @@
+@import 'styles/palette.scss';
+
+.DriverTableItem {
+  background-color: $white_FFFFFF;
+  width: 100%;
+  font-size: 16px;
+  color: $gray_444444;
+  border-bottom: 1px solid $gray_F1F3F5;
+
+  td {
+    padding: 10px 0;
+    margin: 0 auto;
+  }
+
+  &-CheckBox {
+    text-align: center;
+  }
+
+  &-AllowStatus {
+    display: flex;
+    align-items: center;
+    span {
+      margin-left: 5px;
+    }
+  }
+
+  &-DeliveryStatus {
+    &-Delivery {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      width: 4rem;
+      height: 1.5rem;
+      background-color: $blue_6685A8;
+      border-radius: 3px;
+    }
+
+    &-Await {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      width: 4rem;
+      height: 1.5rem;
+      background-color: $orange_FF8B3D;
+      border-radius: 3px;
+    }
+  }
+}
