@@ -3,8 +3,8 @@ import { SERVER } from 'config/config.json';
 import {
   IGetResponse,
   IPostRequest,
-  IModifyReqeust,
-  IDeleteReqeust,
+  IModifyRequest,
+  IDeleteRequest,
 } from 'interface/Axios';
 
 export const getResponse = async ({ url, token }: IGetResponse) => {
@@ -29,7 +29,7 @@ export const modifyRequest = async ({
   url,
   request,
   token,
-}: IModifyReqeust) => {
+}: IModifyRequest) => {
   const data = await axios.put(`${SERVER}${url}`, request, {
     headers: token && {
       'x-access-token': `${token}`,
@@ -38,7 +38,7 @@ export const modifyRequest = async ({
   return data;
 };
 
-export const deleteRequest = async ({ url, token }: IDeleteReqeust) => {
+export const deleteRequest = async ({ url, token }: IDeleteRequest) => {
   const data = await axios.delete(`${SERVER}${url}`, {
     headers: token && {
       'x-access-token': `${token}`,
