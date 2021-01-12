@@ -1,6 +1,6 @@
 @import 'styles/palette.scss';
 
-.DriverTableItem {
+.MemberTableItem {
   background-color: $white_FFFFFF;
   width: 100%;
   font-size: 16px;
@@ -10,18 +10,6 @@
   td {
     padding: 10px 0;
     margin: 0 auto;
-  }
-
-  &-CheckBox {
-    text-align: center;
-  }
-
-  &-AllowStatus {
-    display: flex;
-    align-items: center;
-    span {
-      margin-left: 5px;
-    }
   }
 
   &-DeliveryStatus {
