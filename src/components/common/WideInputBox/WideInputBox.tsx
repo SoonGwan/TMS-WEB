@@ -10,8 +10,8 @@ interface IWideInputBox {
   className?: string;
   type: string;
   placeholder: string;
-  // inputValue: string;
-  // setInputValue: Dispatch<SetStateAction<string>>;
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
   backgroundColor?: string;
   fontColor?: string;
   boldColor?: string;
@@ -23,8 +23,8 @@ const WideInputBox = ({
   className,
   type,
   placeholder,
-  // inputValue,
-  // setInputValue,
+  inputValue,
+  setInputValue,
   backgroundColor = palette.white_FFFFFF,
   fontColor = palette.black_000000,
   boldColor = palette.blue_E2E8F1,
@@ -43,10 +43,10 @@ const WideInputBox = ({
       style={styles}
       type={type}
       placeholder={placeholder}
-      // value={inputValue}
-      // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-      //   setInputValue(event.target.value)
-      // }
+      value={inputValue}
+      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        setInputValue(event.target.value)
+      }
     />
   );
 };

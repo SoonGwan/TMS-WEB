@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import palette from 'styles/palette';
 
 interface IWideButton {
@@ -6,7 +6,7 @@ interface IWideButton {
   text: string;
   backgroundColor?: string;
   fontColor?: string;
-  // ButtonClick: () => void;
+  buttonClick: () => void;
   fontSize?: string;
 }
 
@@ -15,7 +15,7 @@ const WideButton = ({
   text,
   backgroundColor = palette.blue_E2E8F1,
   fontColor = palette.black_000000,
-  // ButtonClick,
+  buttonClick,
   fontSize = '16px',
 }: IWideButton) => {
   const styles: CSSProperties = {
@@ -27,7 +27,7 @@ const WideButton = ({
     cursor: 'pointer',
   };
   return (
-    <button className={className} style={styles} /*onClick={ButtonClick}*/>
+    <button className={className} style={styles} onClick={buttonClick}>
       <div>{text}</div>
     </button>
   );

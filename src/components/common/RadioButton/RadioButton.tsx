@@ -1,17 +1,17 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, ChangeEvent } from 'react';
 import './RadioButton.scss';
 
 interface IRadioButton {
   labelText: string;
-  // labelValue: string;
-  // setLavelValue: Dispatch<SetStateAction<string>>;
+  labelValue: any;
+  setLabelValue: Dispatch<SetStateAction<any>>;
 }
 
 const RadioButton = ({
   labelText,
-}: /* labelValue,
-   setLavelValue,*/
-IRadioButton) => {
+  labelValue,
+  setLabelValue,
+}: IRadioButton) => {
   return (
     <>
       <label className="PureRadio">
@@ -19,10 +19,10 @@ IRadioButton) => {
           <input
             type="checkBox"
             name="PureRadio"
-            // value={labelValue}
-            // onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            //   setLavelValue(event.target.value)
-            // }
+            value={labelValue}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setLabelValue(event.target.checked)
+            }
           />
           <span className="PureRadio-Pcontrol">
             <svg
