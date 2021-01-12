@@ -10,6 +10,8 @@ const palette = {
   gray_444444: '#444444',
   brown_9C5C63: '#9C5C63',
   orange_FCF8E5: '#FCF8E5',
+  orange_DFA864: '#DFA864',
+  gray_787878: '#787878',
   orange_FF8B3D: '#FF8B3D',
   orange_FF6600: '#FF6600',
   green_149414: '#149414',

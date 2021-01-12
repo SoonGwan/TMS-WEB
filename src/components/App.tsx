@@ -1,3 +1,4 @@
+import RiderControlMapContainer from 'container/RiderControlMapContainer/RiderControlMapContainer';
 import React from 'react';
 
 import 'styles/reset.scss';
