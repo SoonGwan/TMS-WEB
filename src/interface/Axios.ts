@@ -9,13 +9,13 @@ export interface IPostRequest {
   token?: string;
 }
 
-export interface IModifyReqeust {
+export interface IModifyRequest {
   url: string;
   request: object;
   token?: string;
 }
 
-export interface IDeleteReqeust {
+export interface IDeleteRequest {
   url: string;
   token?: string;
 }

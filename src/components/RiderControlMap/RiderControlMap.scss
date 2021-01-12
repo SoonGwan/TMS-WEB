@@ -1,0 +1,19 @@
+@import 'styles/palette.scss';
+
+.RiderControlMap {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  &-DriverStatusListWrapper {
+    width: 29.595vw;
+    height: 100%;
+    padding: 0px 18.5px;
+    overflow-y: auto;
+  }
+
+  &-Geolocation {
+    width: 70.405vw;
+    height: 100%;
+  }
+}

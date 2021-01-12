@@ -1,0 +1,40 @@
+@import 'styles/palette.scss';
+
+.MemberTable {
+  width: 60%;
+  min-width: 860px;
+  @media (max-width: 1200px) {
+    margin: 0 auto;
+  }
+
+  &-Util {
+    display: flex;
+    justify-content: space-between;
+  }
+
+
+  &-Wrapper {
+    height: 80vh;
+    overflow: auto;
+
+    &-Table {
+      border-collapse: collapse;
+      width: 100%;
+
+      thead {
+        tr {
+          border-bottom: 1px solid $gray_F1F3F5;
+
+          th {
+            background-color: $white_FFFFFF;
+            position: sticky;
+            top: 0;
+            color: $gray_444444;
+            padding: 20px 0;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+}
