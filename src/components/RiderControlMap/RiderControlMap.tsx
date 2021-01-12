@@ -2,6 +2,8 @@
 
 import React, { MutableRefObject } from 'react';
 import './RiderControlMap.scss';
+import RiderList from './RiderList/RiderList';
+import RiderStatusList from './RiderStatusList';
 
 declare global {
   interface Window {
@@ -14,7 +16,8 @@ const RiderControlMap = () => {
     <>
       <div className="RiderControlMap">
         <div className="RiderControlMap-DriverStatusListWrapper">
-          <div className="RiderControlMap-DriverStatusListWrapper-ListStructure"></div>
+          <RiderStatusList />
+          <RiderList />
         </div>
         <div className="RiderControlMap-Geolocation">
           <div id="map" style={{ width: '70.405vw', height: '100vh' }}></div>

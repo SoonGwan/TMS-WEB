@@ -1,0 +1,44 @@
+@import 'styles/palette.scss';
+
+.RiderListHeader {
+  margin: 5vh 0vw 1vh 0vw;
+}
+.RiderList {
+  width: 100%;
+  height: 60vh;
+  border: 1px solid $gray_E6E6E6;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  &-Header {
+    width: 100%;
+    height: 4.6vh;
+    display: flex;
+    align-items: center;
+    padding: 0px 0.7vw;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 1px solid $gray_E6E6E6;
+
+    &-Name {
+      width: 15%;
+      color: $blue_6685A8;
+    }
+
+    &-Phone {
+      width: 40%;
+    }
+
+    &-Allotment {
+      width: 15%;
+      margin-right: 5%;
+
+      color: $brown_9C5C63;
+    }
+
+    &-InfoButton {
+      width: 15%;
+      color: $blue_6685A8;
+    }
+  }
+}

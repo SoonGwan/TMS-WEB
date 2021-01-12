@@ -9,6 +9,8 @@ const palette = {
   $gray_F1F3F5: '#F1F3F5',
   brown_9C5C63: '#9C5C63',
   orange_FCF8E5: '#FCF8E5',
+  orange_DFA864: '#DFA864',
+  gray_787878: '#787878',
 };
 
 export default palette;

@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import RiderControlMap from 'components/RiderControlMap';
+import RiderControlMapRepository from 'repository/RiderControlMapRepository';
+import { useRecoilState } from 'recoil';
+import { DriverDeliveryState } from 'atom/RiderControlMapAtom';
 
 interface Idata {
   latitude: number;
@@ -8,6 +11,9 @@ interface Idata {
 
 const RiderControlMapContainer = () => {
   const { kakao } = window;
+  const [originDriverState, setOriginDriverState] = useRecoilState(
+    DriverDeliveryState
+  );
 
   const drawMap = useCallback(
     (data: Idata) => {
@@ -72,9 +78,19 @@ const RiderControlMapContainer = () => {
     });
   }, [drawMap]);
 
+  const handleGetDriverState = useCallback(async () => {
+    try {
+      const res = await RiderControlMapRepository.getDriversState();
+      setOriginDriverState(res);
+    } catch (err) {
+      return err;
+    }
+  }, [setOriginDriverState]);
+
   useEffect(() => {
     getGeolocation();
-  }, [getGeolocation]);
+    handleGetDriverState();
+  }, [getGeolocation, handleGetDriverState]);
 
   return (
     <>
