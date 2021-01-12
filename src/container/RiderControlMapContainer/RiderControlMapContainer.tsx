@@ -4,20 +4,18 @@ import RiderControlMapRepository from 'repository/RiderControlMapRepository';
 import { useRecoilState } from 'recoil';
 import { DriverDeliveryState } from 'atom/RiderControlMapAtom';
 
-interface Idata {
+interface ILocation {
   latitude: number;
   longitude: number;
 }
 
 const RiderControlMapContainer = () => {
   const { kakao } = window;
-  const [originDriverState, setOriginDriverState] = useRecoilState(
-    DriverDeliveryState
-  );
+  const [, setOriginDriverState] = useRecoilState(DriverDeliveryState);
 
   const drawMap = useCallback(
-    (data: Idata) => {
-      let container = document.getElementById('map');
+    (data: ILocation) => {
+      const container = document.getElementById('map');
 
       // 만약 카카오맵 api 가져올거 있으면 여기에 먼저 추가후 사용해주세요
       const {
@@ -30,23 +28,23 @@ const RiderControlMapContainer = () => {
         ControlPosition,
       } = kakao.maps;
 
-      let options = {
+      const options = {
         center: new LatLng(data.latitude, data.longitude),
         level: 3,
       };
-      let map = new Map(container, options);
+      const map = new Map(container, options);
 
       /**
        * 맵에 커스텀 마커 추가
        */
-      let icon = new MarkerImage(
+      const icon = new MarkerImage(
         'https://user-images.githubusercontent.com/48983361/104079506-d21a1a80-5266-11eb-8d81-defccb24070d.png',
         new kakao.maps.Size(31, 37)
       );
 
-      let markerPosition = new LatLng(data.latitude, data.longitude);
+      const markerPosition = new LatLng(data.latitude, data.longitude);
 
-      let marker = new Marker({
+      const marker = new Marker({
         position: markerPosition,
         image: icon,
       });
@@ -56,7 +54,7 @@ const RiderControlMapContainer = () => {
        * 지도 타입 컨트롤 생성
        */
 
-      let mapTypeControl = new MapTypeControl();
+      const mapTypeControl = new MapTypeControl();
 
       map.addControl(mapTypeControl, ControlPosition.TOPRIGHT);
 
@@ -64,7 +62,7 @@ const RiderControlMapContainer = () => {
        * 줌 컨트롤 생성
        */
 
-      let zoomControl = new ZoomControl();
+      const zoomControl = new ZoomControl();
       map.addControl(zoomControl, ControlPosition.RIGHT);
     },
     [kakao.maps]
@@ -72,19 +70,17 @@ const RiderControlMapContainer = () => {
 
   const getGeolocation = useCallback(() => {
     navigator.geolocation.getCurrentPosition((data) => {
-      const { longitude, latitude } = data && data.coords;
-      const location = { latitude, longitude };
-      drawMap(location);
+      if (data) {
+        const { longitude, latitude } = data.coords;
+        const location = { latitude, longitude };
+        drawMap(location);
+      }
     });
   }, [drawMap]);
 
   const handleGetDriverState = useCallback(async () => {
-    try {
-      const res = await RiderControlMapRepository.getDriversState();
-      setOriginDriverState(res);
-    } catch (err) {
-      return err;
-    }
+    const res = await RiderControlMapRepository.getDriversState();
+    setOriginDriverState(res);
   }, [setOriginDriverState]);
 
   useEffect(() => {

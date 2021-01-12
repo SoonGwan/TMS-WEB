@@ -1,6 +1,6 @@
 /*global kakao*/
 
-import React, { MutableRefObject } from 'react';
+import React from 'react';
 import './RiderControlMap.scss';
 import RiderList from './RiderList/RiderList';
 import RiderStatusList from './RiderStatusList';

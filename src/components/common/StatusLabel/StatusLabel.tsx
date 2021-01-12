@@ -8,7 +8,7 @@ interface IStatusLabel {
 }
 
 const StatusLabel = ({ text, status = LabelStatus.NORMAL }: IStatusLabel) => {
-  const statusCheck = () => {
+  const colorDivider = () => {
     let color;
 
     if (status === LabelStatus.NORMAL) {
@@ -20,7 +20,7 @@ const StatusLabel = ({ text, status = LabelStatus.NORMAL }: IStatusLabel) => {
   };
 
   const styles: CSSProperties = {
-    backgroundColor: statusCheck(),
+    backgroundColor: colorDivider(),
     color: palette.white_FFFFFF,
     fontWeight: 500,
     padding: '0.15vh 0.3vw',
