@@ -1,6 +1,6 @@
 @import 'styles/palette.scss';
 
-.DriverTable {
+.MemberTable {
   width: 60%;
   min-width: 860px;
   @media (max-width: 1200px) {
@@ -10,10 +10,6 @@
   &-Util {
     display: flex;
     justify-content: space-between;
-
-    &-Deny {
-      margin-left: 5px;
-    }
   }
 
 

@@ -1,10 +1,13 @@
-export interface IDriver {
-  id: string;
-  username: string;
-  allow: boolean,
-  delivery_status: number,
-};
+import { MemberLevel } from "enum/Member";
 
-export interface ISelectableDriver extends IDriver {
-  selected: boolean,
+export interface IMember {
+  no: number;
+  id: string;
+  name: string;
+  address: string;
+  level: MemberLevel;
+}
+
+export interface IDriver extends IMember {
+  is_delivering: boolean;
 }

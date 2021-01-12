@@ -1,23 +1,20 @@
-import { DeliveryStatus } from 'enum/Driver';
-import { ISelectableDriver } from 'interface/Member';
+// import { DeliveryStatus } from 'enum/Member';
+// import { ISelectableDriver } from 'interface/Member';
 import { PieOptions } from '@antv/g2plot';
 import { PieChart } from '@opd/g2plot-react';
 
 import './DriverDeliveryChart.scss';
 import palette from 'styles/palette';
+import { IDriver } from 'interface/Member';
 
 interface IDriverDeliveryChart {
-  drivers: ISelectableDriver[],
+  drivers: IDriver[],
 }
 
 const DriverDeliveryChart = ({
   drivers
 }: IDriverDeliveryChart) => {
-  const awaitDrivers = drivers.filter(driver =>
-    driver.delivery_status === DeliveryStatus.AWAIT);
-
-  const deliveryDrivers = drivers.filter(driver =>
-    driver.delivery_status === DeliveryStatus.DELIVERY);
+  const deliveringDriverCount = drivers.filter(e => e.is_delivering).length;
 
   const pieOption: PieOptions = {
     angleField: 'value',
@@ -41,18 +38,18 @@ const DriverDeliveryChart = ({
     data: [
       {
         name: '대기 중',
-        value: awaitDrivers.length,
+        value: drivers.length - deliveringDriverCount,
       },
       {
         name: '배달 중',
-        value: deliveryDrivers.length,
+        value: deliveringDriverCount,
       }
     ]
   }
 
   return (
     <div className="DriverDeliveryChart">
-      <div className="DriverDeliveryChart-Title">드라이버 배달 현황</div>
+      <div className="DriverDeliveryChart-Title">기사 배달 현황</div>
       <div className="DriverDeliveryChart-Wrapper">
         <PieChart {...pieOption} />
       </div>
