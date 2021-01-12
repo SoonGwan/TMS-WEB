@@ -2,7 +2,7 @@ import { DriverDeliveryState } from 'atom/RiderControlMapAtom';
 import StatusLabel from 'components/common/StatusLabel/StatusLabel';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import './RiderStatusListItemTemp.scss';
+import './RiderStatusListItemTemplate.scss';
 import { RiderStatus } from 'enum/RiderStatusList';
 
 interface IRiderStatusListItemTemp {
@@ -15,7 +15,6 @@ interface IRiderStatusListItemTemp {
 const RiderStatusListItemTemp = () => {
   const driver = useRecoilValue(DriverDeliveryState);
   const driverList = driver.map((data: IRiderStatusListItemTemp) => {
-    console.log(data);
     const { id, state, adress, time } = data;
     return (
       <>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './RiderStatusList.scss';
-import RiderStatusListItemTemp from './RiderStatusListItemTemp/RiderStatusListItemTemp';
+import RiderStatusListItemTemplate from './RiderStatusListItemTemplate';
 
 const RiderStatusList = () => {
   return (
@@ -18,7 +18,7 @@ const RiderStatusList = () => {
           <div className="RiderStatusList-Header-Time">배달 시간</div>
         </div>
         <div className="RiderStatusList-ItemsWrapper">
-          <RiderStatusListItemTemp />
+          <RiderStatusListItemTemplate />
         </div>
       </div>
     </>
