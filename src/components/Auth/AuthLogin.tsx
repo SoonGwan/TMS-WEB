@@ -50,7 +50,7 @@ const AuthLogin = ({
             text="로그인"
             fontSize="24px"
             fontColor={palette.white_FFFFFF}
-            ButtonClick={handleGetAuthLogin}
+            buttonClick={handleGetAuthLogin}
           />
           <div className="AuthLogin-PureRadio">
             <RadioButton
