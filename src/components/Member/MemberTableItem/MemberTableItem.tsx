@@ -24,14 +24,14 @@ const MemberTableItem = ({
 
     if (driver.is_delivering) {
       return (
-        <div className='MemberTableItem-DeliveryStatus-Delivery'>
+        <div className="MemberTableItem-DeliveryStatus-Delivery">
           <span>배송 중</span>
         </div>
       )
     }
 
     return (
-      <div className='MemberTableItem-DeliveryStatus-Await'>
+      <div className="MemberTableItem-DeliveryStatus-Await">
         <span>대기 중</span>
       </div>
     )

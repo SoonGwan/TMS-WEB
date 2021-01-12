@@ -24,6 +24,14 @@ class MemberRepository {
         name: '최진우',
         address: '서울 특별시 금천구 가산디지털로 1길 10-1 OO빌딩 1층',
         is_delivering: false,
+      },
+      {
+        no: 2,
+        level: MemberLevel.DRIVER,
+        id: 'this_is_id',
+        name: '최진우',
+        address: '서울 특별시 금천구 가산디지털로 1길 10-1 OO빌딩 1층',
+        is_delivering: true,
       }
     ];
   }

@@ -33,7 +33,7 @@ const MemberTable = ({
         <MediumBtn
           onClick={handleFilterMember}
           title={composeMemberLevelText()}
-          className='MemberTable-Util-Filter' />
+          className="MemberTable-Util-Filter" />
       </div>
 
       <div className="MemberTable-Wrapper">
