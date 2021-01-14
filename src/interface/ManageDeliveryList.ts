@@ -1,4 +1,4 @@
-export interface IExcelItems {
+export interface IExcelItem {
   id: number;
   fk_client_id: string;
   fk_driver_id: string;

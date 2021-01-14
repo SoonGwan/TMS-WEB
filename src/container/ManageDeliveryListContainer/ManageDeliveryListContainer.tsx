@@ -1,12 +1,12 @@
 import React, { useState, DragEvent as ReactDragEvent, useRef } from 'react';
 import ManageDeliveryList from 'components/ManageDeliveryList';
 import XLSX from 'xlsx';
-import { IExcelItems } from 'interface/ManageDeliveryList';
+import { IExcelItem } from 'interface/ManageDeliveryList';
 import ManageDeliveryListInnerItemTemplate from 'components/ManageDeliveryList/ManageDeliveryListInnerItemTemplate';
 
 const ManageDeliveryListContainer = () => {
   const [uploadFileName, setUploadFileName] = useState('');
-  const [excelToJSON, setExcelToJSON] = useState<IExcelItems[]>([]);
+  const [excelToJSON, setExcelToJSON] = useState<IExcelItem[]>([]);
 
   const onFileInputChage = (event: DragEvent) => {
     /**
@@ -18,13 +18,11 @@ const ManageDeliveryListContainer = () => {
     files: FileList | null,
     event: ReactDragEvent<HTMLDivElement>
   ) => {
-    let i;
-    let f;
-    if (files !== null) {
+    if (files !== null && files.length > 0) {
       setUploadFileName(files[0].name);
 
-      for (i = 0; i !== files.length; ++i) {
-        f = files[i];
+      for (let i = 0; i !== files.length; i += 1) {
+        let file = files[i];
 
         const reader: FileReader = new FileReader();
 
@@ -33,19 +31,19 @@ const ManageDeliveryListContainer = () => {
           const workbook = XLSX.read(data, { type: 'binary' });
 
           workbook.SheetNames.forEach((item) => {
-            const EXCEL_JSON: IExcelItems[] = XLSX.utils.sheet_to_json(
+            const excelToJson: IExcelItem[] = XLSX.utils.sheet_to_json(
               workbook.Sheets[item]
             );
-            setExcelToJSON(EXCEL_JSON);
+            setExcelToJSON(excelToJson);
           });
         };
 
-        reader.readAsBinaryString(f);
+        reader.readAsBinaryString(file);
       }
     }
   };
 
-  const excelList = excelToJSON.map((data: IExcelItems) => {
+  const excelList = excelToJSON.map((data: IExcelItem) => {
     const { id, fk_client_id, fk_driver_id, distance, start_adress } = data;
     return (
       <>
