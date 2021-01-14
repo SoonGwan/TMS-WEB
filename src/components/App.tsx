@@ -10,6 +10,7 @@ function App() {
         <Route exact path="/" render={() => <PAGES.ControlMap />} />
         <Route exact path="/member" render={() => <PAGES.Member />} />
         <Route exact path="/login" render={() => <PAGES.AuthLogin />} />
+        <Route exact path="/delivery" render={() => <PAGES.DeliveryStatus />} />
       </Switch>
     </>
   );
