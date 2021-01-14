@@ -1,0 +1,118 @@
+@import 'styles/palette.scss';
+
+.ManageDeliveryList {
+  width: 100%;
+  height: 100%;
+  background-color: $gray_F9F9F9;
+  display: flex;
+  flex-direction: column;
+  padding: 1vw;
+
+  &-ImportCSVWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vw 2vw;
+
+    &-ImportSection {
+      width: 82%;
+      height: 14vh;
+      border: 3px solid $blue_C4CBD6;
+      border-radius: 4px;
+      display: flex;
+
+      &-DropDown {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $blue_C4CBD6;
+        font-size: 32px;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        box-shadow: 1px 4px 24px rgba($color: $blue_C4CBD6, $alpha: 0.3);
+        & > input {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          opacity: 0;
+          //   visibility: hidden;
+        }
+      }
+    }
+    &-ApplyButton {
+      width: 15%;
+      height: 14vh;
+      border-radius: 4px;
+      background-color: $blue_C4CBD6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: $white_FFFFFF;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+  &-ViewExcelList {
+    width: 100%;
+    padding: 1vw 1vw;
+    overflow: hidden;
+
+    &-Header {
+      width: 100%;
+      border-radius: 4px;
+      background-color: white;
+      display: flex;
+      box-shadow: 1px 4px 24px rgba(0, 0, 0, 0.05);
+      align-items: center;
+      color: $gray_C6C6C6;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 1vw 1vw;
+
+      &-Client {
+        width: 15%;
+      }
+
+      &-Driver {
+        width: 15%;
+      }
+
+      &-Distance {
+        width: 15%;
+      }
+
+      &-StartAdress {
+        width: 55%;
+      }
+    }
+
+    &-ListWrapper {
+      width: 100%;
+      height: calc(100% - 3vw);
+      margin-top: 1vw;
+      overflow-y: auto;
+    }
+  }
+}
+
+.file {
+  &-drop {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-target {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
