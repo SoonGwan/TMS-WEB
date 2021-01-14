@@ -9,7 +9,7 @@ interface IDeliveryStatusListItemMap {
   fk_driver_id: string;
   distance: number;
   start_adress: string;
-  staet: number;
+  deliveryState: number;
 }
 
 interface IDeliveryStatusListItemTemplate {
@@ -20,7 +20,9 @@ const DeliveryStatusListItemTemplate = ({
   tableValue,
 }: IDeliveryStatusListItemTemplate) => {
   const product = useRecoilValue(allProductList);
-  const filterProduct = product.filter((data) => data.staet === tableValue);
+  const filterProduct = product.filter(
+    (data) => data.deliveryState === tableValue
+  );
 
   const productList =
     filterProduct &&

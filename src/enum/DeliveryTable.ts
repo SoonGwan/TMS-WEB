@@ -1,5 +1,5 @@
 export enum DeliveryTable {
   ALL = 0,
-  SHIPPING = 1,
+  DELIVERING = 1,
   DONE = 2,
 }

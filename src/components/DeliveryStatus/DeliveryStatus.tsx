@@ -45,17 +45,17 @@ const DeliveryStatus = ({
             <DashBoardCardView
               explanation="전체 물류 개수"
               condition="1,000,000"
-              cmprdPrday={2.6}
+              comparedYesterday={2.6}
             />
             <DashBoardCardView
               explanation="배송중인 물류 개수"
               condition="700,000"
-              cmprdPrday={-2.6}
+              comparedYesterday={-2.6}
             />
             <DashBoardCardView
               explanation="배송 완료 개수"
               condition="300,000"
-              cmprdPrday={2.6}
+              comparedYesterday={2.6}
             />
           </div>
           <div className={cx('DeliveryStatus-OverView-AllItemsList')}>
@@ -92,11 +92,11 @@ const DeliveryStatus = ({
                     'DeliveryStatus-OverView-AllItemsList-TitleWrapper-ButtonSection-Button',
                     {
                       'DeliveryStatus-OverView-AllItemsList-TitleWrapper-ButtonSection-Button-Selected':
-                        DeliveryTable.SHIPPING === tableValue,
+                        DeliveryTable.DELIVERING === tableValue,
                     }
                   )}
                   text="배송중"
-                  onClick={() => handleTableValue(DeliveryTable.SHIPPING)}
+                  onClick={() => handleTableValue(DeliveryTable.DELIVERING)}
                 />
                 <SmallBtn
                   className={cx(

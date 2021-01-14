@@ -4,5 +4,5 @@ export interface IAllProductList {
   fk_driver_id: string;
   distance: number;
   start_adress: string;
-  staet: number;
+  deliveryState: number;
 }

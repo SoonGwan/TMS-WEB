@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import DeliveryStatus from 'components/DeliveryStatus';
-import dtil from 'dtil';
 import DeliveryStatusRepository from 'repository/DeliveryStatusRepository';
 import { useRecoilState } from 'recoil';
 import { allProductList } from 'atom/DeliveryStatusAtom';
@@ -17,7 +16,6 @@ const DeliveryStatusContainer = () => {
   }, [setProductList]);
 
   const handleTableValue = useCallback((value: number) => {
-    console.log(value);
     setTableValue(value);
   }, []);
 

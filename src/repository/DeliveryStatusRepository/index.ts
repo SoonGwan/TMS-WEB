@@ -13,7 +13,7 @@ class DeliveryStatusRepository {
         fk_driver_id: `쿠팡맨 ${i}`,
         distance: Math.floor(Math.random() * 100),
         start_adress: `내가 그걸 어케아는떼!${Math.random()}`,
-        staet: status,
+        deliveryState: status,
       });
     }
 
