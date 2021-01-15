@@ -10,8 +10,8 @@ const Token = () => {
   return tokenState;
 };
 
-const tokenEmpty: () => boolean = () => {
+const isTokenEmpty: () => boolean = () => {
   return Token() === 'empty';
 };
 
-export default tokenEmpty;
+export default isTokenEmpty;

@@ -2,7 +2,7 @@ import React from 'react';
 import 'styles/reset.scss';
 import * as PAGES from 'page';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import tokenEmpty from 'util/Token';
+import isTokenEmpty from 'util/Token';
 
 function App() {
   return (
@@ -12,14 +12,14 @@ function App() {
           exact
           path="/"
           render={() =>
-            !tokenEmpty() ? <PAGES.ControlMap /> : <Redirect to="/login" />
+            !isTokenEmpty() ? <PAGES.ControlMap /> : <Redirect to="/login" />
           }
         />
         <Route
           exact
           path="/member"
           render={() =>
-            !tokenEmpty() ? <PAGES.Member /> : <Redirect to="/login" />
+            !isTokenEmpty() ? <PAGES.Member /> : <Redirect to="/login" />
           }
         />
         <Route exact path="/login" render={() => <PAGES.AuthLogin />} />
@@ -27,14 +27,18 @@ function App() {
           exact
           path="/delivery"
           render={() =>
-            !tokenEmpty() ? <PAGES.DeliveryStatus /> : <Redirect to="/login" />
+            !isTokenEmpty() ? (
+              <PAGES.DeliveryStatus />
+            ) : (
+              <Redirect to="/login" />
+            )
           }
         />
         <Route
           exact
           path="/manage"
           render={() =>
-            !tokenEmpty() ? (
+            !isTokenEmpty() ? (
               <PAGES.ManageDeliveryList />
             ) : (
               <Redirect to="/login" />
