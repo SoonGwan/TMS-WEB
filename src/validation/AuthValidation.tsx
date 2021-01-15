@@ -4,7 +4,7 @@ import { Colors, Icon } from '@class101/ui';
 
 export const loginTrimCheck = (request: ILoginTrimCheck) => {
   const { id, password } = request;
-  if (!id.trim() || !password.trim()) {
+  if (id.trim().length <= 0 || password.trim().length <= 0) {
     ShowToast({
       backgroundColor: Colors.redError,
       message: '빈 칸 없이 입력해주세요.',
