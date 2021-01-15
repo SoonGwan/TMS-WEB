@@ -14,6 +14,7 @@
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
+    "@types/react-beforeunload": "^2.1.0",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.7",
     "@visx/axis": "^1.4.0",
@@ -31,7 +32,9 @@
     "history": "^5.0.0",
     "node-sass": "^4.0.0",
     "react": "^16.13.1",
+    "react-beforeunload": "^2.4.0",
     "react-dom": "^16.13.1",
+    "react-file-drop": "^3.1.2",
     "react-g2plot": "^0.3.2",
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
@@ -39,7 +42,8 @@
     "recoil": "^0.1.2",
     "styled-components": "^5.2.1",
     "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "xlsx": "^0.16.9"
   },
   "scripts": {
     "start": "react-scripts start",

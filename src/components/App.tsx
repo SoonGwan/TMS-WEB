@@ -11,6 +11,11 @@ function App() {
         <Route exact path="/member" render={() => <PAGES.Member />} />
         <Route exact path="/login" render={() => <PAGES.AuthLogin />} />
         <Route exact path="/delivery" render={() => <PAGES.DeliveryStatus />} />
+        <Route
+          exact
+          path="/manage"
+          render={() => <PAGES.ManageDeliveryList />}
+        />
       </Switch>
     </>
   );
