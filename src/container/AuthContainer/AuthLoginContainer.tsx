@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AuthLogin from 'components/Auth/AuthLogin';
+import AuthLogin from 'components/Auth';
 import AuthRepository from 'repository/AuthRepository';
 import {
   loginError,

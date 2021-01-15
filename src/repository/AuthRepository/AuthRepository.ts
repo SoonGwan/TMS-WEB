@@ -1,4 +1,4 @@
-import { getResponse, postRequest } from 'util/Axios';
+import { postRequest } from 'util/Axios';
 import { ILoginTypes } from 'interface/Auth';
 
 class AuthRepository {
