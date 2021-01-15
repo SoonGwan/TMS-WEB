@@ -7,8 +7,11 @@ const Token = () => {
   if (sessionToken !== null) tokenState = 'session';
 
   if (localToken !== null) tokenState = 'local';
-
   return tokenState;
 };
 
-export default Token;
+const tokenEmpty: () => boolean = () => {
+  return Token() === 'empty';
+};
+
+export default tokenEmpty;
