@@ -1,4 +1,4 @@
-export interface IGetResponse {
+export interface IGetRequest {
   url: string;
   token?: string;
 }
