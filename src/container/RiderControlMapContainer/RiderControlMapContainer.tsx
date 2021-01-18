@@ -3,98 +3,133 @@ import RiderControlMap from 'components/RiderControlMap';
 import RiderControlMapRepository from 'repository/RiderControlMapRepository';
 import { useRecoilState } from 'recoil';
 import { DriverDeliveryState } from 'atom/RiderControlMapAtom';
-import { SOCKET_SERVER } from 'config/config.json';
-import io from 'socket.io-client';
 import DriverSocket from './RiderSingleton';
 import { IRiderSocketLocation } from 'interface/RiderControlMap';
-import _, { map } from 'underscore';
-import { throttle } from 'throttle-debounce';
+import _ from 'underscore';
 
 interface ILocation {
   latitude: number;
   longitude: number;
 }
 
-const RiderControlMapContainer = () => {
-  const { kakao } = window;
-  const [, setOriginDriverState] = useRecoilState(DriverDeliveryState);
-  const [mapLatitude, setMapLatitude] = useState<number>();
-  const [mapLongitude, setMapLongitude] = useState<number>();
-  const [driverLocation, setDriverLocation] = useState<any>([]);
-  const [mapLevel, setMapLevel] = useState<number>();
-  const [mapCenter, setMapCenter] = useState<any>({});
+class MapSingleton {
 
-  const getGeolocation = useCallback(() => {
+  private static instance: MapSingleton;
+
+  private constructor() {
     navigator.geolocation.getCurrentPosition((data) => {
+      let lat = 36;
+      let long = 127;
+
       if (data) {
         const { longitude, latitude } = data.coords;
-        setMapLatitude(latitude);
-        setMapLongitude(longitude);
+        lat = latitude;
+        long = longitude;
       }
-    });
-  }, []);
+
+      const container = document.getElementById('map');
+      const options = {
+        center: new window.kakao.maps.LatLng(
+          lat,
+          long,
+        ),
+        level: 6,
+      };
+
+      this.map = new window.kakao.maps.Map(container, options);
+
+      var marker = new window.kakao.maps.Marker({
+        // 지도 중심좌표에 마커를 생성합니다 
+        position: MapSingleton.getInstance().map.getCenter()
+      });
+      // 지도에 마커를 표시합니다
+      marker.setMap(MapSingleton.getInstance().map);
+    })
+  }
+
+  public map: any;
+  private markersEl: any[] = [];
+
+  setMarkers(markers: IMarker[]) {
+    for (const markerEl of this.markersEl) {
+      markerEl.setMap(null);
+    }
+    const map = MapSingleton.getInstance().map;
+
+    for (const marker of markers) {
+      const markerEl = new window.kakao.maps.Marker({
+        position: new window.kakao.maps.LatLng(marker.lat, marker.long),
+      });
+
+      this.markersEl.push(markerEl);
+      markerEl.setMap(map);
+    }
+  }
+
+  static getInstance() {
+    if (MapSingleton.instance === undefined) {
+      MapSingleton.instance = new MapSingleton();
+    }
+
+    return MapSingleton.instance;
+  }
+}
+
+interface IMarker {
+  lat: number;
+  long: number;
+  driverIdx: number;
+}
+
+const RiderControlMapContainer = () => {
+  const [, setOriginDriverState] = useRecoilState(DriverDeliveryState);
+  const [driverLocation, setDriverLocation] = useState<any>([]);
+  const [markers, setMarkers] = useState<IMarker[]>([]);
 
   const handleGetDriverState = useCallback(async () => {
     const res = await RiderControlMapRepository.getDriversState();
     setOriginDriverState(res);
   }, [setOriginDriverState]);
 
-  let location: any = [];
+  // let location: any = [];
 
   const handleRiderLocation = useCallback(
     ({ data }: IRiderSocketLocation) => {
-      location.push(data);
-      const non_duplidated_data = _.uniq(location, 'driverIdx');
-      setDriverLocation(non_duplidated_data);
+      // location.push(data);
+      // const non_duplicated_data = _.uniq(location, 'driverIdx');
+      // setDriverLocation(non_duplicated_data);
+
+      console.log('pass');
+
+      const markerIdx = markers.findIndex(e => e.driverIdx === data.driverIdx)
+      if (markerIdx !== -1) {
+        const marker = { ...markers[markerIdx] };
+        marker.lat = data.lat;
+        marker.long = data.long;
+        setMarkers([
+          ...markers.slice(0, markerIdx),
+          marker,
+          ...markers.slice(markerIdx),
+        ]);
+        console.log(markers);
+      } else {
+        const marker = {
+          ...data,
+        }
+        setMarkers([
+          ...markers,
+          marker,
+        ]);
+      }
     },
-    [location]
+    [markers]
   );
-
-  const kakaoMap = useCallback(() => {
-    const container = document.getElementById('map');
-    const options = {
-      center: new kakao.maps.LatLng(
-        mapCenter.Ma || mapLatitude,
-        mapCenter.La || mapLongitude
-      ),
-      level: mapLevel || 6,
-    };
-
-    const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-    kakao.maps.event.addListener(
-      map,
-      'center_changed',
-      _.throttle(() => {
-        // 지도의  레벨을 얻어옵니다
-        const level = map.getLevel();
-        setMapLevel(level);
-        // 지도의 중심좌표를 얻어옵니다
-        const latlng = map.getCenter();
-        setMapCenter(latlng);
-      }, 500)
-    );
-    console.log(driverLocation);
-  }, [
-    driverLocation,
-    kakao.maps.LatLng,
-    kakao.maps.Map,
-    kakao.maps.event,
-    mapCenter.La,
-    mapCenter.Ma,
-    mapLatitude,
-    mapLevel,
-    mapLongitude,
-  ]);
-
   useEffect(() => {
-    getGeolocation();
     handleGetDriverState();
     DriverSocket.getInstance(handleRiderLocation);
-  }, [getGeolocation, handleGetDriverState, handleRiderLocation]);
-
-  useEffect(() => {
-    kakaoMap();
-  }, [kakaoMap]);
+    MapSingleton.getInstance();
+    MapSingleton.getInstance().setMarkers(markers);
+  }, [handleGetDriverState, handleRiderLocation, markers]);
 
   return (
     <>
