@@ -6,6 +6,7 @@ import MemberRepository from 'repository/MemberRepository';
 import { MemberLevel } from 'enum/Member';
 import MemberTableItem from 'components/Member/MemberTableItem';
 import MemberBox from 'components/Member/MemberBox';
+import { fetchDriverError } from 'validation/MemberValidation';
 
 const MemberContainer = (): JSX.Element => {
   const [drivers, setDrivers] = useRecoilState(DriverState);
@@ -27,12 +28,19 @@ const MemberContainer = (): JSX.Element => {
   const filteredMember = filterMember();
 
   const handleFetchDrivers = useCallback(async () => {
-    const drivers = await MemberRepository.getDrivers();
-    setDrivers(drivers);
+    try {
+      const { data } = await MemberRepository.getDrivers();
+      const { drivers } = data.data;
+      setDrivers(drivers);
+    } catch (err) {
+      const { status } = err;
+      fetchDriverError(status);
+    }
   }, [setDrivers]);
 
   const handleFetchCustomers = useCallback(async () => {
-    const customers = await MemberRepository.getCustomers();
+    const { data } = await MemberRepository.getCustomers();
+    const { customers } = data.data;
     setCustomers(customers);
   }, [setCustomers]);
 
