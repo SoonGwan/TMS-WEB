@@ -10,6 +10,15 @@ class MemberRepository {
 
     return data;
   }
+
+  getCustomers = async () => {
+    const data = await getRequest({
+      url: '/user/customer',
+      token: getToken(),
+    });
+
+    return data;
+  }
 }
 
 export default new MemberRepository();

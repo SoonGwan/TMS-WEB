@@ -39,8 +39,9 @@ const MemberContainer = (): JSX.Element => {
   }, [setDrivers]);
 
   const handleFetchCustomers = useCallback(async () => {
-    // const customers = await MemberRepository.getCustomers();
-    // setCustomers(customers);
+    const { data } = await MemberRepository.getCustomers();
+    const { customers } = data.data;
+    setCustomers(customers);
   }, [setCustomers]);
 
   const handleFilterMemberByLevel = useCallback(() => {
