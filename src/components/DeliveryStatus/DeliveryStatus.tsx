@@ -2,7 +2,7 @@ import DashBoardCardView from 'components/common/DashBoardCardView';
 import palette from 'styles/palette';
 import DeliveryStatusListItemTemplate from './DeliveryStatusListItemTemplate';
 import SmallBtn from 'components/common/SmallBtn';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, DetailedHTMLProps, HTMLAttributes } from 'react';
 import classNames from 'classnames/bind';
 import { ClassNamesFn } from 'classnames/types';
 import { DatePicker } from '@class101/ui';
@@ -12,6 +12,7 @@ interface IDeliveryStatus {
   today: Date;
   tableValue: number;
   handleTableValue: (value: number) => void;
+  tableHeaderText: (arg: number) => JSX.Element | null;
 }
 
 const styles: CSSProperties = {
@@ -27,6 +28,7 @@ const DeliveryStatus = ({
   today,
   handleTableValue,
   tableValue,
+  tableHeaderText,
 }: IDeliveryStatus) => {
   return (
     <>
@@ -69,7 +71,7 @@ const DeliveryStatus = ({
                   'DeliveryStatus-OverView-AllItemsList-TitleWrapper-Title'
                 )}
               >
-                여기 타이틀이요
+                {tableHeaderText(tableValue)}
               </div>
               <div
                 className={cx(

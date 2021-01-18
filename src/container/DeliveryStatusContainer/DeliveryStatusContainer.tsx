@@ -19,6 +19,19 @@ const DeliveryStatusContainer = () => {
     setTableValue(value);
   }, []);
 
+  const tableHeaderText = (tableValue: number) => {
+    const tableHeader =
+      tableValue === DeliveryTable.ALL ? (
+        <div>전체 물류 리스트</div>
+      ) : tableValue === DeliveryTable.DELIVERING ? (
+        <div>배달중인 리스트</div>
+      ) : tableValue === DeliveryTable.DONE ? (
+        <div>배송 완료 리스트</div>
+      ) : null;
+
+    return tableHeader;
+  };
+
   useEffect(() => {
     handleAllProductList();
   }, [handleAllProductList]);
@@ -29,6 +42,7 @@ const DeliveryStatusContainer = () => {
         today={today}
         tableValue={tableValue}
         handleTableValue={handleTableValue}
+        tableHeaderText={tableHeaderText}
       />
     </>
   );
