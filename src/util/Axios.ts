@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { SERVER } from 'config/config.json';
 import {
-  IGetResponse,
+  IGetRequest,
   IPostRequest,
   IModifyRequest,
   IDeleteRequest,
 } from 'interface/Axios';
 
-export const getResponse = async ({ url, token }: IGetResponse) => {
+export const getRequest = async ({ url, token }: IGetRequest) => {
   const data = await axios.get(`${SERVER}${url}`, {
     headers: token && {
       'x-access-token': `${token}`,
