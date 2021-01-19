@@ -1,5 +1,5 @@
 import { IDriverDeliveryState } from 'interface/Map';
-
+import io from 'socket.io-client';
 class RiderControlMapRepository {
   async getDriversState(): Promise<IDriverDeliveryState[]> {
     const stateList: IDriverDeliveryState[] = [];
