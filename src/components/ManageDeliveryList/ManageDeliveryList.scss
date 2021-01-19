@@ -8,6 +8,17 @@
   flex-direction: column;
   padding: 1vw;
 
+  &-OpenModal {
+    height: 100%;
+    background-color: $blue_C4CBD6;
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    padding: 0.7vw;
+    align-items: center;
+    cursor: pointer;
+  }
+
   &-ImportCSVWrapper {
     width: 100%;
     display: flex;
@@ -85,8 +96,18 @@
       font-size: 14px;
       padding: 1vw 1vw;
       position: relative;
-      &-ExampleExcel {
+
+      &-Wrapper {
+        right: 1vw;
+        display: flex;
         position: absolute;
+        height: 100%;
+        & > * + * {
+          margin-left: 1vw;
+        }
+      }
+
+      &-ExampleExcel {
         height: 100%;
         padding: 0.7vw;
         background-color: $blue_C4CBD6;

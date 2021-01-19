@@ -7,7 +7,17 @@ export interface IExcelItem {
 }
 
 export interface IDeliveryItem {
-  customerIdx: number;
-  driverIdx: number;
-  productName: string;
+  customerIdx: number | undefined;
+  driverIdx: number | undefined;
+  productName: string | undefined;
+}
+
+export interface ICustomerList {
+  label: string;
+  value: number;
+}
+
+export interface IDriverList {
+  label: string;
+  value: number;
 }

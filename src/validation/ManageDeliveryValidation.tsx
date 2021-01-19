@@ -1,5 +1,6 @@
 import { ShowToast } from 'util/ShowToast';
 import { Colors, Icon } from '@class101/ui';
+import { IDeliveryItem } from 'interface/ManageDeliveryList';
 
 export const successUploadProduct = (status: number) => {
   ShowToast({
@@ -29,6 +30,36 @@ export const EmptyArray = () => {
   ShowToast({
     backgroundColor: Colors.redError,
     message: '추가후 업로드 해주세요.',
+    icon: <Icon.Alert fillColor={Colors.white} />,
+    timeout: 3000,
+  });
+};
+
+export const EmptyRequest = (delivery: IDeliveryItem) => {
+  const { customerIdx, driverIdx, productName } = delivery;
+
+  if (!customerIdx || !driverIdx || !productName) {
+    ShowToast({
+      backgroundColor: Colors.redError,
+      message: '비어있는 값이 있습니다.',
+      icon: <Icon.Alert fillColor={Colors.white} />,
+      timeout: 3000,
+    });
+
+    return false;
+  }
+
+  return true;
+};
+
+export const failedSingleDeliveryCreation = (status: number) => {
+  let errorMessage = '';
+  if (status === 401) errorMessage = '인증이 되지 않았습니다.';
+  else if (status === 410) errorMessage = '토큰이 만료되었습니다.';
+
+  ShowToast({
+    backgroundColor: Colors.redError,
+    message: errorMessage,
     icon: <Icon.Alert fillColor={Colors.white} />,
     timeout: 3000,
   });
