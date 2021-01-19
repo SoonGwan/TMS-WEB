@@ -2,33 +2,30 @@ import React from 'react';
 import './ManageDeliveryListInnerItemTemplate.scss';
 
 interface IManageDeliveryListInnerItemTemplate {
-  id: number;
-  fk_client_id: string;
-  fk_driver_id: string;
-  distance: number;
-  start_adress: string;
+  customerIdx: number;
+  customerName: string;
+  driverIdx: number;
+  driverName: string;
+  productName: string;
 }
 
 const ManageDeliveryListInnerItemTemplate = ({
-  id,
-  fk_client_id,
-  fk_driver_id,
-  distance,
-  start_adress,
+  customerIdx,
+  customerName,
+  driverIdx,
+  driverName,
+  productName,
 }: IManageDeliveryListInnerItemTemplate) => {
   return (
-    <div className="ManageDeliveryListInnerItemTemplate" key={id}>
+    <div className="ManageDeliveryListInnerItemTemplate" key={customerIdx}>
       <div className="ManageDeliveryListInnerItemTemplate-Client">
-        {fk_client_id}
+        {customerIdx} ({customerName})
       </div>
       <div className="ManageDeliveryListInnerItemTemplate-Driver">
-        {fk_driver_id}
+        {driverIdx} ({driverName})
       </div>
-      <div className="ManageDeliveryListInnerItemTemplate-Distance">
-        {distance}
-      </div>
-      <div className="ManageDeliveryListInnerItemTemplate-StartAdress">
-        {start_adress}
+      <div className="ManageDeliveryListInnerItemTemplate-Product">
+        {productName}
       </div>
     </div>
   );

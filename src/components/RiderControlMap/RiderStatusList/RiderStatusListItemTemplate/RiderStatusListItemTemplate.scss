@@ -2,7 +2,7 @@
 
 .RiderStatusListItemTemplate {
   padding: 0.4vh 0.7vw;
-  font-size: 13px;
+  font-size: 0.7rem;
   display: flex;
   width: 100%;
   align-items: center;
@@ -12,7 +12,7 @@
   }
 
   &-Status {
-    width: 15%;
+    width: 20%;
     margin-right: 5%;
     display: flex;
     align-items: center;
@@ -23,6 +23,6 @@
   }
 
   &-Time {
-    width: 25%;
+    width: 20%;
   }
 }

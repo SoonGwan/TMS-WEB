@@ -15,6 +15,14 @@
     justify-content: space-between;
     padding: 1vw 2vw;
 
+    &-Section {
+      height: 100%;
+      // width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
     &-ImportSection {
       width: 82%;
       height: 14vh;
@@ -29,7 +37,7 @@
         align-items: center;
         justify-content: center;
         color: $blue_C4CBD6;
-        font-size: 32px;
+        font-size: 24px;
         font-weight: 600;
         cursor: pointer;
         position: relative;
@@ -46,14 +54,15 @@
       }
     }
     &-ApplyButton {
-      width: 15%;
-      height: 14vh;
+      box-shadow: 1px 4px 24px rgba($color: $blue_C4CBD6, $alpha: 0.3);
+      padding: 1vw;
+      height: 6vh;
       border-radius: 4px;
       background-color: $blue_C4CBD6;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
+      font-size: 18px;
       color: $white_FFFFFF;
       font-weight: 500;
       cursor: pointer;
@@ -73,22 +82,30 @@
       align-items: center;
       color: $gray_C6C6C6;
       font-weight: 500;
-      font-size: 16px;
+      font-size: 14px;
       padding: 1vw 1vw;
-
+      position: relative;
+      &-ExampleExcel {
+        position: absolute;
+        height: 100%;
+        padding: 0.7vw;
+        background-color: $blue_C4CBD6;
+        color: white;
+        border-radius: 4px;
+        right: 1vw;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
       &-Client {
-        width: 15%;
+        width: 20%;
       }
 
       &-Driver {
-        width: 15%;
+        width: 20%;
       }
 
-      &-Distance {
-        width: 15%;
-      }
-
-      &-StartAdress {
+      &-Product {
         width: 55%;
       }
     }
