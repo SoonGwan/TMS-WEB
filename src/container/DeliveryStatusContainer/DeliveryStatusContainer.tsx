@@ -4,16 +4,43 @@ import DeliveryStatusRepository from 'repository/DeliveryStatusRepository';
 import { useRecoilState } from 'recoil';
 import { allProductList } from 'atom/DeliveryStatusAtom';
 import { DeliveryTable } from 'enum/DeliveryTable';
+import moment from 'moment';
 
 const DeliveryStatusContainer = () => {
-  const today = new Date();
   const [, setProductList] = useRecoilState(allProductList);
   const [tableValue, setTableValue] = useState(DeliveryTable.ALL);
+  const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD') || '');
 
-  const handleAllProductList = useCallback(async () => {
-    const res = await DeliveryStatusRepository.allProductList();
-    setProductList(res);
-  }, [setProductList]);
+  const handleDeliveryList = useCallback(async () => {
+    try {
+      const {
+        data: { data },
+      } = await DeliveryStatusRepository.deliveryList(date);
+      const { deliveries } = data;
+
+      let driveriesTemp = [];
+
+      for (let i = 0; i < deliveries.length; i += 1) {
+        const { customer, driver, endOrderNumber, endTime } = deliveries[i];
+        const temp = {
+          customerIdx: customer.idx,
+          customerName: customer.name,
+          customerAddress: customer.address,
+          driverIdx: driver.idx,
+          driverName: driver.name,
+          driverAddress: driver.address,
+          endOrderNumber,
+          endTime,
+        };
+
+        driveriesTemp.push(temp);
+      }
+
+      setProductList(driveriesTemp);
+    } catch (err) {
+      return err;
+    }
+  }, [date, setProductList]);
 
   const handleTableValue = useCallback((value: number) => {
     setTableValue(value);
@@ -33,16 +60,16 @@ const DeliveryStatusContainer = () => {
   };
 
   useEffect(() => {
-    handleAllProductList();
-  }, [handleAllProductList]);
-
+    handleDeliveryList();
+  }, [handleDeliveryList]);
   return (
     <>
       <DeliveryStatus
-        today={today}
         tableValue={tableValue}
         handleTableValue={handleTableValue}
         tableHeaderText={tableHeaderText}
+        date={date}
+        setDate={setDate}
       />
     </>
   );

@@ -94,8 +94,6 @@ const RiderControlMapContainer = () => {
       } = await RiderControlMapRepository.deliveringList(today);
       const { deliveries } = data;
 
-      console.log(deliveries);
-
       let deliveringList: IDeliveringList[] = [];
 
       for (let i = 0; i < deliveries.length; i += 1) {

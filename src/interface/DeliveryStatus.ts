@@ -6,3 +6,14 @@ export interface IAllProductList {
   start_adress: string;
   deliveryState: number;
 }
+
+export interface IChangeDriverList {
+  customerIdx: number;
+  customerName: string;
+  customerAddress: string;
+  driverIdx: number;
+  driverName: string;
+  driverAddress: string;
+  endOrderNumber: number | null;
+  endTime: string | null;
+}
