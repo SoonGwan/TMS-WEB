@@ -18,10 +18,14 @@ import {
   failedUploadProduct,
   successUploadProduct,
 } from 'validation/ManageDeliveryValidation';
+import DeliveryListModal from 'components/ManageDeliveryList/DeliveryListModal';
+import ManageDeliveryListModalContainer from './ManageDeliveryListModalContainer';
 
 const ManageDeliveryListContainer = () => {
   const [uploadFileName, setUploadFileName] = useState('');
   const [excelToJSON, setExcelToJSON] = useState<IExcelItem[]>([]);
+  const [isOpen, setIsOpen] = useState<Boolean>(false);
+  let list: any = [];
 
   const onFileInputChage = (event: DragEvent) => {
     /**
@@ -105,7 +109,6 @@ const ManageDeliveryListContainer = () => {
 
       const req = await MemberRepository.getDrivers();
       const { drivers } = req.data.data;
-      let list: any = [];
       const today = dtil().format('YYYY-MM-DD');
       const excelUserHeader = [
         '고객 고유 번호',
@@ -143,7 +146,7 @@ const ManageDeliveryListContainer = () => {
     } catch (err) {
       return err;
     }
-  }, []);
+  }, [list]);
 
   const donwloadExcelExample = () => {
     const header = [
@@ -187,9 +190,14 @@ const ManageDeliveryListContainer = () => {
     } catch (err) {
       const { status } = err.response;
       failedUploadProduct(status);
+
       return err;
     }
   }, [excelToJSON]);
+
+  const openModal = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
     <>
@@ -201,7 +209,9 @@ const ManageDeliveryListContainer = () => {
         handleExportExcel={handleExportExcel}
         handleDeliveryCreation={handleDeliveryCreation}
         donwloadExcelExample={donwloadExcelExample}
+        openModal={openModal}
       />
+      {isOpen && <ManageDeliveryListModalContainer openModal={openModal} />}
     </>
   );
 };

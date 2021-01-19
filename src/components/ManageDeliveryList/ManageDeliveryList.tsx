@@ -14,6 +14,7 @@ interface IManageDeliveryList {
   handleExportExcel: () => void;
   handleDeliveryCreation: () => void;
   donwloadExcelExample: () => void;
+  openModal: () => void;
 }
 
 const ManageDeliveryList = ({
@@ -24,6 +25,7 @@ const ManageDeliveryList = ({
   handleExportExcel,
   handleDeliveryCreation,
   donwloadExcelExample,
+  openModal,
 }: IManageDeliveryList) => {
   useBeforeunload((event) => event.preventDefault());
 
@@ -59,11 +61,16 @@ const ManageDeliveryList = ({
       </div>
       <div className="ManageDeliveryList-ViewExcelList">
         <div className="ManageDeliveryList-ViewExcelList-Header">
-          <div
-            className="ManageDeliveryList-ViewExcelList-Header-ExampleExcel"
-            onClick={donwloadExcelExample}
-          >
-            업로드 엑셀 다운
+          <div className="ManageDeliveryList-ViewExcelList-Header-Wrapper">
+            <div
+              className="ManageDeliveryList-ViewExcelList-Header-ExampleExcel"
+              onClick={donwloadExcelExample}
+            >
+              업로드 엑셀 다운
+            </div>
+            <div className="ManageDeliveryList-OpenModal" onClick={openModal}>
+              따로 물품 업로드 하기
+            </div>
           </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Client">
             고객 고유번호 (고객 이름)

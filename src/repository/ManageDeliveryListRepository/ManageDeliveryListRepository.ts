@@ -12,6 +12,16 @@ class ManageDeliveryListRepository {
 
     return data;
   };
+
+  singleDeliveryCreation = async (delivery: IDeliveryItem) => {
+    const data = await postRequest({
+      url: '/delivery/single',
+      request: delivery,
+      token: getToken(),
+    });
+
+    return data;
+  };
 }
 
 export default new ManageDeliveryListRepository();
