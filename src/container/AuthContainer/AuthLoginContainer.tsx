@@ -63,6 +63,7 @@ const AuthLoginContainer = ({ history }: IAuthLoginContainer) => {
   const enterLogin = (e: KeyboardEvent) => {
     e.keyCode === 13 && handleGetAuthLogin();
   };
+
   return (
     <AuthLogin
       id={id}
