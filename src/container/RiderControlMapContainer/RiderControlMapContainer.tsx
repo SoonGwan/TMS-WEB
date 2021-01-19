@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
+import DriverSocket from './RiderSingleton';
+import dtil from 'dtil';
 import RiderControlMap from 'components/RiderControlMap';
 import RiderControlMapRepository from 'repository/RiderControlMapRepository';
-import { useRecoilState } from 'recoil';
+import RiderStatusListItemTemplate from 'components/RiderControlMap/RiderStatusList/RiderStatusListItemTemplate';
 import { DriverDeliveryState } from 'atom/RiderControlMapAtom';
-import DriverSocket from './RiderSingleton';
-import { IRiderSocketLocation } from 'interface/RiderControlMap';
-import _ from 'underscore';
+import { useRecoilState } from 'recoil';
+import {
+  IDeliveringList,
+  IRiderSocketLocation,
+} from 'interface/RiderControlMap';
 
 interface ILocation {
   latitude: number;
@@ -13,7 +17,6 @@ interface ILocation {
 }
 
 class MapSingleton {
-
   private static instance: MapSingleton;
 
   private constructor() {
@@ -29,22 +32,19 @@ class MapSingleton {
 
       const container = document.getElementById('map');
       const options = {
-        center: new window.kakao.maps.LatLng(
-          lat,
-          long,
-        ),
+        center: new window.kakao.maps.LatLng(lat, long),
         level: 6,
       };
 
       this.map = new window.kakao.maps.Map(container, options);
 
       var marker = new window.kakao.maps.Marker({
-        // 지도 중심좌표에 마커를 생성합니다 
-        position: MapSingleton.getInstance().map.getCenter()
+        // 지도 중심좌표에 마커를 생성합니다
+        position: MapSingleton.getInstance().map.getCenter(),
       });
       // 지도에 마커를 표시합니다
       marker.setMap(MapSingleton.getInstance().map);
-    })
+    });
   }
 
   public map: any;
@@ -83,25 +83,84 @@ interface IMarker {
 
 const RiderControlMapContainer = () => {
   const [, setOriginDriverState] = useRecoilState(DriverDeliveryState);
-  const [driverLocation, setDriverLocation] = useState<any>([]);
   const [markers, setMarkers] = useState<IMarker[]>([]);
+  const [deliverlingList, setDeliverlingList] = useState<IDeliveringList[]>([]);
 
-  const handleGetDriverState = useCallback(async () => {
-    const res = await RiderControlMapRepository.getDriversState();
-    setOriginDriverState(res);
-  }, [setOriginDriverState]);
+  const handleDeliveringList = useCallback(async () => {
+    try {
+      const today = dtil().format('YYYY-MM-DD');
+      const {
+        data: { data },
+      } = await RiderControlMapRepository.deliveringList(today);
+      const { deliveries } = data;
 
-  // let location: any = [];
+      let deliveringList: IDeliveringList[] = [];
+
+      for (let i = 0; i < deliveries.length; i += 1) {
+        const {
+          createdAt,
+          customer,
+          customerIdx,
+          driver,
+          driverIdx,
+          endOrderNumber,
+          endTime,
+          idx,
+        } = deliveries[i];
+
+        const list: IDeliveringList = {
+          key: idx,
+          createdAt: dtil(createdAt).format('HH:mm:ss'),
+          customerIdx,
+          customerName: customer.name,
+          customerAdress: customer.address,
+          driverIdx,
+          driverName: driver.name,
+          endOrderNumber,
+          endTime,
+        };
+
+        deliveringList.push(list);
+        setDeliverlingList(deliveringList);
+      }
+    } catch (err) {
+      return err;
+    }
+  }, []);
+
+  const deliveringList =
+    deliverlingList &&
+    deliverlingList.map((data: IDeliveringList) => {
+      const {
+        key,
+        createdAt,
+        customerIdx,
+        customerName,
+        customerAdress,
+        driverIdx,
+        driverName,
+      } = data;
+      console.log('data', deliverlingList[0]);
+      return (
+        <RiderStatusListItemTemplate
+          key={key}
+          createdAt={createdAt}
+          customerIdx={customerIdx}
+          customerName={customerName}
+          customerAdress={customerAdress}
+          driverIdx={driverIdx}
+          driverName={driverName}
+        />
+      );
+    });
 
   const handleRiderLocation = useCallback(
     ({ data }: IRiderSocketLocation) => {
-      // location.push(data);
-      // const non_duplicated_data = _.uniq(location, 'driverIdx');
-      // setDriverLocation(non_duplicated_data);
-
       console.log('pass');
 
-      const markerIdx = markers.findIndex(e => e.driverIdx === data.driverIdx)
+      const markerIdx = markers.findIndex(
+        (e) => e.driverIdx === data.driverIdx
+      );
       if (markerIdx !== -1) {
         const marker = { ...markers[markerIdx] };
         marker.lat = data.lat;
@@ -115,25 +174,22 @@ const RiderControlMapContainer = () => {
       } else {
         const marker = {
           ...data,
-        }
-        setMarkers([
-          ...markers,
-          marker,
-        ]);
+        };
+        setMarkers([...markers, marker]);
       }
     },
     [markers]
   );
   useEffect(() => {
-    handleGetDriverState();
     DriverSocket.getInstance(handleRiderLocation);
     MapSingleton.getInstance();
     MapSingleton.getInstance().setMarkers(markers);
-  }, [handleGetDriverState, handleRiderLocation, markers]);
+    handleDeliveringList();
+  }, [handleDeliveringList, handleRiderLocation, markers]);
 
   return (
     <>
-      <RiderControlMap />
+      <RiderControlMap deliveringList={deliveringList} />
     </>
   );
 };

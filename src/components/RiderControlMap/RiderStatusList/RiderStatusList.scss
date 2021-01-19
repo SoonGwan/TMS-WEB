@@ -17,24 +17,25 @@
     width: 100%;
     height: 4.6vh;
     padding: 0px 0.7vw;
-    font-size: 0.7rem;
+    font-size: 1rem;
     font-weight: 500;
     border-bottom: 1px solid $gray_E6E6E6;
 
     &-Idx {
-      width: 15%;
+      width: 20%;
       color: $brown_9C5C63;
     }
 
     &-Status {
       width: 20%;
       color: $blue_6685A8;
-      margin-right: 5%;
+      margin-right: 2.5%;
     }
 
     &-Adress {
-      width: 40%;
+      width: 35%;
       color: $black_000000;
+      margin-right: 2.5%;
     }
 
     &-Time {
