@@ -13,20 +13,16 @@ declare global {
   }
 }
 
-interface IRiderControlMap {
-  deliveringList: JSX.Element[];
-}
-
-const RiderControlMap = ({ deliveringList }: IRiderControlMap) => {
+const RiderControlMap = () => {
   return (
     <>
       <div className="RiderControlMap">
-        <div className="RiderControlMap-DriverStatusListWrapper">
-          <RiderStatusList deliveringList={deliveringList} />
+        {/* <div className="RiderControlMap-DriverStatusListWrapper">
+          <RiderStatusList />
           <RiderList />
-        </div>
+        </div> */}
         <div className="RiderControlMap-Geolocation">
-          <div id="map" style={{ width: '70.405vw', height: '100vh' }}></div>
+          <div id="map" style={{ width: '100vw', height: '100vh' }}></div>
         </div>
       </div>
     </>

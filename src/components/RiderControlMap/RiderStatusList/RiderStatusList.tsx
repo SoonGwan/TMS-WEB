@@ -2,11 +2,7 @@ import React from 'react';
 import './RiderStatusList.scss';
 import RiderStatusListItemTemplate from './RiderStatusListItemTemplate';
 
-interface IRiderStatusList {
-  deliveringList: JSX.Element[];
-}
-
-const RiderStatusList = ({ deliveringList }: IRiderStatusList) => {
+const RiderStatusList = () => {
   return (
     <>
       <div className="RiderStatusHeader">배달중인 리스트</div>
@@ -17,7 +13,7 @@ const RiderStatusList = ({ deliveringList }: IRiderStatusList) => {
           <div className="RiderStatusList-Header-Adress">주소</div>
           <div className="RiderStatusList-Header-Time">배송 출발</div>
         </div>
-        <div className="RiderStatusList-ItemsWrapper">{deliveringList}</div>
+        <div className="RiderStatusList-ItemsWrapper"></div>
       </div>
     </>
   );

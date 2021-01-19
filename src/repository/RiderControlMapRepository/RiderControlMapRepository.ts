@@ -7,7 +7,7 @@ class RiderControlMapRepository {
       url: `/delivery/delivering?date=${date}`,
       token: getToken(),
     });
-
+    console.log('dataatatatata', data);
     return data;
   };
 }

@@ -5,38 +5,22 @@ import { useRecoilValue } from 'recoil';
 import './RiderStatusListItemTemplate.scss';
 import { RiderStatus } from 'enum/RiderStatusList';
 
-interface IRiderStatusListItemTemplate {
-  key: number | null | undefined;
-  createdAt: string;
-  customerIdx: number;
-  customerName: string;
-  customerAdress: string;
-  driverIdx: number;
-  driverName: string;
-}
-
-const RiderStatusListItemTemplate = ({
-  key,
-  createdAt,
-  customerIdx,
-  customerName,
-  customerAdress,
-  driverIdx,
-  driverName,
-}: IRiderStatusListItemTemplate) => {
+const RiderStatusListItemTemplate = () => {
   return (
     <>
-      <div className="RiderStatusListItemTemplate" key={key}>
+      <div className="RiderStatusListItemTemplate">
         <div className="RiderStatusListItemTemplate-Idx">
-          {customerName}({customerIdx})
+          {/* {customerName}({customerIdx}) */}
         </div>
         <div className="RiderStatusListItemTemplate-Status">
-          {driverName} ({driverIdx})
+          {/* {driverName} ({driverIdx}) */}
         </div>
         <div className="RiderStatusListItemTemplate-Adress">
-          {customerAdress}
+          {/* {customerAdress} */}
         </div>
-        <div className="RiderStatusListItemTemplate-Time">{createdAt}</div>
+        <div className="RiderStatusListItemTemplate-Time">
+          {/* {createdAt} */}
+        </div>
       </div>
     </>
   );

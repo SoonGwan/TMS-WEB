@@ -84,7 +84,7 @@ interface IMarker {
 const RiderControlMapContainer = () => {
   const [, setOriginDriverState] = useRecoilState(DriverDeliveryState);
   const [markers, setMarkers] = useState<IMarker[]>([]);
-  const [deliverlingList, setDeliverlingList] = useState<IDeliveringList[]>([]);
+  const [deliverlingList, setDeliverlingList] = useState<IDeliveringList[]>();
 
   const handleDeliveringList = useCallback(async () => {
     try {
@@ -93,6 +93,8 @@ const RiderControlMapContainer = () => {
         data: { data },
       } = await RiderControlMapRepository.deliveringList(today);
       const { deliveries } = data;
+
+      console.log(deliveries);
 
       let deliveringList: IDeliveringList[] = [];
 
@@ -121,38 +123,13 @@ const RiderControlMapContainer = () => {
         };
 
         deliveringList.push(list);
+
         setDeliverlingList(deliveringList);
       }
     } catch (err) {
       return err;
     }
   }, []);
-
-  const deliveringList =
-    deliverlingList &&
-    deliverlingList.map((data: IDeliveringList) => {
-      const {
-        key,
-        createdAt,
-        customerIdx,
-        customerName,
-        customerAdress,
-        driverIdx,
-        driverName,
-      } = data;
-      console.log('data', deliverlingList[0]);
-      return (
-        <RiderStatusListItemTemplate
-          key={key}
-          createdAt={createdAt}
-          customerIdx={customerIdx}
-          customerName={customerName}
-          customerAdress={customerAdress}
-          driverIdx={driverIdx}
-          driverName={driverName}
-        />
-      );
-    });
 
   const handleRiderLocation = useCallback(
     ({ data }: IRiderSocketLocation) => {
@@ -180,16 +157,16 @@ const RiderControlMapContainer = () => {
     },
     [markers]
   );
+
   useEffect(() => {
     DriverSocket.getInstance(handleRiderLocation);
     MapSingleton.getInstance();
     MapSingleton.getInstance().setMarkers(markers);
     handleDeliveringList();
   }, [handleDeliveringList, handleRiderLocation, markers]);
-
   return (
     <>
-      <RiderControlMap deliveringList={deliveringList} />
+      <RiderControlMap />
     </>
   );
 };
