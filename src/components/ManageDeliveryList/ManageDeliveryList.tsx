@@ -11,6 +11,8 @@ interface IManageDeliveryList {
   ) => void;
   uploadFileName: string;
   excelList: JSX.Element[];
+  handleExportExcel: () => void;
+  handleDeliveryCreation: () => void;
 }
 
 const ManageDeliveryList = ({
@@ -18,6 +20,8 @@ const ManageDeliveryList = ({
   onDropFile,
   uploadFileName,
   excelList,
+  handleExportExcel,
+  handleDeliveryCreation,
 }: IManageDeliveryList) => {
   useBeforeunload((event) => event.preventDefault());
 
@@ -36,23 +40,31 @@ const ManageDeliveryList = ({
             </div>
           </FileDrop>
         </div>
-        <div className="ManageDeliveryList-ImportCSVWrapper-ApplyButton">
-          추출 하기
+        <div className="ManageDeliveryList-ImportCSVWrapper-Section">
+          <div
+            className="ManageDeliveryList-ImportCSVWrapper-ApplyButton"
+            onClick={() => handleDeliveryCreation()}
+          >
+            업로드 하기
+          </div>
+          <div
+            className="ManageDeliveryList-ImportCSVWrapper-ApplyButton"
+            onClick={handleExportExcel}
+          >
+            유저정보 보기
+          </div>
         </div>
       </div>
       <div className="ManageDeliveryList-ViewExcelList">
         <div className="ManageDeliveryList-ViewExcelList-Header">
           <div className="ManageDeliveryList-ViewExcelList-Header-Client">
-            고객 이름
+            고객 고유번호 (고객 이름)
           </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Driver">
-            드라이버 이름
+            드라이버 고유번호 (드라이버 이름)
           </div>
-          <div className="ManageDeliveryList-ViewExcelList-Header-Distance">
-            거리
-          </div>
-          <div className="ManageDeliveryList-ViewExcelList-Header-StartAdress">
-            시작 주소
+          <div className="ManageDeliveryList-ViewExcelList-Header-Product">
+            물품 정보
           </div>
         </div>
         <div className="ManageDeliveryList-ViewExcelList-ListWrapper">

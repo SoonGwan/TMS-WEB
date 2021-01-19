@@ -1,7 +1,13 @@
 export interface IExcelItem {
-  id: number;
-  fk_client_id: string;
-  fk_driver_id: string;
-  distance: number;
-  start_adress: string;
+  customerIdx: number;
+  customerName: string;
+  driverIdx: number;
+  driverName: string;
+  productName: string;
+}
+
+export interface IDeliveryItem {
+  customerIdx: number;
+  driverIdx: number;
+  productName: string;
 }
