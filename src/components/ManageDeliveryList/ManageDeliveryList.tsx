@@ -13,6 +13,7 @@ interface IManageDeliveryList {
   excelList: JSX.Element[];
   handleExportExcel: () => void;
   handleDeliveryCreation: () => void;
+  donwloadExcelExample: () => void;
 }
 
 const ManageDeliveryList = ({
@@ -22,6 +23,7 @@ const ManageDeliveryList = ({
   excelList,
   handleExportExcel,
   handleDeliveryCreation,
+  donwloadExcelExample,
 }: IManageDeliveryList) => {
   useBeforeunload((event) => event.preventDefault());
 
@@ -43,7 +45,7 @@ const ManageDeliveryList = ({
         <div className="ManageDeliveryList-ImportCSVWrapper-Section">
           <div
             className="ManageDeliveryList-ImportCSVWrapper-ApplyButton"
-            onClick={() => handleDeliveryCreation()}
+            onClick={handleDeliveryCreation}
           >
             업로드 하기
           </div>
@@ -57,6 +59,12 @@ const ManageDeliveryList = ({
       </div>
       <div className="ManageDeliveryList-ViewExcelList">
         <div className="ManageDeliveryList-ViewExcelList-Header">
+          <div
+            className="ManageDeliveryList-ViewExcelList-Header-ExampleExcel"
+            onClick={donwloadExcelExample}
+          >
+            업로드 엑셀 다운
+          </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Client">
             고객 고유번호 (고객 이름)
           </div>

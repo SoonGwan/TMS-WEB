@@ -105,7 +105,6 @@ const ManageDeliveryListContainer = () => {
 
       const req = await MemberRepository.getDrivers();
       const { drivers } = req.data.data;
-      console.log(drivers);
       let list: any = [];
       const today = dtil().format('YYYY-MM-DD');
       const excelUserHeader = [
@@ -146,9 +145,19 @@ const ManageDeliveryListContainer = () => {
     }
   }, []);
 
+  const donwloadExcelExample = () => {
+    const header = [
+      ['customerIdx', 'customerName', 'driverIdx', 'driverName', 'productName'],
+    ];
+    const workSheetData = header;
+    const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);
+    const workBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workBook, workSheet, 'sheet title');
+    XLSX.writeFile(workBook, '업로드 예제.xlsx');
+  };
+
   const handleDeliveryCreation = useCallback(async () => {
     try {
-      console.log(excelToJSON);
       let deliveries = [];
 
       for (let i = 0; i < excelToJSON.length; i += 1) {
@@ -162,7 +171,7 @@ const ManageDeliveryListContainer = () => {
 
         deliveries.push(item);
       }
-      console.log(deliveries.length);
+
       if (deliveries.length <= 0) {
         EmptyArray();
         return;
@@ -191,6 +200,7 @@ const ManageDeliveryListContainer = () => {
         excelList={excelList}
         handleExportExcel={handleExportExcel}
         handleDeliveryCreation={handleDeliveryCreation}
+        donwloadExcelExample={donwloadExcelExample}
       />
     </>
   );

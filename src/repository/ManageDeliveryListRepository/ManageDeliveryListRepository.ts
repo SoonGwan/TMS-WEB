@@ -4,7 +4,6 @@ import { getToken } from 'util/Token';
 
 class ManageDeliveryListRepository {
   deliveryCreation = async (delivery: IDeliveryItem[]) => {
-    console.log({ deliveries: delivery });
     const data = await postRequest({
       url: '/delivery',
       request: { deliveries: delivery },
