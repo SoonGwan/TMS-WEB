@@ -1,4 +1,4 @@
-import React, { SetStateAction, Dispatch } from 'react';
+import React, { SetStateAction, Dispatch, KeyboardEvent } from 'react';
 import './AuthLogin.scss';
 import palette from 'styles/palette';
 import RadioButton from 'components/common/RadioButton/RadioButton';
@@ -13,6 +13,7 @@ interface IAuthLogin {
   handleGetAuthLogin: () => void;
   isAutoLogin: boolean;
   setIsAutoLogin: Dispatch<SetStateAction<boolean>>;
+  enterLogin: (e: KeyboardEvent) => void;
 }
 
 const AuthLogin = ({
@@ -23,9 +24,13 @@ const AuthLogin = ({
   handleGetAuthLogin,
   isAutoLogin,
   setIsAutoLogin,
+  enterLogin,
 }: IAuthLogin) => {
   return (
-    <div className="AuthLogin">
+    <div
+      className="AuthLogin"
+      onKeyDown={(event: KeyboardEvent) => enterLogin(event)}
+    >
       <div className="AuthLogin-Wrapper">
         <div className="AuthLogin-Wrapper-Title">관리자 로그인</div>
         <div className="AuthLogin-InputWrapper">

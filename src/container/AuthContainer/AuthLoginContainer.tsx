@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import AuthLogin from 'components/Auth';
 import AuthRepository from 'repository/AuthRepository';
 import {
@@ -59,6 +59,10 @@ const AuthLoginContainer = ({ history }: IAuthLoginContainer) => {
       sessionStorage.removeItem('x-access-token');
     }
   };
+
+  const enterLogin = (e: KeyboardEvent) => {
+    e.keyCode === 13 && handleGetAuthLogin();
+  };
   return (
     <AuthLogin
       id={id}
@@ -68,6 +72,7 @@ const AuthLoginContainer = ({ history }: IAuthLoginContainer) => {
       handleGetAuthLogin={handleGetAuthLogin}
       isAutoLogin={isAutoLogin}
       setIsAutoLogin={setIsAutoLogin}
+      enterLogin={enterLogin}
     />
   );
 };
