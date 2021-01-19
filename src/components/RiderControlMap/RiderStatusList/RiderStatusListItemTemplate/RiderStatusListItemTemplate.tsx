@@ -6,33 +6,40 @@ import './RiderStatusListItemTemplate.scss';
 import { RiderStatus } from 'enum/RiderStatusList';
 
 interface IRiderStatusListItemTemplate {
-  id: number;
-  state: number;
-  adress: string;
-  time: string;
+  key: number | null | undefined;
+  createdAt: string;
+  customerIdx: number;
+  customerName: string;
+  customerAdress: string;
+  driverIdx: number;
+  driverName: string;
 }
 
-const RiderStatusListItemTemplate = () => {
-  const driver = useRecoilValue(DriverDeliveryState);
-  const driverList = driver.map((data: IRiderStatusListItemTemplate) => {
-    const { id, state, adress, time } = data;
-    return (
-      <>
-        <div className="RiderStatusListItemTemplate">
-          <div className="RiderStatusListItemTemplate-Idx">{id}</div>
-          <div className="RiderStatusListItemTemplate-Status">
-            <StatusLabel
-              text={state === RiderStatus.WAITING ? '배차 대기' : '배차 완료'}
-              status={state === RiderStatus.WAITING ? 'normal' : 'warning'}
-            />
-          </div>
-          <div className="RiderStatusListItemTemplate-Adress">{adress}</div>
-          <div className="RiderStatusListItemTemplate-Time">{time}</div>
+const RiderStatusListItemTemplate = ({
+  key,
+  createdAt,
+  customerIdx,
+  customerName,
+  customerAdress,
+  driverIdx,
+  driverName,
+}: IRiderStatusListItemTemplate) => {
+  return (
+    <>
+      <div className="RiderStatusListItemTemplate" key={key}>
+        <div className="RiderStatusListItemTemplate-Idx">
+          {customerName}({customerIdx})
         </div>
-      </>
-    );
-  });
-  return <>{driverList}</>;
+        <div className="RiderStatusListItemTemplate-Status">
+          {driverName} ({driverIdx})
+        </div>
+        <div className="RiderStatusListItemTemplate-Adress">
+          {customerAdress}
+        </div>
+        <div className="RiderStatusListItemTemplate-Time">{createdAt}</div>
+      </div>
+    </>
+  );
 };
 
 export default RiderStatusListItemTemplate;
