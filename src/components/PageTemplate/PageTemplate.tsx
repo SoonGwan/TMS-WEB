@@ -7,6 +7,7 @@ import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { ImProfile } from 'react-icons/im';
 import { FiPackage } from 'react-icons/fi';
 import { SiMicrosoftexcel } from 'react-icons/si';
+import { AiOutlineLogout } from 'react-icons/ai';
 
 interface IPageTemplate {
   children: React.ReactNode;
@@ -74,8 +75,21 @@ const PageTemplate = ({ children }: IPageTemplate) => {
               <SiMicrosoftexcel />
             </div>
           </Link>
+          <Link
+            to={'/login'}
+            className={cx('PageTemplate=NavNar-ItemsWrapper-Link')}
+          >
+            <div
+              className={cx('PageTemplate-NavBar-ItemsWrapper-Items')}
+              onClick={() => {
+                localStorage.removeItem('x-access-token');
+                sessionStorage.removeItem('x-access-token');
+              }}
+            >
+              <AiOutlineLogout />
+            </div>
+          </Link>
         </div>
-        <img src={logo} alt={logo} />
       </div>
       <div className={cx('PageTemplate-Children')}>{children}</div>
     </div>
