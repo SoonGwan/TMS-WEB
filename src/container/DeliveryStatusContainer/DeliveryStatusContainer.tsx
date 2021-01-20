@@ -84,7 +84,6 @@ const DeliveryStatusContainer = () => {
       setDeliveriesListLeng(deliveries.length);
       const deliveriesInfo = deliveries.map((data: IDeliveries) => {
         const { createdAt, customer, driver, productName, image, idx } = data;
-        console.log(data);
         return (
           <TrackingDriverInfo
             customerIdx={customer.idx}

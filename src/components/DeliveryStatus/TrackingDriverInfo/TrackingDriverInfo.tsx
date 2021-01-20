@@ -36,7 +36,6 @@ ITrackingDriverInfo) => {
   const [isModal, setIsModal] = useState<Boolean>(false);
   const imageSelected = (clickImg: string | null) => {
     setImg(clickImg);
-    console.log(clickImg);
   };
 
   const openModal = () => {
