@@ -9,6 +9,7 @@ import MemberRepository from 'repository/MemberRepository';
 import { IDeliveries, IDriverList } from 'interface/DeliveryStatus';
 import TrackingDriverInfo from 'components/DeliveryStatus/TrackingDriverInfo';
 import TrackingDriverList from 'components/DeliveryStatus/TrackingDriverList';
+import TrackDriverInfoImageModal from 'components/DeliveryStatus/TrackDriverInfoImageModal';
 
 const DeliveryStatusContainer = () => {
   const [, setProductList] = useRecoilState(allProductList);
@@ -20,6 +21,7 @@ const DeliveryStatusContainer = () => {
   >();
   const [deliveriesListLeng, setDeliveriesListLeng] = useState<number>(0);
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
+  const [isOpenModal, setIsOpenModal] = useState<Boolean>(false);
   const handleDeliveryList = useCallback(async () => {
     try {
       const {
@@ -68,6 +70,10 @@ const DeliveryStatusContainer = () => {
     return tableHeader;
   };
 
+  // const openImageModal = useCallback(() => {
+  //   setIsOpenModal(!isOpenModal);
+  // }, [isOpenModal]);
+
   const handleTrackingForDriver = useCallback(async (idx) => {
     try {
       const {
@@ -77,7 +83,8 @@ const DeliveryStatusContainer = () => {
       setSelectedIdx(idx);
       setDeliveriesListLeng(deliveries.length);
       const deliveriesInfo = deliveries.map((data: IDeliveries) => {
-        const { createdAt, customer, driver, productName } = data;
+        const { createdAt, customer, driver, productName, image, idx } = data;
+        console.log(data);
         return (
           <TrackingDriverInfo
             customerIdx={customer.idx}
@@ -86,10 +93,12 @@ const DeliveryStatusContainer = () => {
             driverIdx={driver.idx}
             driverName={driver.name}
             product={productName}
+            image={image}
+            idx={idx}
           />
         );
       });
-      setDeliveriesInfoElement(deliveriesInfo || 'hello');
+      setDeliveriesInfoElement(deliveriesInfo);
     } catch (err) {
       return err;
     }
@@ -139,6 +148,9 @@ const DeliveryStatusContainer = () => {
         deliveriesInfoElement={deliveriesInfoElement}
         deliveriesListLeng={deliveriesListLeng}
       />
+      {/* {isOpenModal && (
+        <TrackDriverInfoImageModal openImageModal={openImageModal} />
+      )} */}
     </>
   );
 };

@@ -1,5 +1,13 @@
-import React from 'react';
-import './TrackingDriverInfo.scss';
+import { TrackDriverInfoModal } from 'atom/TrackDriverInfoAtom';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import TrackDriverInfoImageModal from '../TrackDriverInfoImageModal';
+
+import classNames from 'classnames/bind';
+import { ClassNamesFn } from 'classnames/types';
+
+const style = require('./TrackingDriverInfo.scss');
+const cx: ClassNamesFn = classNames.bind(style);
 
 interface ITrackingDriverInfo {
   customerIdx: number;
@@ -8,6 +16,9 @@ interface ITrackingDriverInfo {
   driverIdx: number;
   driverName: string;
   product: string;
+  image: string | null;
+  idx: number;
+  // openImageModal: () => void;
 }
 
 const TrackingDriverInfo = ({
@@ -17,10 +28,31 @@ const TrackingDriverInfo = ({
   driverIdx,
   driverName,
   product,
-}: ITrackingDriverInfo) => {
+  image,
+  idx,
+}: // openImageModal,
+ITrackingDriverInfo) => {
+  const [img, setImg] = useState<string | null>('');
+  const [isModal, setIsModal] = useState<Boolean>(false);
+  const imageSelected = (clickImg: string | null) => {
+    setImg(clickImg);
+    console.log(clickImg);
+  };
+
+  const openModal = () => {
+    setIsModal(!isModal);
+  };
+
   return (
     <>
-      <div className="TrakingDriverInfo">
+      <div
+        className={'TrakingDriverInfo'}
+        onClick={() => {
+          openModal();
+          imageSelected(image);
+        }}
+        key={idx}
+      >
         <div className="TrakingDriverInfo-DriverName">
           {driverName} ({driverIdx})
         </div>
@@ -32,6 +64,7 @@ const TrackingDriverInfo = ({
         </div>
         <div className="TrakingDriverInfo-Product">{product}</div>
       </div>
+      {isModal && <TrackDriverInfoImageModal openModal={openModal} img={img} />}
     </>
   );
 };
