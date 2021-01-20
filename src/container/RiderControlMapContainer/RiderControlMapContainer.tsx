@@ -8,50 +8,11 @@ import {
   IRiderSocketLocation,
 } from 'interface/RiderControlMap';
 
-interface ILocation {
-  latitude: number;
-  longitude: number;
-}
-
 class MapSingleton {
   private static instance: MapSingleton;
 
   private constructor() {
-    navigator.geolocation.getCurrentPosition((data) => {
-      let lat = 36;
-      let long = 127;
-      if (data) {
-        const { longitude, latitude } = data.coords;
-        lat = latitude;
-        long = longitude;
-      }
-
-      const container = document.getElementById('map');
-      const options = {
-        center: new window.kakao.maps.LatLng(lat, long),
-        level: 6,
-      };
-
-      this.map = new window.kakao.maps.Map(container, options);
-
-      const marker = new window.kakao.maps.Marker({
-        position: MapSingleton.getInstance().map.getCenter(),
-      });
-
-      marker.setMap(MapSingleton.getInstance().map);
-
-      const mapTypeControl = new window.kakao.maps.MapTypeControl();
-      MapSingleton.getInstance().map.addControl(
-        mapTypeControl,
-        window.kakao.maps.ControlPosition.TOPRIGHT
-      );
-
-      const zoomControl = new window.kakao.maps.ZoomControl();
-      MapSingleton.getInstance().map.addControl(
-        zoomControl,
-        window.kakao.maps.ControlPosition.RIGHT
-      );
-    });
+    this.initMap();
   }
 
   public map: any;
@@ -71,6 +32,45 @@ class MapSingleton {
       this.markersEl.push(markerEl);
       markerEl.setMap(map);
     }
+  }
+
+  public initMap() {
+    navigator.geolocation.getCurrentPosition((data) => {
+      let lat = 36;
+      let long = 127;
+
+      if (data) {
+        const { longitude, latitude } = data.coords;
+        lat = latitude;
+        long = longitude;
+      }
+
+      const container = document.getElementById('map');
+      const options = {
+        center: new window.kakao.maps.LatLng(lat, long),
+        level: 6,
+      };
+
+      this.map = new window.kakao.maps.Map(container, options);
+
+      const mapTypeControl = new window.kakao.maps.MapTypeControl();
+      MapSingleton.getInstance().map.addControl(
+        mapTypeControl,
+        window.kakao.maps.ControlPosition.TOPRIGHT
+      );
+
+      const zoomControl = new window.kakao.maps.ZoomControl();
+      MapSingleton.getInstance().map.addControl(
+        zoomControl,
+        window.kakao.maps.ControlPosition.RIGHT
+      );
+
+      const marker = new window.kakao.maps.Marker({
+        position: MapSingleton.getInstance().map.getCenter(),
+      });
+
+      marker.setMap(MapSingleton.getInstance().map);
+    });
   }
 
   static getInstance() {
@@ -161,7 +161,7 @@ const RiderControlMapContainer = () => {
 
   useEffect(() => {
     DriverSocket.getInstance(handleRiderLocation);
-    MapSingleton.getInstance();
+    MapSingleton.getInstance().initMap();
     MapSingleton.getInstance().setMarkers(markers);
     handleDeliveringList();
   }, [handleDeliveringList, handleRiderLocation, markers]);

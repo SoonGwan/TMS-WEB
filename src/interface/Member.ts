@@ -9,7 +9,7 @@ export interface IMember {
 }
 
 export interface IDriver extends IMember {
-  is_delivering: boolean;
+  isDelivering: boolean;
 }
 
 export interface ICustomer {
