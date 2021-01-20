@@ -40,6 +40,7 @@
       border: 3px solid $blue_C4CBD6;
       border-radius: 4px;
       display: flex;
+      position: relative;
 
       &-DropDown {
         width: 100%;
@@ -152,5 +153,17 @@
       width: 100%;
       height: 100%;
     }
+  }
+}
+
+.ExcelUpload {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+
+  &-drag {
+    z-index: -1 !important;
   }
 }

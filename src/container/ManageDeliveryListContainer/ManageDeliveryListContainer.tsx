@@ -20,11 +20,15 @@ import {
 } from 'validation/ManageDeliveryValidation';
 import DeliveryListModal from 'components/ManageDeliveryList/DeliveryListModal';
 import ManageDeliveryListModalContainer from './ManageDeliveryListModalContainer';
+import Loading from 'components/common/Loading';
 
 const ManageDeliveryListContainer = () => {
   const [uploadFileName, setUploadFileName] = useState('');
   const [excelToJSON, setExcelToJSON] = useState<IExcelItem[]>([]);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [file, setFile] = useState<any>();
+
   let list: any = [];
 
   const onFileInputChage = (event: DragEvent) => {
@@ -33,10 +37,16 @@ const ManageDeliveryListContainer = () => {
      */
   };
 
+  const fileHandler = (e: any) => {
+    const file = e.target.files;
+    onDropFile(file);
+  };
+
   const onDropFile = (
     files: FileList | null,
-    event: ReactDragEvent<HTMLDivElement>
+    event?: ReactDragEvent<HTMLDivElement>
   ) => {
+    setIsLoading(true);
     if (files !== null && files.length > 0) {
       for (let i = 0; i !== files.length; i += 1) {
         let file = files[i];
@@ -46,13 +56,14 @@ const ManageDeliveryListContainer = () => {
         reader.onload = () => {
           const data = reader.result;
           const workbook = XLSX.read(data, { type: 'binary' });
-
           workbook.SheetNames.forEach((item) => {
             const excelToJson: IExcelItem[] = XLSX.utils.sheet_to_json(
               workbook.Sheets[item]
             );
 
             if (!excelToJson[0].customerIdx) {
+              setIsLoading(false);
+
               ShowToast({
                 backgroundColor: Colors.redError,
                 message: '엑셀을 정상적으로 가져올 수 없습니다.',
@@ -62,6 +73,7 @@ const ManageDeliveryListContainer = () => {
 
               return;
             }
+            setIsLoading(false);
 
             ShowToast({
               backgroundColor: Colors.green500,
@@ -102,6 +114,8 @@ const ManageDeliveryListContainer = () => {
 
   const handleExportExcel = useCallback(async () => {
     try {
+      setIsLoading(true);
+
       const {
         data: { data },
       } = await MemberRepository.getCustomers();
@@ -142,8 +156,12 @@ const ManageDeliveryListContainer = () => {
       const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);
       const workBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workBook, workSheet, 'sheet title');
+      setIsLoading(false);
+
       XLSX.writeFile(workBook, `${today}고객 정보.xlsx`);
     } catch (err) {
+      setIsLoading(false);
+
       return err;
     }
   }, [list]);
@@ -161,21 +179,30 @@ const ManageDeliveryListContainer = () => {
 
   const handleDeliveryCreation = useCallback(async () => {
     try {
+      setIsLoading(true);
+
       let deliveries = [];
 
       for (let i = 0; i < excelToJSON.length; i += 1) {
         const { customerIdx, driverIdx, productName } = excelToJSON[i];
-
-        const item = {
-          customerIdx,
-          driverIdx,
-          productName,
-        };
-
-        deliveries.push(item);
+        if (driverIdx === undefined) {
+          const item = {
+            customerIdx,
+            productName,
+          };
+          deliveries.push(item);
+        } else {
+          const item = {
+            customerIdx,
+            driverIdx,
+            productName,
+          };
+          deliveries.push(item);
+        }
       }
 
       if (deliveries.length <= 0) {
+        setIsLoading(false);
         EmptyArray();
         return;
       }
@@ -186,10 +213,13 @@ const ManageDeliveryListContainer = () => {
 
       const { status } = res;
       successUploadProduct(status);
+      setIsLoading(false);
+
       setExcelToJSON([]);
     } catch (err) {
       const { status } = err.response;
       failedUploadProduct(status);
+      setIsLoading(false);
 
       return err;
     }
@@ -201,15 +231,17 @@ const ManageDeliveryListContainer = () => {
 
   return (
     <>
+      {isLoading && <Loading />}
       <ManageDeliveryList
         onFileInputChage={onFileInputChage}
         onDropFile={onDropFile}
-        uploadFileName={uploadFileName || '파일을 드롭하여 넣어주세요.'}
+        uploadFileName={uploadFileName || '파일을 드롭하거나 클릭해 주세요.'}
         excelList={excelList}
         handleExportExcel={handleExportExcel}
         handleDeliveryCreation={handleDeliveryCreation}
         donwloadExcelExample={donwloadExcelExample}
         openModal={openModal}
+        fileHandler={fileHandler}
       />
       {isOpen && <ManageDeliveryListModalContainer openModal={openModal} />}
     </>

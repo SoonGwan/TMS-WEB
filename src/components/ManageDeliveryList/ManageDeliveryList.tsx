@@ -1,7 +1,12 @@
-import React, { DragEvent as ReactDragEvent, MutableRefObject } from 'react';
-import './ManageDeliveryList.scss';
+import React, {
+  DragEvent as ReactDragEvent,
+  MutableRefObject,
+  useState,
+} from 'react';
 import { FileDrop } from 'react-file-drop';
 import { useBeforeunload } from 'react-beforeunload';
+import classNames from 'classnames/bind';
+import { ClassNamesFn } from 'classnames/types';
 
 interface IManageDeliveryList {
   onFileInputChage: (evnet: DragEvent) => void;
@@ -15,7 +20,11 @@ interface IManageDeliveryList {
   handleDeliveryCreation: () => void;
   donwloadExcelExample: () => void;
   openModal: () => void;
+  fileHandler: (e: any) => void;
 }
+
+const style = require('./ManageDeliveryList.scss');
+const cx: ClassNamesFn = classNames.bind(style);
 
 const ManageDeliveryList = ({
   onFileInputChage,
@@ -26,17 +35,25 @@ const ManageDeliveryList = ({
   handleDeliveryCreation,
   donwloadExcelExample,
   openModal,
+  fileHandler,
 }: IManageDeliveryList) => {
   useBeforeunload((event) => event.preventDefault());
-
+  const [drag, setDrag] = useState(false);
   return (
     <div className="ManageDeliveryList">
       <div className="ManageDeliveryList-ImportCSVWrapper">
         <div className="ManageDeliveryList-ImportCSVWrapper-ImportSection">
+          <input
+            className={cx('ExcelUpload', {
+              'ExcelUpload-drag': drag === true,
+            })}
+            type="file"
+            onChange={fileHandler}
+          />
           <FileDrop
-            onFrameDragEnter={(event) => onFileInputChage(event)}
+            onFrameDragEnter={(event) => setDrag(true)}
             onFrameDragLeave={(event) => onFileInputChage(event)}
-            onFrameDrop={(event) => onFileInputChage(event)}
+            onFrameDrop={(event) => setDrag(false)}
             onDrop={(event, files) => onDropFile(event, files)}
           >
             <div className="ManageDeliveryList-ImportCSVWrapper-ImportSection-DropDown">
