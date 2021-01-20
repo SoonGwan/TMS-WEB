@@ -27,6 +27,7 @@ const ManageDeliveryListContainer = () => {
   const [excelToJSON, setExcelToJSON] = useState<IExcelItem[]>([]);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [file, setFile] = useState<any>();
 
   let list: any = [];
 
@@ -36,9 +37,14 @@ const ManageDeliveryListContainer = () => {
      */
   };
 
+  const fileHandler = (e: any) => {
+    const file = e.target.files;
+    onDropFile(file);
+  };
+
   const onDropFile = (
     files: FileList | null,
-    event: ReactDragEvent<HTMLDivElement>
+    event?: ReactDragEvent<HTMLDivElement>
   ) => {
     setIsLoading(true);
     if (files !== null && files.length > 0) {
@@ -50,7 +56,6 @@ const ManageDeliveryListContainer = () => {
         reader.onload = () => {
           const data = reader.result;
           const workbook = XLSX.read(data, { type: 'binary' });
-
           workbook.SheetNames.forEach((item) => {
             const excelToJson: IExcelItem[] = XLSX.utils.sheet_to_json(
               workbook.Sheets[item]
@@ -194,7 +199,6 @@ const ManageDeliveryListContainer = () => {
           };
           deliveries.push(item);
         }
-        console.log(deliveries.length);
       }
 
       if (deliveries.length <= 0) {
@@ -203,7 +207,6 @@ const ManageDeliveryListContainer = () => {
         return;
       }
 
-      console.log(deliveries.length);
       const res = await ManageDeliveryListRepository.deliveryCreation(
         deliveries
       );
@@ -232,12 +235,13 @@ const ManageDeliveryListContainer = () => {
       <ManageDeliveryList
         onFileInputChage={onFileInputChage}
         onDropFile={onDropFile}
-        uploadFileName={uploadFileName || '파일을 드롭하여 넣어주세요.'}
+        uploadFileName={uploadFileName || '파일을 드롭하거나 클릭해 주세요.'}
         excelList={excelList}
         handleExportExcel={handleExportExcel}
         handleDeliveryCreation={handleDeliveryCreation}
         donwloadExcelExample={donwloadExcelExample}
         openModal={openModal}
+        fileHandler={fileHandler}
       />
       {isOpen && <ManageDeliveryListModalContainer openModal={openModal} />}
     </>
