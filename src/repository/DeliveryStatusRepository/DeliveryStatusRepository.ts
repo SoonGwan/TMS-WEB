@@ -13,7 +13,7 @@ class DeliveryStatusRepository {
 
   trackingForDriver = async (idx: number) => {
     const data = await getRequest({
-      url: `/delivery/driver/${idx}`,
+      url: `/delivery/driver/completed/${idx}`,
       token: getToken(),
     });
 
