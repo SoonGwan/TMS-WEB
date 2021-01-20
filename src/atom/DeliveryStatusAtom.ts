@@ -1,7 +1,6 @@
-import { IAllProductList } from 'interface/DeliveryStatus';
 import { atom, RecoilState } from 'recoil';
 
-export const allProductList: RecoilState<IAllProductList[]> = atom({
+export const allProductList: RecoilState<any[]> = atom({
   key: 'allProductList',
-  default: [] as IAllProductList[],
+  default: [] as any[],
 });

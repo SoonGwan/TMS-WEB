@@ -2,17 +2,20 @@ import DashBoardCardView from 'components/common/DashBoardCardView';
 import palette from 'styles/palette';
 import DeliveryStatusListItemTemplate from './DeliveryStatusListItemTemplate';
 import SmallBtn from 'components/common/SmallBtn';
-import React, { CSSProperties, DetailedHTMLProps, HTMLAttributes } from 'react';
+import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
 import classNames from 'classnames/bind';
 import { ClassNamesFn } from 'classnames/types';
-import { DatePicker } from '@class101/ui';
 import { DeliveryTable } from 'enum/DeliveryTable';
+import dtil from 'dtil';
+import { useRecoilValue } from 'recoil';
+import { allProductList } from 'atom/DeliveryStatusAtom';
 
 interface IDeliveryStatus {
-  today: Date;
   tableValue: number;
   handleTableValue: (value: number) => void;
   tableHeaderText: (arg: number) => JSX.Element | null;
+  date: string;
+  setDate: Dispatch<SetStateAction<string>>;
 }
 
 const styles: CSSProperties = {
@@ -25,39 +28,42 @@ const style = require('./DeliveryStatus.scss');
 const cx: ClassNamesFn = classNames.bind(style);
 
 const DeliveryStatus = ({
-  today,
   handleTableValue,
   tableValue,
   tableHeaderText,
+  date,
+  setDate,
 }: IDeliveryStatus) => {
+  const product = useRecoilValue(allProductList);
+
   return (
     <>
       <div className={cx('DeliveryStatus')}>
         <div className={cx('DeliveryStatus-OverView')}>
           <div className={cx('DeliveryStatus-OverView-Date')}>
-            <DatePicker
-              style={styles}
-              adjustInputWidth={false}
-              highlightWeekEnd
-              maxDate={today}
-              value={today}
+            <input
+              className={cx('DeliveryStatus-OverView-Date-DatePicker')}
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
           <div className={cx('DeliveryStatus-OverView-CardView')}>
             <DashBoardCardView
               explanation="전체 물류 개수"
-              condition="1,000,000"
-              comparedYesterday={2.6}
+              condition={product.length}
             />
             <DashBoardCardView
               explanation="배송중인 물류 개수"
-              condition="700,000"
-              comparedYesterday={-2.6}
+              condition={
+                product.filter((element) => element.endTime === null).length
+              }
             />
             <DashBoardCardView
               explanation="배송 완료 개수"
-              condition="300,000"
-              comparedYesterday={2.6}
+              condition={
+                product.filter((element) => element.endTime !== null).length
+              }
             />
           </div>
           <div className={cx('DeliveryStatus-OverView-AllItemsList')}>
@@ -128,13 +134,7 @@ const DeliveryStatus = ({
               >
                 고객 이름
               </div>
-              <div
-                className={cx(
-                  'DeliveryStatus-OverView-AllItemsList-Header-Distance'
-                )}
-              >
-                배송 거리
-              </div>
+
               <div
                 className={cx(
                   'DeliveryStatus-OverView-AllItemsList-Header-StartAdress'
@@ -150,7 +150,7 @@ const DeliveryStatus = ({
             </div>
           </div>
         </div>
-        <div className={cx('DeliveryStatus-SubInfo')}>aㄴ</div>
+        {/* <div className={cx('DeliveryStatus-SubInfo')}>aㄴ</div> */}
       </div>
     </>
   );

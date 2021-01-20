@@ -5,8 +5,7 @@ import { ClassNamesFn } from 'classnames/types';
 
 interface IDashBoardCardView {
   explanation: string;
-  condition: string;
-  comparedYesterday: number;
+  condition: string | number;
   width?: string;
   height?: string;
   backgroundColor?: string;
@@ -20,7 +19,6 @@ const cx: ClassNamesFn = classNames.bind(style);
 const DashBoardCardView = ({
   explanation,
   condition,
-  comparedYesterday,
   width,
   height,
   backgroundColor = '#fff',
@@ -36,7 +34,7 @@ const DashBoardCardView = ({
         <div className={cx('DashBoardCardView-ConditionWrapper-Condition')}>
           {condition}
         </div>
-        <div
+        {/* <div
           className={cx(
             'DashBoardCardView-ConditionWrapper-ComparedPreviousDay',
             {
@@ -54,7 +52,7 @@ const DashBoardCardView = ({
             ? `+${comparedYesterday}%`
             : `-${comparedYesterday * -1}%`}
           )
-        </div>
+        </div> */}
       </div>
     </div>
   );

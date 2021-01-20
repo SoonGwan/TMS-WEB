@@ -23,10 +23,12 @@
       margin-bottom: 1vw;
 
       &-DatePicker {
-        width: 17vw;
-        & > input {
-          width: 100% !important;
-        }
+        border-radius: 4px;
+        padding: 1vw;
+        border: none;
+        box-shadow: 1px 4px 24px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        outline: none;
       }
     }
 

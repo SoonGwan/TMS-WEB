@@ -1,16 +1,9 @@
 import { allProductList } from 'atom/DeliveryStatusAtom';
+import { DeliveryTable } from 'enum/DeliveryTable';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { map } from 'underscore';
 import './DeliveryStatusListItemTemplate.scss';
-
-interface IDeliveryStatusListItemMap {
-  id: number;
-  fk_client_id: string;
-  fk_driver_id: string;
-  distance: number;
-  start_adress: string;
-  deliveryState: number;
-}
 
 interface IDeliveryStatusListItemTemplate {
   tableValue: number;
@@ -20,33 +13,94 @@ const DeliveryStatusListItemTemplate = ({
   tableValue,
 }: IDeliveryStatusListItemTemplate) => {
   const product = useRecoilValue(allProductList);
-  const filterProduct = product.filter(
-    (data) => data.deliveryState === tableValue
-  );
+  console.log(product);
 
-  const productList =
-    filterProduct &&
-    filterProduct.map((data: IDeliveryStatusListItemMap) => {
-      const { id, fk_client_id, fk_driver_id, distance, start_adress } = data;
+  const driverList =
+    tableValue === DeliveryTable.ALL
+      ? product.map((data) => {
+          const {
+            customerIdx,
+            customerName,
+            customerAddress,
+            driverIdx,
+            driverName,
+            driverAddress,
+            endOrderNumber,
+            endTime,
+          } = data;
+          return (
+            <div className="DeliveryStatusListItemTemplate">
+              <div className="DeliveryStatusListItemTemplate-DriverId">
+                {driverName}({driverIdx})
+              </div>
+              <div className="DeliveryStatusListItemTemplate-ClientId">
+                {customerName}({customerIdx})
+              </div>
+              <div className="DeliveryStatusListItemTemplate-StartAdress">
+                {customerAddress}
+              </div>
+            </div>
+          );
+        })
+      : tableValue === DeliveryTable.DELIVERING
+      ? product
+          .filter((element) => element.endTime === null)
+          .map((data) => {
+            const {
+              customerIdx,
+              customerName,
+              customerAddress,
+              driverIdx,
+              driverName,
+              driverAddress,
+              endOrderNumber,
+              endTime,
+            } = data;
+            return (
+              <div className="DeliveryStatusListItemTemplate">
+                <div className="DeliveryStatusListItemTemplate-DriverId">
+                  {driverName}({driverIdx})
+                </div>
+                <div className="DeliveryStatusListItemTemplate-ClientId">
+                  {customerName}({customerIdx})
+                </div>
+                <div className="DeliveryStatusListItemTemplate-StartAdress">
+                  {customerAddress}
+                </div>
+              </div>
+            );
+          })
+      : tableValue === DeliveryTable.DONE
+      ? product
+          .filter((element) => element.endTime !== null)
+          .map((data) => {
+            const {
+              customerIdx,
+              customerName,
+              customerAddress,
+              driverIdx,
+              driverName,
+              driverAddress,
+              endOrderNumber,
+              endTime,
+            } = data;
+            return (
+              <div className="DeliveryStatusListItemTemplate">
+                <div className="DeliveryStatusListItemTemplate-DriverId">
+                  {driverName}({driverIdx})
+                </div>
+                <div className="DeliveryStatusListItemTemplate-ClientId">
+                  {customerName}({customerIdx})
+                </div>
+                <div className="DeliveryStatusListItemTemplate-StartAdress">
+                  {customerAddress}
+                </div>
+              </div>
+            );
+          })
+      : null;
 
-      return (
-        <div className="DeliveryStatusListItemTemplate" key={id}>
-          <div className="DeliveryStatusListItemTemplate-DriverId">
-            {fk_driver_id}
-          </div>
-          <div className="DeliveryStatusListItemTemplate-ClientId">
-            {fk_client_id}
-          </div>
-          <div className="DeliveryStatusListItemTemplate-Distance">
-            {distance} 킬로미터
-          </div>
-          <div className="DeliveryStatusListItemTemplate-StartAdress">
-            {start_adress}
-          </div>
-        </div>
-      );
-    });
-  return <>{productList}</>;
+  return <div>{driverList}</div>;
 };
 
 export default DeliveryStatusListItemTemplate;
