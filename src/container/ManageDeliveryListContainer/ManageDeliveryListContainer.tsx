@@ -216,6 +216,7 @@ const ManageDeliveryListContainer = () => {
       setIsLoading(false);
 
       setExcelToJSON([]);
+      setUploadFileName('');
     } catch (err) {
       const { status } = err.response;
       failedUploadProduct(status);
