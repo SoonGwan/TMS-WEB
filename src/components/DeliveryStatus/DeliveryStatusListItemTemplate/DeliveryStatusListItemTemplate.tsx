@@ -13,7 +13,6 @@ const DeliveryStatusListItemTemplate = ({
   tableValue,
 }: IDeliveryStatusListItemTemplate) => {
   const product = useRecoilValue(allProductList);
-  console.log(product);
 
   const driverList =
     tableValue === DeliveryTable.ALL
@@ -56,6 +55,7 @@ const DeliveryStatusListItemTemplate = ({
               endOrderNumber,
               endTime,
             } = data;
+
             return (
               <div className="DeliveryStatusListItemTemplate">
                 <div className="DeliveryStatusListItemTemplate-DriverId">

@@ -5,12 +5,21 @@ import { useRecoilState } from 'recoil';
 import { allProductList } from 'atom/DeliveryStatusAtom';
 import { DeliveryTable } from 'enum/DeliveryTable';
 import moment from 'moment';
+import MemberRepository from 'repository/MemberRepository';
+import { IDeliveries, IDriverList } from 'interface/DeliveryStatus';
+import TrackingDriverInfo from 'components/DeliveryStatus/TrackingDriverInfo';
+import TrackingDriverList from 'components/DeliveryStatus/TrackingDriverList';
 
 const DeliveryStatusContainer = () => {
   const [, setProductList] = useRecoilState(allProductList);
   const [tableValue, setTableValue] = useState(DeliveryTable.ALL);
   const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD') || '');
-
+  const [driverListElement, setDriverListElement] = useState<HTMLElement>();
+  const [deliveriesInfoElement, setDeliveriesInfoElement] = useState<
+    HTMLElement
+  >();
+  const [deliveriesListLeng, setDeliveriesListLeng] = useState<number>(0);
+  const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const handleDeliveryList = useCallback(async () => {
     try {
       const {
@@ -59,9 +68,65 @@ const DeliveryStatusContainer = () => {
     return tableHeader;
   };
 
+  const handleTrackingForDriver = useCallback(async (idx) => {
+    try {
+      const {
+        data: { data },
+      } = await DeliveryStatusRepository.trackingForDriver(idx);
+      const { deliveries } = data;
+      setSelectedIdx(idx);
+      setDeliveriesListLeng(deliveries.length);
+      const deliveriesInfo = deliveries.map((data: IDeliveries) => {
+        const { createdAt, customer, driver, productName } = data;
+        return (
+          <TrackingDriverInfo
+            customerIdx={customer.idx}
+            customerName={customer.name}
+            customerAddress={customer.address}
+            driverIdx={driver.idx}
+            driverName={driver.name}
+            product={productName}
+          />
+        );
+      });
+      setDeliveriesInfoElement(deliveriesInfo || 'hello');
+    } catch (err) {
+      return err;
+    }
+  }, []);
+
+  const handleDriverList = useCallback(async () => {
+    try {
+      const {
+        data: { data },
+      } = await MemberRepository.getDrivers();
+      const { drivers } = data;
+      const driverList = drivers.map((data: IDriverList) => {
+        const { id, idx, isDelivering, name, address } = data;
+        return (
+          <>
+            <TrackingDriverList
+              handleTrackingForDriver={handleTrackingForDriver}
+              id={id}
+              idx={idx}
+              isDelivering={isDelivering}
+              name={name}
+              address={address}
+              selectedIdx={selectedIdx}
+            />
+          </>
+        );
+      });
+      setDriverListElement(driverList);
+    } catch (err) {
+      return err;
+    }
+  }, [handleTrackingForDriver, selectedIdx]);
+
   useEffect(() => {
     handleDeliveryList();
-  }, [handleDeliveryList]);
+    handleDriverList();
+  }, [handleDeliveryList, handleDriverList]);
   return (
     <>
       <DeliveryStatus
@@ -70,6 +135,9 @@ const DeliveryStatusContainer = () => {
         tableHeaderText={tableHeaderText}
         date={date}
         setDate={setDate}
+        driverListElement={driverListElement}
+        deliveriesInfoElement={deliveriesInfoElement}
+        deliveriesListLeng={deliveriesListLeng}
       />
     </>
   );

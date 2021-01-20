@@ -1,12 +1,10 @@
 import DashBoardCardView from 'components/common/DashBoardCardView';
-import palette from 'styles/palette';
 import DeliveryStatusListItemTemplate from './DeliveryStatusListItemTemplate';
 import SmallBtn from 'components/common/SmallBtn';
 import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
 import classNames from 'classnames/bind';
 import { ClassNamesFn } from 'classnames/types';
 import { DeliveryTable } from 'enum/DeliveryTable';
-import dtil from 'dtil';
 import { useRecoilValue } from 'recoil';
 import { allProductList } from 'atom/DeliveryStatusAtom';
 
@@ -16,13 +14,10 @@ interface IDeliveryStatus {
   tableHeaderText: (arg: number) => JSX.Element | null;
   date: string;
   setDate: Dispatch<SetStateAction<string>>;
+  driverListElement: HTMLElement | undefined;
+  deliveriesInfoElement: HTMLElement | undefined;
+  deliveriesListLeng: number;
 }
-
-const styles: CSSProperties = {
-  width: '17.6vw',
-  verticalAlign: 'top',
-  boxShadow: '1px 4px 24px rgba(0, 0, 0,0.1)',
-};
 
 const style = require('./DeliveryStatus.scss');
 const cx: ClassNamesFn = classNames.bind(style);
@@ -33,6 +28,9 @@ const DeliveryStatus = ({
   tableHeaderText,
   date,
   setDate,
+  driverListElement,
+  deliveriesInfoElement,
+  deliveriesListLeng,
 }: IDeliveryStatus) => {
   const product = useRecoilValue(allProductList);
 
@@ -150,7 +148,120 @@ const DeliveryStatus = ({
             </div>
           </div>
         </div>
-        {/* <div className={cx('DeliveryStatus-SubInfo')}>aㄴ</div> */}
+        <div className={cx('DeliveryStatus-SubInfo')}>
+          <div className={cx('DeliveryStatus-SubInfo-DriverList')}>
+            <div className={cx('DeliveryStatus-SubInfo-DriverList-Header')}>
+              드라이버 리스트
+            </div>
+            <div
+              className={cx('DeliveryStatus-SubInfo-DriverList-ItemWrapper')}
+            >
+              <div
+                className={cx(
+                  'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header'
+                )}
+              >
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-DriverName'
+                  )}
+                >
+                  아이디
+                </div>
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Customer'
+                  )}
+                >
+                  이름
+                </div>
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Address'
+                  )}
+                >
+                  주소
+                </div>
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Product'
+                  )}
+                >
+                  배달 현황
+                </div>
+              </div>
+              <div
+                className={cx(
+                  'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Section'
+                )}
+              >
+                {driverListElement}
+              </div>
+            </div>
+          </div>
+          <div className={cx('DeliveryStatus-SubInfo-DriverInfo')}>
+            <div className={cx('DeliveryStatus-SubInfo-DriverInfo-Header')}>
+              해당 드라이버 배달 내역
+            </div>
+            <div
+              className={cx('DeliveryStatus-SubInfo-DriverInfo-ItemWrapper')}
+            >
+              <div
+                className={cx(
+                  'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header'
+                )}
+              >
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-DriverName'
+                  )}
+                >
+                  드라이버
+                </div>
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-Customer'
+                  )}
+                >
+                  고객
+                </div>
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-Address'
+                  )}
+                >
+                  주소
+                </div>
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-Product'
+                  )}
+                >
+                  상품명
+                </div>
+              </div>
+              <div
+                className={cx(
+                  'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Section'
+                )}
+              >
+                {deliveriesListLeng === 0 ? (
+                  <>
+                    <div
+                      className={cx(
+                        'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Empty'
+                      )}
+                    >
+                      해당 드라이버는 내역이 없습니다.
+                    </div>
+                  </>
+                ) : (
+                  deliveriesInfoElement
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

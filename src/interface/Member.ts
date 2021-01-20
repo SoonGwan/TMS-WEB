@@ -1,4 +1,4 @@
-import { MemberLevel } from "enum/Member";
+import { MemberLevel } from 'enum/Member';
 
 export interface IMember {
   no: number;
@@ -11,3 +11,13 @@ export interface IMember {
 export interface IDriver extends IMember {
   is_delivering: boolean;
 }
+
+export interface ICustomer {
+  address: string;
+  id: string;
+  idx: number;
+  name: string;
+  role: number;
+}
+
+export interface IDriver extends ICustomer {}

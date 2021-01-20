@@ -1,0 +1,39 @@
+@import 'styles/palette.scss';
+
+.TrackingDriverInfo {
+  width: 100%;
+  padding: 1vw;
+  border-bottom: 1px solid $gray_C4C4C4;
+  display: flex;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background-color: darken($color: $white_FFFFFF, $amount: 10);
+  }
+  &:active {
+    background-color: darken($color: $white_FFFFFF, $amount: 15);
+  }
+
+  &-selected {
+    background-color: darken($color: $white_FFFFFF, $amount: 10);
+  }
+
+  &-DriverId {
+    width: 25%;
+  }
+
+  &-DriverName {
+    width: 15%;
+  }
+
+  &-DriverAddress {
+    width: 30%;
+    margin-right: 5%;
+  }
+
+  &-IsDelivering {
+    width: 25%;
+  }
+}
