@@ -5,6 +5,18 @@
   border-radius: 4px;
 }
 
+@mixin tableHeaderStyle {
+  width: 100%;
+  height: 4.512vh;
+  background-color: $white_FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0vw 1vw;
+  box-shadow: 1px 6px 18px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .DeliveryStatus {
   width: 100%;
   height: 100%;
@@ -168,6 +180,111 @@
     height: 100%;
     background-color: $white_FFFFFF;
     @include boxStyle();
+
+    &-DriverList {
+      width: 100%;
+      height: 50%;
+
+      &-Header {
+        @include tableHeaderStyle();
+        background-color: white;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+      &-ItemWrapper {
+        width: 100%;
+        height: calc(100% - 4.512vh);
+        overflow-y: auto;
+        // background-color: red;
+        // &::before {
+        //   content: 'asdfasfasf';
+        // }
+        &-Section {
+          width: 100%;
+          height: calc(100% - 5.4vh);
+          overflow-y: auto;
+        }
+
+        &-Header {
+          display: flex;
+          padding: 1vw;
+          font-weight: 500;
+          border-bottom: 1px solid $gray_C4C4C4;
+          &-DriverName {
+            width: 25%;
+          }
+
+          &-Customer {
+            width: 15%;
+          }
+
+          &-Address {
+            width: 30%;
+            margin-right: 5%;
+          }
+
+          &-Product {
+            width: 25%;
+          }
+        }
+      }
+    }
+
+    &-DriverInfo {
+      width: 100%;
+      height: 50%;
+
+      &-Header {
+        @include tableHeaderStyle();
+      }
+      &-ItemWrapper {
+        width: 100%;
+        height: calc(100% - 4.512vh);
+
+        &-Section {
+          width: 100%;
+          height: calc(100% - 5.4vh);
+          overflow-y: auto;
+        }
+        // background-color: red;
+        // &::before {
+        //   content: 'asdfasfasf';
+        // }
+        &-Header {
+          display: flex;
+          padding: 1vw;
+          font-weight: 500;
+          border-bottom: 1px solid $gray_C4C4C4;
+          &-DriverName {
+            width: 15%;
+          }
+
+          &-Customer {
+            width: 15%;
+          }
+
+          &-Address {
+            width: 40%;
+            margin-right: 5%;
+          }
+
+          &-Product {
+            width: 25%;
+          }
+        }
+
+        &-Empty {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          color: $gray_C4C4C4;
+          font-weight: 500;
+        }
+      }
+    }
   }
 }
 .DeliveryStatus-OverView-Date-DatePicker {

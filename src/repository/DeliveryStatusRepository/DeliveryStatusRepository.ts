@@ -10,6 +10,15 @@ class DeliveryStatusRepository {
 
     return data;
   };
+
+  trackingForDriver = async (idx: number) => {
+    const data = await getRequest({
+      url: `/delivery/driver/${idx}`,
+      token: getToken(),
+    });
+
+    return data;
+  };
 }
 
 export default new DeliveryStatusRepository();

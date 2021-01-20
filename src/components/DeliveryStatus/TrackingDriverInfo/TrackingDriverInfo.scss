@@ -1,0 +1,26 @@
+@import 'styles/palette.scss';
+
+.TrakingDriverInfo {
+  width: 100%;
+  padding: 1vw;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $blue_C4CBD6;
+  font-size: 14px;
+  &-DriverName {
+    width: 15%;
+  }
+
+  &-CustomerName {
+    width: 15%;
+  }
+
+  &-CustomerAddress {
+    width: 40%;
+    margin-right: 5%;
+  }
+
+  &-Product {
+    width: 25%;
+  }
+}
