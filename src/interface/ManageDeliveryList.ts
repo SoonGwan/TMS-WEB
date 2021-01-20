@@ -8,7 +8,7 @@ export interface IExcelItem {
 
 export interface IDeliveryItem {
   customerIdx: number | undefined;
-  driverIdx: number | undefined;
+  driverIdx?: number | undefined | null;
   productName: string | undefined;
 }
 

@@ -5,6 +5,7 @@
   "dependencies": {
     "@antv/g2plot": "^2.3.7",
     "@class101/ui": "^9.0.0-rc33",
+    "@emotion/react": "^11.1.4",
     "@opd/g2plot-react": "^2.5.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -43,6 +44,7 @@
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-spinners": "^0.10.4",
     "recoil": "^0.1.2",
     "socket.io-client": "2.3.0",
     "styled-components": "^5.2.1",
