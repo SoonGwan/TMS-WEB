@@ -8,13 +8,11 @@ import palette from 'styles/palette';
 import { IDriver } from 'interface/Member';
 
 interface IDriverDeliveryChart {
-  drivers: IDriver[],
+  drivers: IDriver[];
 }
 
-const DriverDeliveryChart = ({
-  drivers
-}: IDriverDeliveryChart) => {
-  const deliveringDriverCount = drivers.filter(e => e.is_delivering).length;
+const DriverDeliveryChart = ({ drivers }: IDriverDeliveryChart) => {
+  const deliveringDriverCount = drivers.filter((e) => e.isDelivering).length;
 
   const pieOption: PieOptions = {
     angleField: 'value',
@@ -24,7 +22,7 @@ const DriverDeliveryChart = ({
       style: {
         fontSize: 16,
         fill: palette.blue_6685A8,
-      }
+      },
     },
     legend: {
       position: 'bottom',
@@ -32,8 +30,8 @@ const DriverDeliveryChart = ({
         padding: [60, 0, 0, 0],
         style: {
           stroke: null,
-        }
-      }
+        },
+      },
     },
     data: [
       {
@@ -43,9 +41,9 @@ const DriverDeliveryChart = ({
       {
         name: '배달 중',
         value: deliveringDriverCount,
-      }
-    ]
-  }
+      },
+    ],
+  };
 
   return (
     <div className="DriverDeliveryChart">
@@ -53,8 +51,8 @@ const DriverDeliveryChart = ({
       <div className="DriverDeliveryChart-Wrapper">
         <PieChart {...pieOption} />
       </div>
-    </div >
-  )
-}
+    </div>
+  );
+};
 
 export default DriverDeliveryChart;

@@ -5,8 +5,8 @@ import './MemberTableItem.scss';
 import { MemberLevel } from 'enum/Member';
 
 interface IMemberTableItem {
-  member: IMember,
-  memberLevel: MemberLevel,
+  member: IMember;
+  memberLevel: MemberLevel;
 }
 
 const MemberTableItem = ({
@@ -22,20 +22,20 @@ const MemberTableItem = ({
       return undefined;
     }
 
-    if (driver.is_delivering) {
+    if (driver.isDelivering) {
       return (
         <div className="MemberTableItem-DeliveryStatus-Delivery">
           <span>배송 중</span>
         </div>
-      )
+      );
     }
 
     return (
       <div className="MemberTableItem-DeliveryStatus-Await">
         <span>대기 중</span>
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <tr className="MemberTableItem">
@@ -51,11 +51,9 @@ const MemberTableItem = ({
         <span>{address}</span>
       </td>
 
-      <td>
-        {composeDeliveryStatusLabel()}
-      </td>
-    </tr >
-  )
-}
+      <td>{composeDeliveryStatusLabel()}</td>
+    </tr>
+  );
+};
 
 export default MemberTableItem;
