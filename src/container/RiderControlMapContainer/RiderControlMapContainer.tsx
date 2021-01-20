@@ -1,11 +1,8 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import DriverSocket from './RiderSingleton';
 import dtil from 'dtil';
 import RiderControlMap from 'components/RiderControlMap';
 import RiderControlMapRepository from 'repository/RiderControlMapRepository';
-import RiderStatusListItemTemplate from 'components/RiderControlMap/RiderStatusList/RiderStatusListItemTemplate';
-import { DriverDeliveryState } from 'atom/RiderControlMapAtom';
-import { useRecoilState } from 'recoil';
 import {
   IDeliveringList,
   IRiderSocketLocation,
@@ -23,7 +20,6 @@ class MapSingleton {
     navigator.geolocation.getCurrentPosition((data) => {
       let lat = 36;
       let long = 127;
-
       if (data) {
         const { longitude, latitude } = data.coords;
         lat = latitude;
@@ -38,12 +34,23 @@ class MapSingleton {
 
       this.map = new window.kakao.maps.Map(container, options);
 
-      var marker = new window.kakao.maps.Marker({
-        // 지도 중심좌표에 마커를 생성합니다
+      const marker = new window.kakao.maps.Marker({
         position: MapSingleton.getInstance().map.getCenter(),
       });
-      // 지도에 마커를 표시합니다
+
       marker.setMap(MapSingleton.getInstance().map);
+
+      const mapTypeControl = new window.kakao.maps.MapTypeControl();
+      MapSingleton.getInstance().map.addControl(
+        mapTypeControl,
+        window.kakao.maps.ControlPosition.TOPRIGHT
+      );
+
+      const zoomControl = new window.kakao.maps.ZoomControl();
+      MapSingleton.getInstance().map.addControl(
+        zoomControl,
+        window.kakao.maps.ControlPosition.RIGHT
+      );
     });
   }
 
@@ -82,7 +89,6 @@ interface IMarker {
 }
 
 const RiderControlMapContainer = () => {
-  const [, setOriginDriverState] = useRecoilState(DriverDeliveryState);
   const [markers, setMarkers] = useState<IMarker[]>([]);
   const [deliverlingList, setDeliverlingList] = useState<IDeliveringList[]>();
 
@@ -131,8 +137,6 @@ const RiderControlMapContainer = () => {
 
   const handleRiderLocation = useCallback(
     ({ data }: IRiderSocketLocation) => {
-      console.log('pass');
-
       const markerIdx = markers.findIndex(
         (e) => e.driverIdx === data.driverIdx
       );
@@ -145,7 +149,6 @@ const RiderControlMapContainer = () => {
           marker,
           ...markers.slice(markerIdx),
         ]);
-        console.log(markers);
       } else {
         const marker = {
           ...data,
