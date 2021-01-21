@@ -7,6 +7,7 @@ import { ClassNamesFn } from 'classnames/types';
 import { DeliveryTable } from 'enum/DeliveryTable';
 import { useRecoilValue } from 'recoil';
 import { allProductList } from 'atom/DeliveryStatusAtom';
+import dtil from 'dtil';
 
 interface IDeliveryStatus {
   tableValue: number;
@@ -33,7 +34,7 @@ const DeliveryStatus = ({
   deliveriesListLeng,
 }: IDeliveryStatus) => {
   const product = useRecoilValue(allProductList);
-
+  const today = dtil().format('YYYY-MM-DD');
   return (
     <>
       <div className={cx('DeliveryStatus')}>
@@ -201,7 +202,7 @@ const DeliveryStatus = ({
           </div>
           <div className={cx('DeliveryStatus-SubInfo-DriverInfo')}>
             <div className={cx('DeliveryStatus-SubInfo-DriverInfo-Header')}>
-              해당 드라이버 배달 내역
+              드라이버별 배달 완료 내역 ({today})
             </div>
             <div
               className={cx('DeliveryStatus-SubInfo-DriverInfo-ItemWrapper')}
