@@ -1,8 +1,8 @@
 import { allProductList } from 'atom/DeliveryStatusAtom';
 import { DeliveryTable } from 'enum/DeliveryTable';
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { map } from 'underscore';
+import DeliveryStatusListItemElement from '../DeliveryStatusListItemElement';
 import './DeliveryStatusListItemTemplate.scss';
 
 interface IDeliveryStatusListItemTemplate {
@@ -30,20 +30,16 @@ const DeliveryStatusListItemTemplate = ({
           } = data;
 
           return (
-            <div className="DeliveryStatusListItemTemplate">
-              <div className="DeliveryStatusListItemTemplate-DriverId">
-                {driverName}({driverIdx})
-              </div>
-              <div className="DeliveryStatusListItemTemplate-ClientId">
-                {customerName}({customerIdx})
-              </div>
-              <div className="DeliveryStatusListItemTemplate-StartAddress">
-                {customerAddress}
-              </div>
-              <div className="DeliveryStatusListItemTemplate-Product">
-                {productName}
-              </div>
-            </div>
+            <DeliveryStatusListItemElement
+              customerIdx={customerIdx}
+              customerName={customerName}
+              customerAddress={customerAddress}
+              driverIdx={driverIdx}
+              driverName={driverName}
+              productName={productName}
+              driverAddress={driverAddress}
+              endOrderNumber={endOrderNumber}
+            />
           );
         })
       : tableValue === DeliveryTable.DELIVERING
@@ -57,22 +53,22 @@ const DeliveryStatusListItemTemplate = ({
               driverIdx,
               driverName,
               driverAddress,
+              productName,
               endOrderNumber,
               endTime,
             } = data;
 
             return (
-              <div className="DeliveryStatusListItemTemplate">
-                <div className="DeliveryStatusListItemTemplate-DriverId">
-                  {driverName}({driverIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-ClientId">
-                  {customerName}({customerIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-StartAdress">
-                  {customerAddress}
-                </div>
-              </div>
+              <DeliveryStatusListItemElement
+                customerIdx={customerIdx}
+                customerName={customerName}
+                customerAddress={customerAddress}
+                driverIdx={driverIdx}
+                driverName={driverName}
+                productName={productName}
+                driverAddress={driverAddress}
+                endOrderNumber={endOrderNumber}
+              />
             );
           })
       : tableValue === DeliveryTable.DONE
@@ -85,22 +81,22 @@ const DeliveryStatusListItemTemplate = ({
               customerAddress,
               driverIdx,
               driverName,
+              productName,
               driverAddress,
               endOrderNumber,
               endTime,
             } = data;
             return (
-              <div className="DeliveryStatusListItemTemplate">
-                <div className="DeliveryStatusListItemTemplate-DriverId">
-                  {driverName}({driverIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-ClientId">
-                  {customerName}({customerIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-StartAdress">
-                  {customerAddress}
-                </div>
-              </div>
+              <DeliveryStatusListItemElement
+                customerIdx={customerIdx}
+                customerName={customerName}
+                customerAddress={customerAddress}
+                driverIdx={driverIdx}
+                driverName={driverName}
+                productName={productName}
+                driverAddress={driverAddress}
+                endOrderNumber={endOrderNumber}
+              />
             );
           })
       : null;
