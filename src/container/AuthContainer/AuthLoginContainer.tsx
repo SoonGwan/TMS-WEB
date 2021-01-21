@@ -43,17 +43,18 @@ const AuthLoginContainer = ({ history }: IAuthLoginContainer) => {
           localStorage.setItem('x-access-token', token);
           sessionStorage.removeItem('x-access-token');
 
-          history.push('/');
+          history.push('/member');
         } else {
           sessionStorage.setItem('x-access-token', token);
           localStorage.removeItem('x-access-token');
 
-          history.push('/');
+          history.push('/member');
         }
       }
     } catch (err) {
-      const { status } = err.response;
-      loginError(status);
+      // const { status } = err.response;
+      // console.log(err.response);
+      // loginError(status);
 
       localStorage.removeItem('x-access-token');
       sessionStorage.removeItem('x-access-token');

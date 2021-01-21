@@ -8,13 +8,13 @@ function App() {
   return (
     <>
       <Switch>
-        <Route
+        {/* <Route
           exact
           path="/"
           render={() =>
             !isTokenEmpty() ? <PAGES.ControlMap /> : <Redirect to="/login" />
           }
-        />
+        /> */}
         <Route
           exact
           path="/member"
