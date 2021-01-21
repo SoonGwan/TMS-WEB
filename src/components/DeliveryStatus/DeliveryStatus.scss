@@ -138,12 +138,17 @@
         &-Distance {
           width: 10%;
           height: 100%;
-          margin-right: 5%;
+          margin-right: 2.5%;
         }
 
         &-StartAdress {
-          width: 55%;
+          width: 35%;
           height: 100%;
+          margin-right: 2.5%;
+        }
+
+        &-Product {
+          width: 20%;
         }
       }
 
@@ -255,6 +260,7 @@
           padding: 1vw;
           font-weight: 500;
           border-bottom: 1px solid $gray_C4C4C4;
+
           &-DriverName {
             width: 15%;
           }
@@ -263,13 +269,13 @@
             width: 15%;
           }
 
-          &-Address {
-            width: 40%;
-            margin-right: 5%;
+          &-StartAddress {
+            width: 35%;
+            margin-right: 2.5%;
           }
 
           &-Product {
-            width: 25%;
+            width: 32.5%;
           }
         }
 

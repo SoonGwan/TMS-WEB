@@ -136,10 +136,17 @@ const DeliveryStatus = ({
 
               <div
                 className={cx(
-                  'DeliveryStatus-OverView-AllItemsList-Header-StartAdress'
+                  'DeliveryStatus-OverView-AllItemsList-Header-StartAddress'
                 )}
               >
-                배송 시작 주소
+                주소
+              </div>
+              <div
+                className={cx(
+                  'DeliveryStatus-OverView-AllItemsList-Header-Product'
+                )}
+              >
+                상품명
               </div>
             </div>
             <div
