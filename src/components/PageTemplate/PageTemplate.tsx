@@ -23,7 +23,7 @@ const PageTemplate = ({ children }: IPageTemplate) => {
     <div className={cx('PageTemplate')}>
       <div className={cx('PageTemplate-NavBar')}>
         <div className={cx('PageTemplate-NavBar-ItemsWrapper')}>
-          {/* <Link
+          <Link
             to={'/'}
             className={cx('PageTemplate-NavBar-ItemsWrapper-Link')}
           >
@@ -35,7 +35,7 @@ const PageTemplate = ({ children }: IPageTemplate) => {
             >
               <HiOutlineLocationMarker />
             </div>
-          </Link> */}
+          </Link>
           <Link
             to={'/member'}
             className={cx('PageTemplate=NavNar-ItemsWrapper-Link')}

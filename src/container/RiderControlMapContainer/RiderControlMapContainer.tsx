@@ -18,25 +18,9 @@ class MapSingleton {
   public map: any;
   private markersEl: any[] = [];
   public isLoaded = false;
-
-  setMarkers(markers: IMarker[]) {
-    for (const markerEl of this.markersEl) {
-      markerEl.setMap(null);
-    }
-    const map = MapSingleton.getInstance().map;
-
-    for (const marker of markers) {
-      const markerEl = new window.kakao.maps.Marker({
-        position: new window.kakao.maps.LatLng(marker.lat, marker.long),
-      });
-
-      this.markersEl.push(markerEl);
-      markerEl.setMap(map);
-    }
-  }
+  public markers: IMarker[] = [];
 
   public initMap() {
-    // navigator.geolocation.getCurrentPosition((data) => {
     if (this.isLoaded) {
       return;
     }
@@ -44,16 +28,10 @@ class MapSingleton {
     let lat = 36;
     let long = 127;
 
-    // if (data) {
-    //   const { longitude, latitude } = data.coords;
-    //   lat = latitude;
-    //   long = longitude;
-    // }
-
     const container = document.getElementById('map');
     const options = {
       center: new window.kakao.maps.LatLng(lat, long),
-      level: 6,
+      level: 12,
     };
 
     this.map = new window.kakao.maps.Map(container, options);
@@ -70,15 +48,32 @@ class MapSingleton {
       window.kakao.maps.ControlPosition.RIGHT
     );
 
-    const marker = new window.kakao.maps.Marker({
-      position: MapSingleton.getInstance().map.getCenter(),
-    });
+    // const marker = new window.kakao.maps.Marker({});
 
-    marker.setMap(MapSingleton.getInstance().map);
-    // });
+    // marker.setMap(MapSingleton.getInstance().map);
     this.isLoaded = true;
-  }
 
+    this.setMarkers(this.markers);
+  }
+  setMarkers(markers: IMarker[]) {
+    console.log(markers);
+
+    for (const markerEl of this.markersEl) {
+      markerEl.setMap(null);
+    }
+    const map = MapSingleton.getInstance().map;
+
+    for (const marker of markers) {
+      const markerEl = new window.kakao.maps.Marker({
+        position: new window.kakao.maps.LatLng(marker.lat, marker.long),
+      });
+
+      this.markersEl.push(markerEl);
+      markerEl.setMap(map);
+    }
+
+    console.log(this.markersEl);
+  }
   static getInstance() {
     if (MapSingleton.instance === undefined) {
       MapSingleton.instance = new MapSingleton();
@@ -160,6 +155,7 @@ const RiderControlMapContainer = () => {
           ...data,
         };
         setMarkers([...markers, marker]);
+        MapSingleton.getInstance().markers = [...markers, marker];
       }
     },
     [markers]
@@ -168,16 +164,20 @@ const RiderControlMapContainer = () => {
   useEffect(() => {
     DriverSocket.getInstance(handleRiderLocation);
     MapSingleton.getInstance().initMap();
-    MapSingleton.getInstance().setMarkers(markers);
-
-    return () => {
-      MapSingleton.getInstance().isLoaded = false;
-    };
+    MapSingleton.getInstance().setMarkers(MapSingleton.getInstance().markers);
   }, [handleRiderLocation, markers]);
 
   useEffect(() => {
     handleDeliveringList();
   }, [handleDeliveringList]);
+
+  useEffect(() => {
+    return () => {
+      // MapSingleton.getInstance().markers = markers;
+      console.log(MapSingleton.getInstance().markers);
+      MapSingleton.getInstance().isLoaded = false;
+    };
+  }, []);
   return (
     <>
       <RiderControlMap />
