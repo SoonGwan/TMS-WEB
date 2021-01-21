@@ -32,11 +32,19 @@ const DeliveryStatusContainer = () => {
       let driveriesTemp = [];
 
       for (let i = 0; i < deliveries.length; i += 1) {
-        const { customer, driver, endOrderNumber, endTime } = deliveries[i];
+        const {
+          customer,
+          driver,
+          endOrderNumber,
+          endTime,
+          productName,
+        } = deliveries[i];
+
         const temp = {
           customerIdx: customer.idx,
           customerName: customer.name,
           customerAddress: customer.address,
+          productName: productName,
           driverIdx: driver.idx,
           driverName: driver.name,
           driverAddress: driver.address,

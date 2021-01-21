@@ -23,10 +23,12 @@ const DeliveryStatusListItemTemplate = ({
             customerAddress,
             driverIdx,
             driverName,
+            productName,
             driverAddress,
             endOrderNumber,
             endTime,
           } = data;
+
           return (
             <div className="DeliveryStatusListItemTemplate">
               <div className="DeliveryStatusListItemTemplate-DriverId">
@@ -35,8 +37,11 @@ const DeliveryStatusListItemTemplate = ({
               <div className="DeliveryStatusListItemTemplate-ClientId">
                 {customerName}({customerIdx})
               </div>
-              <div className="DeliveryStatusListItemTemplate-StartAdress">
+              <div className="DeliveryStatusListItemTemplate-StartAddress">
                 {customerAddress}
+              </div>
+              <div className="DeliveryStatusListItemTemplate-Product">
+                {productName}
               </div>
             </div>
           );
