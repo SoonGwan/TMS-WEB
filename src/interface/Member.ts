@@ -21,3 +21,18 @@ export interface ICustomer {
 }
 
 export interface IDriver extends ICustomer {}
+
+export interface INewDriverElement {
+  id: string;
+  name: string;
+  phone: string;
+  truckName: string;
+  truckSize: string;
+}
+
+export interface INewCustomerElement {
+  idx: number;
+  name: string;
+  address: string;
+  phone: string;
+}
