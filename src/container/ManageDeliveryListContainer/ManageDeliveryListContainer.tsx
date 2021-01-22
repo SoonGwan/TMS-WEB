@@ -95,7 +95,7 @@ const ManageDeliveryListContainer = () => {
     const {
       customerIdx,
       customerName,
-      driverIdx,
+      driverId,
       driverName,
       productName,
     } = data;
@@ -104,7 +104,7 @@ const ManageDeliveryListContainer = () => {
         <ManageDeliveryListInnerItemTemplate
           customerIdx={customerIdx}
           customerName={customerName}
-          driverIdx={driverIdx}
+          driverId={driverId}
           driverName={driverName}
           productName={productName}
         />
@@ -120,25 +120,17 @@ const ManageDeliveryListContainer = () => {
         data: { data },
       } = await MemberRepository.getCustomers();
       const { customers } = data;
-
       const req = await MemberRepository.getDrivers();
       const { drivers } = req.data.data;
       const today = dtil().format('YYYY-MM-DD');
-      const excelUserHeader = [
-        '고객 고유 번호',
-        '아이디',
-        '이름',
-        '주소',
-        '권한',
-      ];
+      const excelUserHeader = ['고객 고유 번호', '이름', '주소', '전화번호'];
       const excelBlank = [''];
       const excelDriverHeader = [
-        '기사 고유 번호',
         '아이디',
         '이름',
-        '주소',
-        '권한',
-        '배송중',
+        '전화번호',
+        '트럭 이름',
+        '적재함 사이즈',
       ];
       list.push(excelUserHeader);
 
@@ -166,16 +158,16 @@ const ManageDeliveryListContainer = () => {
     }
   }, [list]);
 
-  const donwloadExcelExample = () => {
+  /*  const donwloadExcelExample = () => {
     const header = [
-      ['customerIdx', 'customerName', 'driverIdx', 'driverName', 'productName'],
+      ['customerIdx', 'customerName', 'driverId', 'driverName', 'productName'],
     ];
     const workSheetData = header;
     const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);
     const workBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workBook, workSheet, 'sheet title');
     XLSX.writeFile(workBook, '업로드 예제.xlsx');
-  };
+  }; */
 
   const handleDeliveryCreation = useCallback(async () => {
     try {
@@ -184,21 +176,14 @@ const ManageDeliveryListContainer = () => {
       let deliveries = [];
 
       for (let i = 0; i < excelToJSON.length; i += 1) {
-        const { customerIdx, driverIdx, productName } = excelToJSON[i];
-        if (driverIdx === undefined) {
-          const item = {
-            customerIdx,
-            productName,
-          };
-          deliveries.push(item);
-        } else {
-          const item = {
-            customerIdx,
-            driverIdx,
-            productName,
-          };
-          deliveries.push(item);
-        }
+        const { customerIdx, driverId, productName } = excelToJSON[i];
+
+        const item = {
+          customerIdx,
+          driverId,
+          productName,
+        };
+        deliveries.push(item);
       }
 
       if (deliveries.length <= 0) {
@@ -208,7 +193,7 @@ const ManageDeliveryListContainer = () => {
       }
 
       const res = await ManageDeliveryListRepository.deliveryCreation(
-        deliveries
+        deliveries as any
       );
 
       const { status } = res;
@@ -240,7 +225,6 @@ const ManageDeliveryListContainer = () => {
         excelList={excelList}
         handleExportExcel={handleExportExcel}
         handleDeliveryCreation={handleDeliveryCreation}
-        donwloadExcelExample={donwloadExcelExample}
         openModal={openModal}
         fileHandler={fileHandler}
       />

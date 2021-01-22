@@ -18,7 +18,6 @@ interface IManageDeliveryList {
   excelList: JSX.Element[];
   handleExportExcel: () => void;
   handleDeliveryCreation: () => void;
-  donwloadExcelExample: () => void;
   openModal: () => void;
   fileHandler: (e: any) => void;
 }
@@ -33,7 +32,6 @@ const ManageDeliveryList = ({
   excelList,
   handleExportExcel,
   handleDeliveryCreation,
-  donwloadExcelExample,
   openModal,
   fileHandler,
 }: IManageDeliveryList) => {
@@ -79,12 +77,6 @@ const ManageDeliveryList = ({
       <div className="ManageDeliveryList-ViewExcelList">
         <div className="ManageDeliveryList-ViewExcelList-Header">
           <div className="ManageDeliveryList-ViewExcelList-Header-Wrapper">
-            <div
-              className="ManageDeliveryList-ViewExcelList-Header-ExampleExcel"
-              onClick={donwloadExcelExample}
-            >
-              업로드 엑셀 다운
-            </div>
             <div className="ManageDeliveryList-OpenModal" onClick={openModal}>
               따로 물품 업로드 하기
             </div>

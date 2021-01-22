@@ -36,9 +36,9 @@ export const EmptyArray = () => {
 };
 
 export const EmptyRequest = (delivery: IDeliveryItem) => {
-  const { customerIdx, driverIdx, productName } = delivery;
+  const { customerIdx, driverId, productName } = delivery;
 
-  if (!customerIdx || !driverIdx || !productName) {
+  if (!customerIdx || !driverId || !productName) {
     ShowToast({
       backgroundColor: Colors.redError,
       message: '비어있는 값이 있습니다.',

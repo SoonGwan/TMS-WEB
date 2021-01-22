@@ -4,7 +4,7 @@ import './ManageDeliveryListInnerItemTemplate.scss';
 interface IManageDeliveryListInnerItemTemplate {
   customerIdx: number;
   customerName: string;
-  driverIdx: number;
+  driverId: string;
   driverName: string;
   productName: string;
 }
@@ -12,7 +12,7 @@ interface IManageDeliveryListInnerItemTemplate {
 const ManageDeliveryListInnerItemTemplate = ({
   customerIdx,
   customerName,
-  driverIdx,
+  driverId,
   driverName,
   productName,
 }: IManageDeliveryListInnerItemTemplate) => {
@@ -22,7 +22,7 @@ const ManageDeliveryListInnerItemTemplate = ({
         {customerIdx} ({customerName})
       </div>
       <div className="ManageDeliveryListInnerItemTemplate-Driver">
-        {driverIdx} {driverName}
+        {driverId} {driverName}
       </div>
       <div className="ManageDeliveryListInnerItemTemplate-Product">
         {productName}

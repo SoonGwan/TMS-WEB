@@ -7,8 +7,8 @@ interface IDeliveryListModal {
   openModal: () => void;
   customerList: ICustomerList[] | undefined;
   driverList: IDriverList[] | undefined;
-  driverIdx: number | undefined;
-  setDriverIdx: Dispatch<SetStateAction<number | undefined>>;
+  driverIdx: string | undefined;
+  setDriverIdx: Dispatch<SetStateAction<string | undefined>>;
   customerIdx: number | undefined;
   setCustomerIdx: Dispatch<SetStateAction<number | undefined>>;
   product: string | undefined;
@@ -40,7 +40,7 @@ const DeliveryListModal = ({
           />
           <Select
             options={driverList}
-            onChange={(e) => setDriverIdx(Number(e.target.value))}
+            onChange={(e) => setDriverIdx(e.target.value)}
           />
           <Input
             placeholder="상품명을 입력해주세요."
