@@ -19,10 +19,10 @@ const ManageDeliveryListInnerItemTemplate = ({
   return (
     <div className="ManageDeliveryListInnerItemTemplate" key={customerIdx}>
       <div className="ManageDeliveryListInnerItemTemplate-Client">
-        {customerIdx} ({customerName})
+        {customerName}, {customerIdx}
       </div>
       <div className="ManageDeliveryListInnerItemTemplate-Driver">
-        {driverId} {driverName}
+        {driverName}, {driverId}
       </div>
       <div className="ManageDeliveryListInnerItemTemplate-Product">
         {productName}

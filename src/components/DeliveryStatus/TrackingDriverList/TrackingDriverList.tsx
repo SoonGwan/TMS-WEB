@@ -14,6 +14,7 @@ interface ITrackingDriverList {
   completedCount: number;
   phone: string;
   truckNumber: string;
+  selectDriver: (arg1: string, arg2: string) => void;
 }
 
 const style = require('./TrackingDriverList.scss');
@@ -31,6 +32,7 @@ const TrackingDriverList = ({
   completedCount,
   phone,
   truckNumber,
+  selectDriver,
 }: ITrackingDriverList) => {
   return (
     <div
@@ -39,6 +41,7 @@ const TrackingDriverList = ({
       })}
       onClick={() => {
         handleTrackingForDriver(id);
+        selectDriver(name, id);
       }}
       key={idx}
     >

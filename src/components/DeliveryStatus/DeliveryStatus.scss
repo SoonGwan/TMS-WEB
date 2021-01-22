@@ -237,6 +237,13 @@
 
       &-Header {
         @include tableHeaderStyle();
+        display: flex;
+        justify-content: space-between;
+
+        & > div > span {
+          font-size: 16px;
+          margin-left: 0.5vw;
+        }
       }
       &-ItemWrapper {
         width: 100%;
@@ -263,11 +270,12 @@
 
           &-Customer {
             width: 15%;
+            margin-right: 2.5%;
           }
 
           &-Address {
             width: 40%;
-            margin-right: 5%;
+            margin-right: 2.5%;
           }
 
           &-Product {

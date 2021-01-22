@@ -82,10 +82,10 @@ const ManageDeliveryList = ({
             </div>
           </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Client">
-            고객 고유번호 (고객 이름)
+            고객 이름, 고유번호
           </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Driver">
-            드라이버 고유번호 (드라이버 이름)
+            배송기사 이름, 아이디
           </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Product">
             물품 정보
