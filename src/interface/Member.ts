@@ -20,7 +20,7 @@ export interface ICustomer {
   role: number;
 }
 
-export interface IDriver extends ICustomer {}
+export interface IDriver extends ICustomer { }
 
 export interface INewDriverElement {
   id: string;
@@ -35,4 +35,10 @@ export interface INewCustomerElement {
   name: string;
   address: string;
   phone: string;
+}
+
+
+export interface IDriverWithCount extends INewDriverElement {
+  totalCount: number;
+  completedCount: number;
 }
