@@ -19,6 +19,15 @@ class DeliveryStatusRepository {
 
     return data;
   };
+
+  driverDistance = async (id: string | undefined) => {
+    const { data } = await getRequest({
+      url: `/delivery/driver/distance/${id}`,
+      token: getToken(),
+    });
+
+    return data;
+  };
 }
 
 export default new DeliveryStatusRepository();

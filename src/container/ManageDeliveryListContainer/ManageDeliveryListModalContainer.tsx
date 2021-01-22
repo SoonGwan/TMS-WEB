@@ -36,7 +36,7 @@ const ManageDeliveryListModalContainer = ({
       console.log(drivers);
 
       let customerTemp = [{ label: '고객을 선택해주세요.', value: 0 }];
-      let driverTemp = [{ label: '드라이버를 선택해주세요.', value: '' }];
+      let driverTemp = [{ label: '배송기사를 선택해주세요.', value: '' }];
 
       for (let i = 0; i < customers.length; i += 1) {
         const { idx, id, name, address } = customers[i];

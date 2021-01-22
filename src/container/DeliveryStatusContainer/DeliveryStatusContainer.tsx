@@ -10,6 +10,7 @@ import { IDeliveries, IDriverList } from 'interface/DeliveryStatus';
 import TrackingDriverInfo from 'components/DeliveryStatus/TrackingDriverInfo';
 import TrackingDriverList from 'components/DeliveryStatus/TrackingDriverList';
 import TrackDriverInfoImageModal from 'components/DeliveryStatus/TrackDriverInfoImageModal';
+import Loading from 'components/common/Loading';
 
 const DeliveryStatusContainer = () => {
   const [, setProductList] = useRecoilState(allProductList);
@@ -22,8 +23,44 @@ const DeliveryStatusContainer = () => {
   const [deliveriesListLeng, setDeliveriesListLeng] = useState<number>(0);
   const [selectedIdx, setSelectedIdx] = useState<string>('');
   const [isOpenModal, setIsOpenModal] = useState<Boolean>(false);
+  const [selectedDriverName, setSelectedDriverName] = useState<string>('');
+  const [distance, setDistance] = useState<number>();
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [distaceLoading, setDistanceLoading] = useState<Boolean>(false);
+  const handleDriverDistance = useCallback(async (id: string) => {
+    try {
+      setDistanceLoading(true);
+
+      setDistance(undefined);
+      const { data } = await DeliveryStatusRepository.driverDistance(id);
+      const { distance } = data;
+
+      setDistance(distance);
+
+      setDistanceLoading(false);
+    } catch (err) {
+      setDistanceLoading(false);
+
+      return err;
+    }
+  }, []);
+
+  const selectDriver = useCallback(
+    async (name: string, id: string) => {
+      setIsLoading(true);
+
+      setSelectedDriverName(name);
+      await handleDriverDistance(id);
+
+      setIsLoading(false);
+    },
+    [handleDriverDistance]
+  );
+
   const handleDeliveryList = useCallback(async () => {
     try {
+      setIsLoading(true);
+
       const {
         data: { data },
       } = await DeliveryStatusRepository.deliveryList(date);
@@ -58,7 +95,10 @@ const DeliveryStatusContainer = () => {
       }
 
       setProductList(driveriesTemp);
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
+
       return err;
     }
   }, [date, setProductList]);
@@ -86,15 +126,18 @@ const DeliveryStatusContainer = () => {
 
   const handleTrackingForDriver = useCallback(async (idx: string) => {
     try {
+      setIsLoading(true);
+
       const {
         data: { data },
       } = await DeliveryStatusRepository.trackingForDriver(idx);
       const { deliveries } = data;
-
       setSelectedIdx(idx);
       setDeliveriesListLeng(deliveries.length);
       const deliveriesInfo = deliveries.map((data: IDeliveries) => {
         const { createdAt, customer, driver, productName, image, idx } = data;
+        // setSelectedDriverName(d)
+
         return (
           <TrackingDriverInfo
             customerIdx={customer.idx}
@@ -108,13 +151,18 @@ const DeliveryStatusContainer = () => {
         );
       });
       setDeliveriesInfoElement(deliveriesInfo);
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
+
       return err;
     }
   }, []);
 
   const handleDriverList = useCallback(async () => {
     try {
+      setIsLoading(true);
+
       const {
         data: { data },
       } = await MemberRepository.getDrivers();
@@ -146,22 +194,30 @@ const DeliveryStatusContainer = () => {
               selectedIdx={selectedIdx}
               totalCount={totalCount}
               completedCount={completedCount}
+              selectDriver={selectDriver}
             />
           </>
         );
       });
       setDriverListElement(driverList);
+
+      setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
+
       return err;
     }
-  }, [handleTrackingForDriver, selectedIdx]);
+  }, [handleTrackingForDriver, selectDriver, selectedIdx]);
 
   useEffect(() => {
     handleDeliveryList();
     handleDriverList();
   }, [handleDeliveryList, handleDriverList]);
+
   return (
     <>
+      {distaceLoading && <Loading />}
+      {isLoading && <Loading />}
       <DeliveryStatus
         tableValue={tableValue}
         handleTableValue={handleTableValue}
@@ -171,6 +227,8 @@ const DeliveryStatusContainer = () => {
         driverListElement={driverListElement}
         deliveriesInfoElement={deliveriesInfoElement}
         deliveriesListLeng={deliveriesListLeng}
+        selectedDriverName={selectedDriverName}
+        distance={distance}
       />
       {/* {isOpenModal && (
         <TrackDriverInfoImageModal openImageModal={openImageModal} />
