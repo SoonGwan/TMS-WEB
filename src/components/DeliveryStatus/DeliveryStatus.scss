@@ -65,12 +65,13 @@
         width: 100%;
         height: 4.512vh;
         padding: 0vh 1vw;
+        color: $blue_6685A8;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
         &-Title {
-          font-size: 18px;
+          font-size: 22px;
           font-weight: 500;
         }
 
