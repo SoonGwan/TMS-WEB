@@ -33,7 +33,6 @@ const ManageDeliveryListModalContainer = ({
 
       const { customers } = user.data.data;
       const { drivers } = driver.data.data;
-      console.log(drivers);
 
       let customerTemp = [{ label: '고객을 선택해주세요.', value: 0 }];
       let driverTemp = [{ label: '배송기사를 선택해주세요.', value: '' }];
@@ -49,7 +48,6 @@ const ManageDeliveryListModalContainer = ({
 
       for (let i = 0; i < drivers.length; i += 1) {
         const { idx, id, name, phone } = drivers[i];
-        console.log(drivers[i]);
 
         const temp = {
           label: `${name}(${id}) ${phone}`,
@@ -73,8 +71,6 @@ const ManageDeliveryListModalContainer = ({
         driverId,
         productName: product,
       };
-
-      console.log(delivery);
 
       if (!EmptyRequest(delivery)) {
         return;

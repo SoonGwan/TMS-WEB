@@ -14,7 +14,6 @@ class ManageDeliveryListRepository {
   };
 
   singleDeliveryCreation = async (delivery: IDeliveryItem) => {
-    console.log('repo', delivery);
     const data = await postRequest({
       url: '/delivery/single',
       request: delivery,

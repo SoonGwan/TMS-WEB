@@ -56,8 +56,6 @@ class MapSingleton {
     this.setMarkers(this.markers);
   }
   setMarkers(markers: IMarker[]) {
-    console.log(markers);
-
     for (const markerEl of this.markersEl) {
       markerEl.setMap(null);
     }
@@ -71,8 +69,6 @@ class MapSingleton {
       this.markersEl.push(markerEl);
       markerEl.setMap(map);
     }
-
-    console.log(this.markersEl);
   }
   static getInstance() {
     if (MapSingleton.instance === undefined) {
@@ -170,7 +166,6 @@ const RiderControlMapContainer = () => {
   useEffect(() => {
     return () => {
       // MapSingleton.getInstance().markers = markers;
-      console.log(MapSingleton.getInstance().markers);
       MapSingleton.getInstance().isLoaded = false;
     };
   }, []);
