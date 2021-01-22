@@ -1,15 +1,16 @@
 export interface IExcelItem {
   customerIdx: number;
   customerName: string;
-  driverIdx: number;
   driverName: string;
   productName: string;
+  driverId: string;
 }
 
 export interface IDeliveryItem {
   customerIdx: number | undefined;
-  driverIdx?: number | undefined | null;
   productName: string | undefined;
+  id?: string | undefined;
+  driverId?: string | undefined;
 }
 
 export interface ICustomerList {
@@ -19,5 +20,5 @@ export interface ICustomerList {
 
 export interface IDriverList {
   label: string;
-  value: number;
+  value: string;
 }
