@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import './DeliveryStatusListItemElement.scss';
+import palette from 'styles/palette';
 
 interface IDeliveryStatusListItemElement {
   customerIdx: number;
@@ -35,15 +35,31 @@ const DeliveryStatusListItemElement = ({
 }: IDeliveryStatusListItemElement) => {
   const HtmlTooltip = withStyles((theme) => ({
     tooltip: {
-      backgroundColor: '#f5f5f9',
-      color: 'rgba(0, 0, 0, 0.87)',
+      backgroundColor: palette.gray_444444,
+      color: palette.white_FFFFFF,
       maxWidth: 510,
       // fontSize: theme.typography.pxToRem(12),
       fontSize: '14px',
       border: '1px solid #dadde9',
+      padding: '20px',
       borderRadius: '2px',
     },
   }))(Tooltip);
+
+  const generateTooltipItem = (title: string, content: string | number) => {
+    return <div style={{
+      display: 'flex',
+      alignItems: 'center',
+    }}>
+      <div style={{
+        width: '80px',
+        marginBottom: '2px',
+      }}>{title}</div>
+      <div style={{
+        fontWeight: 'normal',
+      }}>{content}</div>
+    </div>
+  }
 
   return (
     <>
@@ -52,12 +68,15 @@ const DeliveryStatusListItemElement = ({
           placement="bottom-start"
           title={
             <React.Fragment>
-              <Typography color="inherit">
-                {driverName} 드라이버 정보
-              </Typography>
-              <div>전화번호 : {driverPhone}</div>
-              <div>트럭번호 : {driverTruckNumber}</div>
-              <div>최대 적재용량 : {driverTruckSize}t</div>
+              <h3 style={{
+                marginBottom: '20px',
+              }}>
+                {driverName}
+              </h3>
+
+              {generateTooltipItem('전화번호', driverPhone)}
+              {generateTooltipItem('트럭번호', driverTruckNumber)}
+              {generateTooltipItem('용량', driverTruckSize)}
             </React.Fragment>
           }
         >
@@ -69,8 +88,13 @@ const DeliveryStatusListItemElement = ({
           placement="bottom-start"
           title={
             <React.Fragment>
-              <Typography color="inherit">{customerName} 고객 정보</Typography>
-              <div>전화번호 : {customerPhone}</div>
+              <h3 style={{
+                marginBottom: '20px',
+              }}>
+                {customerName}
+              </h3>
+              {generateTooltipItem('전화번호', customerPhone)}
+              {generateTooltipItem('주소', customerAddress)}
             </React.Fragment>
           }
         >
