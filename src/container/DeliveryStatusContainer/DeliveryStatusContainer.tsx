@@ -45,7 +45,6 @@ const DeliveryStatusContainer = () => {
           customerAddress: customer.address,
           customerPhone: customer.phone,
           productName: productName,
-          driverIdx: driver.idx,
           driverName: driver.name,
           driverAddress: driver.address,
           driverPhone: driver.phone,
@@ -101,7 +100,6 @@ const DeliveryStatusContainer = () => {
             customerIdx={customer.idx}
             customerName={customer.name}
             customerAddress={customer.address}
-            driverIdx={driver.idx}
             driverName={driver.name}
             product={productName}
             image={image}

@@ -21,7 +21,6 @@ const DeliveryStatusListItemTemplate = ({
             customerIdx,
             customerName,
             customerAddress,
-            driverIdx,
             driverName,
             productName,
             driverAddress,
@@ -38,7 +37,6 @@ const DeliveryStatusListItemTemplate = ({
               customerIdx={customerIdx}
               customerName={customerName}
               customerAddress={customerAddress}
-              driverIdx={driverIdx}
               driverName={driverName}
               productName={productName}
               driverAddress={driverAddress}
@@ -58,7 +56,7 @@ const DeliveryStatusListItemTemplate = ({
               customerIdx,
               customerName,
               customerAddress,
-              driverIdx,
+
               driverName,
               productName,
               driverAddress,
@@ -75,7 +73,6 @@ const DeliveryStatusListItemTemplate = ({
                 customerIdx={customerIdx}
                 customerName={customerName}
                 customerAddress={customerAddress}
-                driverIdx={driverIdx}
                 driverName={driverName}
                 productName={productName}
                 driverAddress={driverAddress}
@@ -95,7 +92,6 @@ const DeliveryStatusListItemTemplate = ({
               customerIdx,
               customerName,
               customerAddress,
-              driverIdx,
               driverName,
               productName,
               driverAddress,
@@ -111,7 +107,6 @@ const DeliveryStatusListItemTemplate = ({
                 customerIdx={customerIdx}
                 customerName={customerName}
                 customerAddress={customerAddress}
-                driverIdx={driverIdx}
                 driverName={driverName}
                 productName={productName}
                 driverAddress={driverAddress}
