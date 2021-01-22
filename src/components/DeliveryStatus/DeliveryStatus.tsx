@@ -136,7 +136,7 @@ const DeliveryStatus = ({
 
               <div
                 className={cx(
-                  'DeliveryStatus-OverView-AllItemsList-Header-StartAddress'
+                  'DeliveryStatus-OverView-AllItemsList-Header-Address'
                 )}
               >
                 주소

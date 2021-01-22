@@ -39,15 +39,18 @@ const DeliveryStatusContainer = () => {
           endTime,
           productName,
         } = deliveries[i];
-
         const temp = {
           customerIdx: customer.idx,
           customerName: customer.name,
           customerAddress: customer.address,
+          customerPhone: customer.phone,
           productName: productName,
           driverIdx: driver.idx,
           driverName: driver.name,
           driverAddress: driver.address,
+          driverPhone: driver.phone,
+          driverTruckNumber: driver.truckNumber,
+          driverTruckSize: driver.truckSize,
           endOrderNumber,
           endTime,
         };
