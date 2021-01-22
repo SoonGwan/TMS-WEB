@@ -27,6 +27,10 @@ const DeliveryStatusListItemTemplate = ({
             driverAddress,
             endOrderNumber,
             endTime,
+            customerPhone,
+            driverPhone,
+            driverTruckNumber,
+            driverTruckSize,
           } = data;
 
           return (
@@ -39,6 +43,10 @@ const DeliveryStatusListItemTemplate = ({
               productName={productName}
               driverAddress={driverAddress}
               endOrderNumber={endOrderNumber}
+              customerPhone={customerPhone}
+              driverPhone={driverPhone}
+              driverTruckNumber={driverTruckNumber}
+              driverTruckSize={driverTruckSize}
             />
           );
         })
@@ -52,10 +60,14 @@ const DeliveryStatusListItemTemplate = ({
               customerAddress,
               driverIdx,
               driverName,
-              driverAddress,
               productName,
+              driverAddress,
               endOrderNumber,
               endTime,
+              customerPhone,
+              driverPhone,
+              driverTruckNumber,
+              driverTruckSize,
             } = data;
 
             return (
@@ -68,6 +80,10 @@ const DeliveryStatusListItemTemplate = ({
                 productName={productName}
                 driverAddress={driverAddress}
                 endOrderNumber={endOrderNumber}
+                customerPhone={customerPhone}
+                driverPhone={driverPhone}
+                driverTruckNumber={driverTruckNumber}
+                driverTruckSize={driverTruckSize}
               />
             );
           })
@@ -85,6 +101,10 @@ const DeliveryStatusListItemTemplate = ({
               driverAddress,
               endOrderNumber,
               endTime,
+              customerPhone,
+              driverPhone,
+              driverTruckNumber,
+              driverTruckSize,
             } = data;
             return (
               <DeliveryStatusListItemElement
@@ -96,6 +116,10 @@ const DeliveryStatusListItemTemplate = ({
                 productName={productName}
                 driverAddress={driverAddress}
                 endOrderNumber={endOrderNumber}
+                customerPhone={customerPhone}
+                driverPhone={driverPhone}
+                driverTruckNumber={driverTruckNumber}
+                driverTruckSize={driverTruckSize}
               />
             );
           })

@@ -136,7 +136,7 @@ const DeliveryStatus = ({
 
               <div
                 className={cx(
-                  'DeliveryStatus-OverView-AllItemsList-Header-StartAddress'
+                  'DeliveryStatus-OverView-AllItemsList-Header-Address'
                 )}
               >
                 주소
@@ -174,21 +174,21 @@ const DeliveryStatus = ({
                     'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-DriverName'
                   )}
                 >
-                  아이디
+                  배송기사
                 </div>
                 <div
                   className={cx(
-                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Customer'
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-PhoneNumber'
                   )}
                 >
-                  이름
+                  전화번호
                 </div>
                 <div
                   className={cx(
-                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Address'
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-TruckNumber'
                   )}
                 >
-                  주소
+                  차량 번호
                 </div>
                 <div
                   className={cx(
@@ -224,7 +224,7 @@ const DeliveryStatus = ({
                     'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-DriverName'
                   )}
                 >
-                  드라이버
+                  배송기사
                 </div>
                 <div
                   className={cx(

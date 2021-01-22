@@ -26,6 +26,10 @@ export interface IDriverList {
   isDelivering: Boolean;
   name: string;
   address: string;
+  totalCount: number;
+  completedCount: number;
+  phone: string;
+  truckNumber: string;
 }
 
 export interface IDeliveries {

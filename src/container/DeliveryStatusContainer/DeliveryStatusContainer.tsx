@@ -20,7 +20,7 @@ const DeliveryStatusContainer = () => {
     HTMLElement
   >();
   const [deliveriesListLeng, setDeliveriesListLeng] = useState<number>(0);
-  const [selectedIdx, setSelectedIdx] = useState<number>(0);
+  const [selectedIdx, setSelectedIdx] = useState<string>('');
   const [isOpenModal, setIsOpenModal] = useState<Boolean>(false);
   const handleDeliveryList = useCallback(async () => {
     try {
@@ -39,15 +39,18 @@ const DeliveryStatusContainer = () => {
           endTime,
           productName,
         } = deliveries[i];
-
         const temp = {
           customerIdx: customer.idx,
           customerName: customer.name,
           customerAddress: customer.address,
+          customerPhone: customer.phone,
           productName: productName,
           driverIdx: driver.idx,
           driverName: driver.name,
           driverAddress: driver.address,
+          driverPhone: driver.phone,
+          driverTruckNumber: driver.truckNumber,
+          driverTruckSize: driver.truckSize,
           endOrderNumber,
           endTime,
         };
@@ -82,12 +85,13 @@ const DeliveryStatusContainer = () => {
   //   setIsOpenModal(!isOpenModal);
   // }, [isOpenModal]);
 
-  const handleTrackingForDriver = useCallback(async (idx) => {
+  const handleTrackingForDriver = useCallback(async (idx: string) => {
     try {
       const {
         data: { data },
       } = await DeliveryStatusRepository.trackingForDriver(idx);
       const { deliveries } = data;
+
       setSelectedIdx(idx);
       setDeliveriesListLeng(deliveries.length);
       const deliveriesInfo = deliveries.map((data: IDeliveries) => {
@@ -117,8 +121,19 @@ const DeliveryStatusContainer = () => {
         data: { data },
       } = await MemberRepository.getDrivers();
       const { drivers } = data;
+
       const driverList = drivers.map((data: IDriverList) => {
-        const { id, idx, isDelivering, name, address } = data;
+        const {
+          id,
+          idx,
+          isDelivering,
+          name,
+          address,
+          phone,
+          truckNumber,
+          totalCount,
+          completedCount,
+        } = data;
         return (
           <>
             <TrackingDriverList
@@ -127,8 +142,12 @@ const DeliveryStatusContainer = () => {
               idx={idx}
               isDelivering={isDelivering}
               name={name}
+              phone={phone}
+              truckNumber={truckNumber}
               address={address}
               selectedIdx={selectedIdx}
+              totalCount={totalCount}
+              completedCount={completedCount}
             />
           </>
         );
