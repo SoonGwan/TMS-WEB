@@ -20,20 +20,21 @@
     background-color: darken($color: $white_FFFFFF, $amount: 10);
   }
 
-  &-DriverId {
-    width: 25%;
-  }
-
   &-DriverName {
     width: 15%;
   }
 
-  &-DriverAddress {
-    width: 30%;
-    margin-right: 5%;
+  &-PhoneNumber {
+    width: 20%;
+    margin-right: 2.5%;
   }
 
-  &-IsDelivering {
+  &-TruckNumber {
+    width: 20%;
+    margin-right: 2.5%;
+  }
+
+  &-TotalCount {
     width: 25%;
   }
 }

@@ -10,6 +10,10 @@ interface ITrackingDriverList {
   name: string;
   handleTrackingForDriver: (args: number) => void;
   selectedIdx: number;
+  totalCount: number;
+  completedCount: number;
+  phone: string;
+  truckNumber: string;
 }
 
 const style = require('./TrackingDriverList.scss');
@@ -23,6 +27,10 @@ const TrackingDriverList = ({
   name,
   handleTrackingForDriver,
   selectedIdx,
+  totalCount,
+  completedCount,
+  phone,
+  truckNumber,
 }: ITrackingDriverList) => {
   return (
     <div
@@ -34,13 +42,11 @@ const TrackingDriverList = ({
       }}
       key={idx}
     >
-      <div className={cx('TrackingDriverInfo-DriverId')}>
-        {id}({idx})
-      </div>
       <div className={cx('TrackingDriverInfo-DriverName')}>{name}</div>
-      <div className={cx('TrackingDriverInfo-DriverAddress')}>{address}</div>
-      <div className={cx('TrackingDriverInfo-IsDelivering')}>
-        {isDelivering ? '온라인' : '오프라인'}
+      <div className={cx('TrackingDriverInfo-PhoneNumber')}>{phone}</div>
+      <div className={cx('TrackingDriverInfo-TruckNumber')}>{truckNumber}</div>
+      <div className={cx('TrackingDriverInfo-TotalCount')}>
+        {completedCount} / {totalCount}
       </div>
     </div>
   );

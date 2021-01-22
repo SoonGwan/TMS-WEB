@@ -174,21 +174,21 @@ const DeliveryStatus = ({
                     'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-DriverName'
                   )}
                 >
-                  아이디
-                </div>
-                <div
-                  className={cx(
-                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Customer'
-                  )}
-                >
                   이름
                 </div>
                 <div
                   className={cx(
-                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Address'
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-PhoneNumber'
                   )}
                 >
-                  주소
+                  전화번호
+                </div>
+                <div
+                  className={cx(
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-TruckNumber'
+                  )}
+                >
+                  차량 번호
                 </div>
                 <div
                   className={cx(

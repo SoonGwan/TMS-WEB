@@ -211,16 +211,17 @@
           font-weight: 500;
           border-bottom: 1px solid $gray_C4C4C4;
           &-DriverName {
-            width: 25%;
-          }
-
-          &-Customer {
             width: 15%;
           }
 
-          &-Address {
-            width: 30%;
-            margin-right: 5%;
+          &-PhoneNumber {
+            width: 20%;
+            margin-right: 2.5%;
+          }
+
+          &-TruckNumber {
+            width: 20%;
+            margin-right: 2.5%;
           }
 
           &-Product {

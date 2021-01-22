@@ -91,6 +91,7 @@ const DeliveryStatusContainer = () => {
         data: { data },
       } = await DeliveryStatusRepository.trackingForDriver(idx);
       const { deliveries } = data;
+
       setSelectedIdx(idx);
       setDeliveriesListLeng(deliveries.length);
       const deliveriesInfo = deliveries.map((data: IDeliveries) => {
@@ -120,8 +121,19 @@ const DeliveryStatusContainer = () => {
         data: { data },
       } = await MemberRepository.getDrivers();
       const { drivers } = data;
+
       const driverList = drivers.map((data: IDriverList) => {
-        const { id, idx, isDelivering, name, address } = data;
+        const {
+          id,
+          idx,
+          isDelivering,
+          name,
+          address,
+          phone,
+          truckNumber,
+          totalCount,
+          completedCount,
+        } = data;
         return (
           <>
             <TrackingDriverList
@@ -130,8 +142,12 @@ const DeliveryStatusContainer = () => {
               idx={idx}
               isDelivering={isDelivering}
               name={name}
+              phone={phone}
+              truckNumber={truckNumber}
               address={address}
               selectedIdx={selectedIdx}
+              totalCount={totalCount}
+              completedCount={completedCount}
             />
           </>
         );

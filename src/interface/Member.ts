@@ -26,7 +26,7 @@ export interface INewDriverElement {
   id: string;
   name: string;
   phone: string;
-  truckName: string;
+  truckNumber: string;
   truckSize: string;
 }
 
