@@ -22,7 +22,7 @@ const ManageDeliveryListModalContainer = ({
 }: IManageDeliveryListModalContainer) => {
   const [customerList, setCustomerList] = useState<ICustomerList[]>();
   const [driverList, setDriverList] = useState<IDriverList[]>();
-  const [driverIdx, setDriverIdx] = useState<string>();
+  const [driverId, setDriverId] = useState<string>();
   const [customerIdx, setCustomerIdx] = useState<number>();
   const [product, setProduct] = useState<string>();
 
@@ -70,7 +70,7 @@ const ManageDeliveryListModalContainer = ({
     try {
       const delivery: IDeliveryItem = {
         customerIdx,
-        driverId: driverIdx,
+        driverId,
         productName: product,
       };
 
@@ -96,7 +96,7 @@ const ManageDeliveryListModalContainer = ({
 
         openModal();
         setCustomerIdx(undefined);
-        setDriverIdx(undefined);
+        setDriverId(undefined);
         setProduct(undefined);
       }
       return data;
@@ -106,7 +106,7 @@ const ManageDeliveryListModalContainer = ({
 
       return err;
     }
-  }, [customerIdx, driverIdx, openModal, product]);
+  }, [customerIdx, driverId, openModal, product]);
 
   useEffect(() => {
     handleMemberList();
@@ -117,8 +117,8 @@ const ManageDeliveryListModalContainer = ({
       openModal={openModal}
       customerList={customerList}
       driverList={driverList}
-      driverIdx={driverIdx}
-      setDriverIdx={setDriverIdx}
+      driverId={driverId}
+      setDriverId={setDriverId}
       customerIdx={customerIdx}
       setCustomerIdx={setCustomerIdx}
       product={product}

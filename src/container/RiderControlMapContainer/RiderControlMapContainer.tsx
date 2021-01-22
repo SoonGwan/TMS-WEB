@@ -86,7 +86,7 @@ class MapSingleton {
 interface IMarker {
   lat: number;
   long: number;
-  driverIdx: number;
+  driverId: string;
 }
 
 const RiderControlMapContainer = () => {
@@ -109,7 +109,6 @@ const RiderControlMapContainer = () => {
           customer,
           customerIdx,
           driver,
-          driverIdx,
           endOrderNumber,
           endTime,
           idx,
@@ -121,7 +120,6 @@ const RiderControlMapContainer = () => {
           customerIdx,
           customerName: customer.name,
           customerAdress: customer.address,
-          driverIdx,
           driverName: driver.name,
           endOrderNumber,
           endTime,
@@ -138,9 +136,7 @@ const RiderControlMapContainer = () => {
 
   const handleRiderLocation = useCallback(
     ({ data }: IRiderSocketLocation) => {
-      const markerIdx = markers.findIndex(
-        (e) => e.driverIdx === data.driverIdx
-      );
+      const markerIdx = markers.findIndex((e) => e.driverId === data.driverId);
       if (markerIdx !== -1) {
         const marker = { ...markers[markerIdx] };
         marker.lat = data.lat;

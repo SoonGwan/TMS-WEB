@@ -8,7 +8,6 @@ interface IDeliveryStatusListItemElement {
   customerIdx: number;
   customerName: string;
   customerAddress: string;
-  driverIdx: number;
   driverName: string;
   productName: string;
   driverAddress: string;
@@ -23,7 +22,6 @@ const DeliveryStatusListItemElement = ({
   customerIdx,
   customerName,
   customerAddress,
-  driverIdx,
   driverName,
   productName,
   driverAddress,
@@ -47,19 +45,31 @@ const DeliveryStatusListItemElement = ({
   }))(Tooltip);
 
   const generateTooltipItem = (title: string, content: string | number) => {
-    return <div style={{
-      display: 'flex',
-      alignItems: 'center',
-    }}>
-      <div style={{
-        width: '80px',
-        marginBottom: '2px',
-      }}>{title}</div>
-      <div style={{
-        fontWeight: 'normal',
-      }}>{content}</div>
-    </div>
-  }
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: '80px',
+            marginBottom: '2px',
+          }}
+        >
+          {title}
+        </div>
+        <div
+          style={{
+            fontWeight: 'normal',
+          }}
+        >
+          {content}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -68,9 +78,11 @@ const DeliveryStatusListItemElement = ({
           placement="bottom-start"
           title={
             <React.Fragment>
-              <h3 style={{
-                marginBottom: '20px',
-              }}>
+              <h3
+                style={{
+                  marginBottom: '20px',
+                }}
+              >
                 {driverName}
               </h3>
 
@@ -88,9 +100,11 @@ const DeliveryStatusListItemElement = ({
           placement="bottom-start"
           title={
             <React.Fragment>
-              <h3 style={{
-                marginBottom: '20px',
-              }}>
+              <h3
+                style={{
+                  marginBottom: '20px',
+                }}
+              >
                 {customerName}
               </h3>
               {generateTooltipItem('전화번호', customerPhone)}

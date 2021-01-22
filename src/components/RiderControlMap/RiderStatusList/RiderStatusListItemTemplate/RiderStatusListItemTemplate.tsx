@@ -13,7 +13,7 @@ const RiderStatusListItemTemplate = () => {
           {/* {customerName}({customerIdx}) */}
         </div>
         <div className="RiderStatusListItemTemplate-Status">
-          {/* {driverName} ({driverIdx}) */}
+          {/* {driverName} ({}) */}
         </div>
         <div className="RiderStatusListItemTemplate-Adress">
           {/* {customerAdress} */}

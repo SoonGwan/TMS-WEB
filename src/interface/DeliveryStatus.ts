@@ -13,7 +13,6 @@ export interface IChangeDriverList {
   customerIdx: number;
   customerName: string;
   customerAddress: string;
-  driverIdx: number;
   driverName: string;
   driverAddress: string;
   endOrderNumber: number | null;
@@ -37,7 +36,6 @@ export interface IDeliveries {
   customer: ICustomer;
   customerIdx: number;
   driver: IDriver;
-  driverIdx: number;
   endOrderNumber: string | null;
   idx: number;
   image: string | null;

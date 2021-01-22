@@ -13,7 +13,6 @@ interface ITrackingDriverInfo {
   customerIdx: number;
   customerName: string;
   customerAddress: string;
-  driverIdx: number;
   driverName: string;
   product: string;
   image: string | null;
@@ -25,7 +24,6 @@ const TrackingDriverInfo = ({
   customerIdx,
   customerName,
   customerAddress,
-  driverIdx,
   driverName,
   product,
   image,
