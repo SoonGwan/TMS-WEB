@@ -52,12 +52,8 @@ ITrackingDriverInfo) => {
         }}
         key={idx}
       >
-        <div className="TrakingDriverInfo-DriverName">
-          {driverName} ({driverIdx})
-        </div>
-        <div className="TrakingDriverInfo-CustomerName">
-          {customerName} ({customerIdx})
-        </div>
+        <div className="TrakingDriverInfo-DriverName">{driverName}</div>
+        <div className="TrakingDriverInfo-CustomerName">{customerName}</div>
         <div className="TrakingDriverInfo-CustomerAddress">
           {customerAddress}
         </div>

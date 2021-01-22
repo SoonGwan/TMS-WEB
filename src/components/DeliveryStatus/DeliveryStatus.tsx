@@ -174,7 +174,7 @@ const DeliveryStatus = ({
                     'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-DriverName'
                   )}
                 >
-                  이름
+                  배송기사
                 </div>
                 <div
                   className={cx(
@@ -224,7 +224,7 @@ const DeliveryStatus = ({
                     'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-DriverName'
                   )}
                 >
-                  드라이버
+                  배송기사
                 </div>
                 <div
                   className={cx(

@@ -8,8 +8,8 @@ interface ITrackingDriverList {
   idx: number;
   isDelivering: Boolean;
   name: string;
-  handleTrackingForDriver: (args: number) => void;
-  selectedIdx: number;
+  handleTrackingForDriver: (args: string) => void;
+  selectedIdx: string;
   totalCount: number;
   completedCount: number;
   phone: string;
@@ -35,10 +35,10 @@ const TrackingDriverList = ({
   return (
     <div
       className={cx('TrackingDriverInfo', {
-        'TrackingDriverInfo-selected': selectedIdx === idx,
+        'TrackingDriverInfo-selected': selectedIdx === id,
       })}
       onClick={() => {
-        handleTrackingForDriver(idx);
+        handleTrackingForDriver(id);
       }}
       key={idx}
     >

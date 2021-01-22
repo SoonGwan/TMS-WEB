@@ -20,7 +20,7 @@ const DeliveryStatusContainer = () => {
     HTMLElement
   >();
   const [deliveriesListLeng, setDeliveriesListLeng] = useState<number>(0);
-  const [selectedIdx, setSelectedIdx] = useState<number>(0);
+  const [selectedIdx, setSelectedIdx] = useState<string>('');
   const [isOpenModal, setIsOpenModal] = useState<Boolean>(false);
   const handleDeliveryList = useCallback(async () => {
     try {
@@ -85,7 +85,7 @@ const DeliveryStatusContainer = () => {
   //   setIsOpenModal(!isOpenModal);
   // }, [isOpenModal]);
 
-  const handleTrackingForDriver = useCallback(async (idx) => {
+  const handleTrackingForDriver = useCallback(async (idx: string) => {
     try {
       const {
         data: { data },
