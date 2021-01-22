@@ -1,5 +1,5 @@
 import { MemberLevel } from 'enum/Member';
-import { IDriver } from 'interface/Member';
+import { IDriverWithCount } from 'interface/Member';
 import React from 'react';
 import DriverDeliveryChart from '../DriverDeliveryChart';
 import MemberTable from '../MemberTable';
@@ -8,23 +8,26 @@ import './MemberBox.scss';
 
 interface IMemberBox {
   levelFilter: MemberLevel,
-  memberItems: JSX.Element[],
+  driverItems: JSX.Element[],
+  customerItems: JSX.Element[],
   handleFilterMember: () => void;
-  drivers: IDriver[];
+  drivers: IDriverWithCount[];
 }
 
 const MemberBox = ({
   levelFilter,
-  memberItems,
+  driverItems,
+  customerItems,
   handleFilterMember,
   drivers,
 }: IMemberBox) => {
   return (
-    <div className="Driver">
+    <div className="MemberBox">
       <MemberTable
         memberLevel={levelFilter}
         handleFilterMember={handleFilterMember}
-        memberItems={memberItems} />
+        driverItems={driverItems}
+        customerItems={customerItems} />
       <DriverDeliveryChart drivers={drivers} />
     </div>
   )

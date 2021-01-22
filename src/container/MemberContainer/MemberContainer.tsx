@@ -4,28 +4,16 @@ import { useRecoilState } from 'recoil';
 import { CustomerState, DriverState } from 'atom/MemberAtom';
 import MemberRepository from 'repository/MemberRepository';
 import { MemberLevel } from 'enum/Member';
-import MemberTableItem from 'components/Member/MemberTableItem';
+import MemberTableItem from 'components/Member/DriverTableItem';
 import MemberBox from 'components/Member/MemberBox';
 import { fetchDriverError } from 'validation/MemberValidation';
+import DriverTableItem from 'components/Member/DriverTableItem';
+import CustomerTableItem from 'components/Member/CustomerTableItem';
 
 const MemberContainer = (): JSX.Element => {
   const [drivers, setDrivers] = useRecoilState(DriverState);
   const [customers, setCustomers] = useRecoilState(CustomerState);
   const [levelFilter, setLevelFilter] = useState<MemberLevel>(MemberLevel.DRIVER);
-
-  const filterMember = () => {
-    if (levelFilter === MemberLevel.DRIVER) {
-
-      return drivers;
-    }
-    else if (levelFilter === MemberLevel.CUSTOMER) {
-      return customers;
-    }
-
-    return [];
-  }
-
-  const filteredMember = filterMember();
 
   const handleFetchDrivers = useCallback(async () => {
     try {
@@ -58,12 +46,12 @@ const MemberContainer = (): JSX.Element => {
     handleFetchCustomers();
   }, [handleFetchCustomers, handleFetchDrivers])
 
-  const memberItems = filteredMember.map((member) => {
-    return <MemberTableItem
-      key={member.no}
-      memberLevel={levelFilter}
-      member={member}
-    />
+  const driverItems = drivers.map((driver) => {
+    return <DriverTableItem driver={driver} />
+  });
+
+  const customerItems = customers.map((customer) => {
+    return <CustomerTableItem customer={customer} />
   });
 
   return (
@@ -72,7 +60,8 @@ const MemberContainer = (): JSX.Element => {
       <MemberBox
         drivers={drivers}
         levelFilter={levelFilter}
-        memberItems={memberItems}
+        driverItems={driverItems}
+        customerItems={customerItems}
         handleFilterMember={handleFilterMemberByLevel}
       />
     </div >

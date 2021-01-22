@@ -1,0 +1,14 @@
+@import 'styles/palette.scss';
+
+.CustomerTableItem {
+  background-color: $white_FFFFFF;
+  width: 100%;
+  font-size: 14px; 
+  color: $gray_444444;
+  border-bottom: 1px solid $gray_F1F3F5;
+
+  td {
+    padding: 10px 0;
+    margin: 0 auto;
+  }
+}

@@ -5,14 +5,14 @@ import { PieChart } from '@opd/g2plot-react';
 
 import './DriverDeliveryChart.scss';
 import palette from 'styles/palette';
-import { IDriver } from 'interface/Member';
+import { IDriverWithCount } from 'interface/Member';
 
 interface IDriverDeliveryChart {
-  drivers: IDriver[];
+  drivers: IDriverWithCount[];
 }
 
 const DriverDeliveryChart = ({ drivers }: IDriverDeliveryChart) => {
-  const deliveringDriverCount = drivers.filter((e) => e.isDelivering).length;
+  const completedCount = drivers.filter((e) => e.completedCount === e.totalCount).length;
 
   const pieOption: PieOptions = {
     angleField: 'value',
@@ -35,12 +35,12 @@ const DriverDeliveryChart = ({ drivers }: IDriverDeliveryChart) => {
     },
     data: [
       {
-        name: '대기 중',
-        value: drivers.length - deliveringDriverCount,
+        name: '배달 중',
+        value: drivers.length - completedCount,
       },
       {
-        name: '배달 중',
-        value: deliveringDriverCount,
+        name: '배송 완료',
+        value: completedCount,
       },
     ],
   };
