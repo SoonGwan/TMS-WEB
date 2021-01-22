@@ -11,7 +11,7 @@ interface IDriverTableItem {
 const DriverTableItem = ({
   driver,
 }: IDriverTableItem): JSX.Element => {
-  const { id, name, phone, truckName, truckSize, totalCount, completedCount } = driver;
+  const { id, name, phone, truckNumber, truckSize, totalCount, completedCount } = driver;
 
   const composeDeliveryCountLabel = () => {
     if (totalCount === completedCount) {
@@ -44,7 +44,7 @@ const DriverTableItem = ({
       </td>
 
       <td>
-        <span>{truckName}</span>
+        <span>{truckNumber}</span>
       </td>
 
       <td>
