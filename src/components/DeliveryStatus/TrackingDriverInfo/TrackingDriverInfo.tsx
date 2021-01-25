@@ -50,12 +50,12 @@ ITrackingDriverInfo) => {
         }}
         key={idx}
       >
-        <div className="TrakingDriverInfo-DriverName">{driverName}</div>
+        <div className="TrakingDriverInfo-Product">{product}</div>
         <div className="TrakingDriverInfo-CustomerName">{customerName}</div>
+        <div className="TrakingDriverInfo-DriverName">{driverName}</div>
         <div className="TrakingDriverInfo-CustomerAddress">
           {customerAddress}
         </div>
-        <div className="TrakingDriverInfo-Product">{product}</div>
       </div>
       {isModal && <TrackDriverInfoImageModal openModal={openModal} img={img} />}
     </>
