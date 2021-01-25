@@ -15,6 +15,7 @@ interface ITrackingDriverList {
   phone: string;
   truckNumber: string;
   selectDriver: (arg1: string, arg2: string) => void;
+  handleOpenInfoModal: () => void;
 }
 
 const style = require('./TrackingDriverList.scss');
@@ -33,6 +34,7 @@ const TrackingDriverList = ({
   phone,
   truckNumber,
   selectDriver,
+  handleOpenInfoModal,
 }: ITrackingDriverList) => {
   const composeDeliveryCountLabel = () => {
     if (totalCount === completedCount) {
@@ -61,6 +63,7 @@ const TrackingDriverList = ({
       onClick={() => {
         handleTrackingForDriver(id);
         selectDriver(name, id);
+        handleOpenInfoModal();
       }}
       key={idx}
     >

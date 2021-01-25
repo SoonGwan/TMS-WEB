@@ -14,12 +14,9 @@ const TrackDriverInfoImageModal = ({
   const imgHost = `${IMG_SERVER}/static/${img}`;
   return (
     <div className="TrackDriverInfoImageModal">
-      <div
-        className="TrackDriverInfoImageModal-Wrapper"
-        onClick={() => openModal()}
-      ></div>
+      <div className="TrackDriverInfoImageModal-Wrapper"></div>
       <div className="TrackDriverInfoImageModal-Modal">
-        <img src={imgHost} alt={imgHost} />
+        <img src={imgHost} alt={imgHost} onClick={() => openModal()} />
       </div>
     </div>
   );
