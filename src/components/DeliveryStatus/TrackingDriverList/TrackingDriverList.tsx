@@ -34,6 +34,25 @@ const TrackingDriverList = ({
   truckNumber,
   selectDriver,
 }: ITrackingDriverList) => {
+  const composeDeliveryCountLabel = () => {
+    if (totalCount === completedCount) {
+      return (
+        <div className="DriverTableItem-DeliveryCount-Completed">
+          <span>
+            {completedCount} / {totalCount}
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <div className="DriverTableItem-DeliveryCount-Delivery">
+        <span>
+          {completedCount} / {totalCount}
+        </span>
+      </div>
+    );
+  };
   return (
     <div
       className={cx('TrackingDriverInfo', {
@@ -49,7 +68,7 @@ const TrackingDriverList = ({
       <div className={cx('TrackingDriverInfo-PhoneNumber')}>{phone}</div>
       <div className={cx('TrackingDriverInfo-TruckNumber')}>{truckNumber}</div>
       <div className={cx('TrackingDriverInfo-TotalCount')}>
-        {completedCount} / {totalCount}
+        {composeDeliveryCountLabel()}
       </div>
     </div>
   );
