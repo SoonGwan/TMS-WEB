@@ -207,73 +207,7 @@ const DeliveryStatus = ({
                   'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Section'
                 )}
               >
-                {driverListElement}
-              </div>
-            </div>
-          </div>
-          <div className={cx('DeliveryStatus-SubInfo-DriverInfo')}>
-            <div className={cx('DeliveryStatus-SubInfo-DriverInfo-Header')}>
-              <div>
-                {selectedDriverName} 배송기사 배달 완료 내역
-                <span>({today})</span>
-              </div>
-              <div>{!distance ? '0' : distance}km</div>
-            </div>
-            <div
-              className={cx('DeliveryStatus-SubInfo-DriverInfo-ItemWrapper')}
-            >
-              <div
-                className={cx(
-                  'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header'
-                )}
-              >
-                <div
-                  className={cx(
-                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-DriverName'
-                  )}
-                >
-                  배송기사
-                </div>
-                <div
-                  className={cx(
-                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-Customer'
-                  )}
-                >
-                  고객
-                </div>
-                <div
-                  className={cx(
-                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-Address'
-                  )}
-                >
-                  주소
-                </div>
-                <div
-                  className={cx(
-                    'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-Product'
-                  )}
-                >
-                  상품명
-                </div>
-              </div>
-              <div
-                className={cx(
-                  'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Section'
-                )}
-              >
-                {deliveriesListLeng === 0 ? (
-                  <>
-                    <div
-                      className={cx(
-                        'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Empty'
-                      )}
-                    >
-                      해당 배송기사는 내역이 없습니다.
-                    </div>
-                  </>
-                ) : (
-                  deliveriesInfoElement
-                )}
+                <div>{driverListElement}</div>
               </div>
             </div>
           </div>
