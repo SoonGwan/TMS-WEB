@@ -21,8 +21,14 @@
     background-color: red;
   }
 
+  &-Product {
+    width: 25%;
+    margin-right: 2.5%;
+  }
+
   &-DriverName {
     width: 15%;
+    margin-right: 2.5%;
   }
 
   &-CustomerName {
@@ -32,10 +38,5 @@
 
   &-CustomerAddress {
     width: 40%;
-    margin-right: 2.5%;
-  }
-
-  &-Product {
-    width: 25%;
   }
 }
