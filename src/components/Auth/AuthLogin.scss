@@ -8,11 +8,16 @@
   justify-content: center;
   background-color: $blue_E2E8F1;
   &-Wrapper {
-    width: 47.7vw;
-    height: 69vh;
+    box-shadow: 1px 4px 24px rgba($color: #000000, $alpha: 0.1);
+
+    width: 37.7vw;
+    height: 39vh;
     background-color: $white_FFFFFF;
     border-radius: 5px;
-    padding: 8.6111vh 4.5959vw;
+    padding: 0vh 4.5959vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     &-Title {
       display: flex;
       justify-content: center;
@@ -26,7 +31,7 @@
     margin-top: 5.4vh;
     &-Input {
       width: 100%;
-      height: 7.03vh;
+      height: 4.03vh;
       border-color: $blue_E2E8F1;
       border-radius: 5px;
     }
@@ -39,7 +44,7 @@
     margin-top: 3.5vh;
     &-Button {
       width: 100%;
-      height: 6.787vh;
+      height: 4.787vh;
       font-weight: 500;
       display: flex;
       align-items: center;
