@@ -23,11 +23,11 @@
 
   &-ShippingState {
     &-Shipping {
-      @include ShippingStateLabelStyle($blue_6685A8);
+      @include ShippingStateLabelStyle($orange_FF8B3D);
     }
 
     &-Completion {
-      @include ShippingStateLabelStyle($orange_FF8B3D);
+      @include ShippingStateLabelStyle($blue_6685A8);
     }
   }
 
