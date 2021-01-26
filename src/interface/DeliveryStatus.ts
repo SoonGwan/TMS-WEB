@@ -1,4 +1,9 @@
-import { ICustomer, IDriver } from './Member';
+import {
+  ICustomer,
+  IDriver,
+  INewCustomerElement,
+  INewDriverElement,
+} from './Member';
 
 export interface IAllProductList {
   id: number;
@@ -40,4 +45,34 @@ export interface IDeliveries {
   idx: number;
   image: string | null;
   productName: string;
+}
+
+export interface IDriverCompleted
+  extends INewCustomerElement,
+    INewDriverElement {
+  createdAt: string;
+  idx: number;
+  productName: string;
+  endOrderNumber: number | null;
+  image: string | null;
+  endTime: string;
+  driver: INewDriverElement;
+  customer: INewCustomerElement;
+  customerIdx: number;
+  driverId: string;
+}
+
+export interface IDriverCompletedCustom {
+  customerIdx: number;
+  customerName: string;
+  customerAddress: string;
+  customerPhone: string;
+  productName: string;
+  driverName: string;
+  driverAddress: string;
+  driverPhone: string;
+  driverTruckNumber: string;
+  driverTruckSize: number;
+  endOrderNumber: number | string | null;
+  endTime: string | null;
 }

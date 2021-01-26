@@ -1,6 +1,20 @@
+import {
+  IDriverCompleted,
+  IDriverCompletedCustom,
+} from 'interface/DeliveryStatus';
 import { atom, RecoilState } from 'recoil';
 
-export const allProductList: RecoilState<any[]> = atom({
+export const allProductList: RecoilState<IDriverCompletedCustom[]> = atom({
   key: 'allProductList',
-  default: [] as any[],
+  default: [] as IDriverCompletedCustom[],
+});
+
+export const trackingInfoModal = atom({
+  key: 'trackingInfoModal',
+  default: false,
+});
+
+export const deliveriesList = atom({
+  key: 'deliveries',
+  default: [] as IDriverCompleted[],
 });

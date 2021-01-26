@@ -1,5 +1,17 @@
 @import 'styles/palette.scss';
 
+@mixin ShippingStateLabelStyle($backgroundColor) {
+  font-size: 14px;
+  display: flex;
+  padding: 0.2vw 0vw;
+  width: 3.4vw;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background-color: $backgroundColor;
+  border-radius: 3px;
+}
+
 .DeliveryStatusListItemElement {
   width: 100%;
   display: flex;
@@ -8,6 +20,16 @@
   border-bottom: 1px solid $gray_F1F3F5;
   font-size: 13px;
   font-weight: 400;
+
+  &-ShippingState {
+    &-Shipping {
+      @include ShippingStateLabelStyle($orange_FF8B3D);
+    }
+
+    &-Completion {
+      @include ShippingStateLabelStyle($blue_6685A8);
+    }
+  }
 
   &-DriverId {
     width: 15%;

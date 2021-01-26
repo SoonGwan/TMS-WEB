@@ -32,7 +32,7 @@
     flex-direction: column;
 
     &-Date {
-      margin-bottom: 1vw;
+      display: flex;
 
       &-DatePicker {
         font-weight: 500;
@@ -183,7 +183,7 @@
 
     &-DriverList {
       width: 100%;
-      height: 50%;
+      height: 100%;
 
       &-Header {
         @include tableHeaderStyle();
@@ -193,15 +193,15 @@
       }
       &-ItemWrapper {
         width: 100%;
-        height: calc(100% - 4.512vh);
-        overflow-y: auto;
+        height: calc(100% - 10vh);
+
         // background-color: red;
         // &::before {
         //   content: 'asdfasfasf';
         // }
         &-Section {
           width: 100%;
-          height: calc(100% - 5.4vh);
+          height: 100%;
           overflow-y: auto;
         }
 
@@ -247,7 +247,7 @@
       }
       &-ItemWrapper {
         width: 100%;
-        height: calc(100% - 4.512vh);
+        height: calc(100% - 5vh);
 
         &-Section {
           width: 100%;
@@ -263,9 +263,16 @@
           padding: 1vw;
           font-weight: 500;
           border-bottom: 1px solid $gray_C4C4C4;
+          word-break: break-all;
+
+          &-Product {
+            width: 25%;
+            margin-right: 2.5%;
+          }
 
           &-DriverName {
             width: 15%;
+            margin-right: 2.5%;
           }
 
           &-Customer {
@@ -275,11 +282,6 @@
 
           &-Address {
             width: 40%;
-            margin-right: 2.5%;
-          }
-
-          &-Product {
-            width: 25%;
           }
         }
 

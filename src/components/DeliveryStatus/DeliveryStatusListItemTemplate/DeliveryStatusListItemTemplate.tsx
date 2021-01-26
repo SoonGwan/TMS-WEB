@@ -45,6 +45,7 @@ const DeliveryStatusListItemTemplate = ({
               driverPhone={driverPhone}
               driverTruckNumber={driverTruckNumber}
               driverTruckSize={driverTruckSize}
+              endTime={endTime}
             />
           );
         })
@@ -56,7 +57,6 @@ const DeliveryStatusListItemTemplate = ({
               customerIdx,
               customerName,
               customerAddress,
-
               driverName,
               productName,
               driverAddress,
@@ -81,6 +81,7 @@ const DeliveryStatusListItemTemplate = ({
                 driverPhone={driverPhone}
                 driverTruckNumber={driverTruckNumber}
                 driverTruckSize={driverTruckSize}
+                endTime={endTime}
               />
             );
           })
@@ -115,6 +116,7 @@ const DeliveryStatusListItemTemplate = ({
                 driverPhone={driverPhone}
                 driverTruckNumber={driverTruckNumber}
                 driverTruckSize={driverTruckSize}
+                endTime={endTime}
               />
             );
           })

@@ -1,7 +1,8 @@
 @import 'styles/palette.scss';
 
 .DashBoardCardView {
-  width: 17.6vw;
+  width: 10vw;
+  margin-left: 1vw;
   height: calc(14.87vh / 2.4);
   background-color: $white_FFFFFF;
   display: flex;
@@ -12,7 +13,7 @@
   justify-content: center;
 
   &-Explanation {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 500;
     color: $blue_C4CBD6;
   }
