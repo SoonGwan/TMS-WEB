@@ -2,6 +2,8 @@ import React, {
   useState,
   DragEvent as ReactDragEvent,
   useCallback,
+  useEffect,
+  ChangeEvent,
 } from 'react';
 import ManageDeliveryList from 'components/ManageDeliveryList';
 import XLSX from 'xlsx';
@@ -26,6 +28,7 @@ const ManageDeliveryListContainer = () => {
   const [excelToJSON, setExcelToJSON] = useState<IExcelItem[]>([]);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [drivers, setDrivers] = useState<IDriverWithCount[]>([]);
 
 
   const excelSerialDateToJSDate = (excelSerialDate: number) => {
@@ -49,8 +52,6 @@ const ManageDeliveryListContainer = () => {
     const reader: FileReader = new FileReader();
 
     reader.onload = () => {
-      console.log('pass');
-
       const data = reader.result;
 
       const workbook = XLSX.read(data, { type: 'binary' });
@@ -103,10 +104,6 @@ const ManageDeliveryListContainer = () => {
 
       const customerRes = await MemberRepository.getCustomers();
       const { customers }: { customers: INewCustomerElement[] } = customerRes.data.data;
-
-      const driverRes = await MemberRepository.getDrivers();
-      const { drivers }: { drivers: IDriverWithCount[] } = driverRes.data.data;
-
       const today = dtil().format('YYYY-MM-DD');
       const excelUserHeader = ['고객 고유 번호', '이름', '주소', '전화번호'];
       const excelBlank = [''];
@@ -151,7 +148,7 @@ const ManageDeliveryListContainer = () => {
 
       return err;
     }
-  }, []);
+  }, [drivers]);
 
   const handleDeliveryCreation = useCallback(async () => {
     try {
@@ -161,7 +158,6 @@ const ManageDeliveryListContainer = () => {
 
       for (let i = 0; i < excelToJSON.length; i += 1) {
         const { customerIdx, driverId, productName, createdAt } = excelToJSON[i];
-
 
         const item = {
           customerIdx,
@@ -173,6 +169,7 @@ const ManageDeliveryListContainer = () => {
         deliveries.push(item);
       }
 
+      console.log(deliveries);
       if (deliveries.length <= 0) {
         setIsLoading(false);
         EmptyArray();
@@ -186,7 +183,6 @@ const ManageDeliveryListContainer = () => {
       const { status } = res;
       successUploadProduct(status);
       setIsLoading(false);
-
       setExcelToJSON([]);
       setUploadFileName('');
     } catch (err) {
@@ -200,7 +196,51 @@ const ManageDeliveryListContainer = () => {
     setIsOpen(!isOpen);
   };
 
-  const excelList = excelToJSON.map((data: IExcelItem) => {
+  useEffect(() => {
+    MemberRepository.getDrivers()
+      .then((driverRes) => {
+        const { drivers }: { drivers: IDriverWithCount[] } = driverRes.data.data;
+
+        setDrivers(drivers);
+      })
+  }, [])
+
+  const composeSelectBox = (index: number, driverId: string | null) => {
+    const handleChange = (e: any) => {
+      const excelToJSONCopy = [
+        ...excelToJSON,
+      ];
+
+      excelToJSONCopy[index].driverId = e.target.value;
+      excelToJSONCopy[index].driverName = drivers.find(e => e.id === driverId)?.name || '';
+      setExcelToJSON(excelToJSONCopy);
+    }
+
+    const options = drivers.map(driver => {
+      if (driver.id === driverId) {
+        return (
+          <option selected={true} value={driver.id}>
+            { driver.name} ({ driver.id})
+          </option >
+        )
+      }
+      return (
+        <option value={driver.id} >
+          { driver.name} ({ driver.id})
+        </option >
+      )
+    })
+
+    return (
+      <select className="ManageDeliveryListInnerItemTemplate-Product-Select"
+        onChange={handleChange}>
+        < option value="" selected disabled hidden >기사를 선택해주세요</option>
+        {options}
+      </select>
+    )
+  }
+
+  const excelList = excelToJSON.map((data: IExcelItem, index: number) => {
     const {
       customerIdx,
       customerName,
@@ -213,6 +253,8 @@ const ManageDeliveryListContainer = () => {
     return (
       <>
         <ManageDeliveryListInnerItemTemplate
+          index={index}
+          composeSelectBox={composeSelectBox}
           customerIdx={customerIdx}
           customerName={customerName}
           driverId={driverId}
