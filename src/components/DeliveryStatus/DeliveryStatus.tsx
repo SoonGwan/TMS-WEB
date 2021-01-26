@@ -50,8 +50,6 @@ const DeliveryStatus = ({
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
-          </div>
-          <div className={cx('DeliveryStatus-OverView-CardView')}>
             <DashBoardCardView
               explanation="전체 물류 개수"
               condition={product.length}
@@ -69,6 +67,7 @@ const DeliveryStatus = ({
               }
             />
           </div>
+          <div className={cx('DeliveryStatus-OverView-CardView')}></div>
           <div className={cx('DeliveryStatus-OverView-AllItemsList')}>
             <div
               className={cx(
