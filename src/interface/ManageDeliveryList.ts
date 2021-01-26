@@ -4,6 +4,7 @@ export interface IExcelItem {
   driverName: string;
   productName: string;
   driverId: string;
+  createdAt: Date;
 }
 
 export interface IDeliveryItem {

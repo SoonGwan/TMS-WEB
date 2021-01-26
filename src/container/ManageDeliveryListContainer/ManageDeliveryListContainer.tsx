@@ -1,7 +1,6 @@
 import React, {
   useState,
   DragEvent as ReactDragEvent,
-  useRef,
   useCallback,
 } from 'react';
 import ManageDeliveryList from 'components/ManageDeliveryList';
@@ -18,110 +17,96 @@ import {
   failedUploadProduct,
   successUploadProduct,
 } from 'validation/ManageDeliveryValidation';
-import DeliveryListModal from 'components/ManageDeliveryList/DeliveryListModal';
 import ManageDeliveryListModalContainer from './ManageDeliveryListModalContainer';
 import Loading from 'components/common/Loading';
+import { IDriverWithCount, INewCustomerElement } from 'interface/Member';
 
 const ManageDeliveryListContainer = () => {
   const [uploadFileName, setUploadFileName] = useState('');
   const [excelToJSON, setExcelToJSON] = useState<IExcelItem[]>([]);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const [file, setFile] = useState<any>();
 
-  let list: any = [];
 
-  const onFileInputChage = (event: DragEvent) => {
-    /**
-     * 추후 필요한 로직이 들어갈 함수입니다.
-     */
+  const excelSerialDateToJSDate = (excelSerialDate: number) => {
+    const daysBeforeUnixEpoch = 70 * 365 + 19;
+    const hour = 60 * 60 * 1000;
+    return new Date(Math.round((excelSerialDate - daysBeforeUnixEpoch) * 24 * hour) + 12 * hour);
   };
 
-  const fileHandler = (e: any) => {
+  const onFileChanged = (e: any) => {
     const file = e.target.files;
-    onDropFile(file);
+    handleFetchFile(file);
   };
 
-  const onDropFile = (
-    files: FileList | null,
-    event?: ReactDragEvent<HTMLDivElement>
-  ) => {
+  const handleFetchFile = useCallback((files: FileList | null) => {
     setIsLoading(true);
-    if (files !== null && files.length > 0) {
-      for (let i = 0; i !== files.length; i += 1) {
-        let file = files[i];
+    if (files === null || files.length !== 1) {
+      return;
+    }
 
-        const reader: FileReader = new FileReader();
+    const [file] = files;
+    const reader: FileReader = new FileReader();
 
-        reader.onload = () => {
-          const data = reader.result;
-          const workbook = XLSX.read(data, { type: 'binary' });
-          workbook.SheetNames.forEach((item) => {
-            const excelToJson: IExcelItem[] = XLSX.utils.sheet_to_json(
-              workbook.Sheets[item]
-            );
+    reader.onload = () => {
+      console.log('pass');
 
-            if (!excelToJson[0].customerIdx) {
-              setIsLoading(false);
+      const data = reader.result;
 
-              ShowToast({
-                backgroundColor: Colors.redError,
-                message: '엑셀을 정상적으로 가져올 수 없습니다.',
-                icon: <Icon.Alert fillColor={Colors.white} />,
-                timeout: 3000,
-              });
+      const workbook = XLSX.read(data, { type: 'binary' });
 
-              return;
-            }
+      for (const sheet of workbook.SheetNames) {
+        const excelToJson: IExcelItem[] = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+        if (excelToJson.length <= 0) {
+          failedUploadProduct('파일의 값이 없습니다.');
+          return;
+        }
+
+        for (const excelItem of excelToJson) {
+          if (!excelItem.customerIdx) {
             setIsLoading(false);
+            failedUploadProduct('파일을 읽을 수 없습니다.');
+            setExcelToJSON([]);
+            return;
+          }
 
-            ShowToast({
-              backgroundColor: Colors.green500,
-              message: '성공적으로 물품 정보를 가져왔습니다.',
-              icon: <Icon.CheckCircle fillColor={Colors.white} />,
-              timeout: 3000,
-            });
-            setUploadFileName(files[0].name);
-            setExcelToJSON(excelToJson);
-          });
-        };
+          excelItem.createdAt = excelSerialDateToJSDate(Number(excelItem.createdAt));
+          console.log(excelItem.createdAt);
 
-        reader.readAsBinaryString(file);
+          if (isNaN(Date.parse(excelItem.createdAt.toString()))) {
+            setIsLoading(false);
+            failedUploadProduct('파일의 날짜 형식이 잘못되었습니다.');
+            setExcelToJSON([]);
+            return;
+          }
+        }
+
+        setIsLoading(false);
+
+        ShowToast({
+          backgroundColor: Colors.green500,
+          message: '성공적으로 물품 정보를 가져왔습니다.',
+          icon: <Icon.CheckCircle fillColor={Colors.white} />,
+          timeout: 3000,
+        });
+        setUploadFileName(files[0].name);
+        setExcelToJSON(excelToJson);
       }
     }
-  };
 
-  const excelList = excelToJSON.map((data: IExcelItem) => {
-    const {
-      customerIdx,
-      customerName,
-      driverId,
-      driverName,
-      productName,
-    } = data;
-    return (
-      <>
-        <ManageDeliveryListInnerItemTemplate
-          customerIdx={customerIdx}
-          customerName={customerName}
-          driverId={driverId}
-          driverName={driverName}
-          productName={productName}
-        />
-      </>
-    );
-  });
+    reader.readAsBinaryString(file);
+  }, [])
 
-  const handleExportExcel = useCallback(async () => {
+  const handleExportMemberExcel = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      const {
-        data: { data },
-      } = await MemberRepository.getCustomers();
-      const { customers } = data;
-      const req = await MemberRepository.getDrivers();
-      const { drivers } = req.data.data;
+      const customerRes = await MemberRepository.getCustomers();
+      const { customers }: { customers: INewCustomerElement[] } = customerRes.data.data;
+
+      const driverRes = await MemberRepository.getDrivers();
+      const { drivers }: { drivers: IDriverWithCount[] } = driverRes.data.data;
+
       const today = dtil().format('YYYY-MM-DD');
       const excelUserHeader = ['고객 고유 번호', '이름', '주소', '전화번호'];
       const excelBlank = [''];
@@ -132,57 +117,59 @@ const ManageDeliveryListContainer = () => {
         '트럭 이름',
         '적재함 사이즈',
       ];
-      list.push(excelUserHeader);
+
+      const excelInfoList: string[][] = [];
+      excelInfoList.push(excelUserHeader);
 
       for (const customer of customers) {
-        list.push(Object.values(customer));
+        excelInfoList.push(Object.values(customer));
       }
-      list.push(excelBlank);
-      list.push(excelDriverHeader);
+
+      excelInfoList.push(excelBlank);
+      excelInfoList.push(excelDriverHeader);
 
       for (const driver of drivers) {
-        list.push(Object.values(driver));
+        const excelDriver = {
+          ...driver,
+        } as any;
+
+        delete excelDriver.totalCount;
+        delete excelDriver.completedCount;
+
+        excelInfoList.push(Object.values(excelDriver));
       }
 
-      const workSheetData = list;
+      const workSheetData = excelInfoList;
       const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);
       const workBook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workBook, workSheet, 'sheet title');
       setIsLoading(false);
 
-      XLSX.writeFile(workBook, `${today}고객 정보.xlsx`);
+      XLSX.writeFile(workBook, `${today} 회원 정보.xlsx`);
     } catch (err) {
       setIsLoading(false);
 
       return err;
     }
-  }, [list]);
-
-  /*  const donwloadExcelExample = () => {
-    const header = [
-      ['customerIdx', 'customerName', 'driverId', 'driverName', 'productName'],
-    ];
-    const workSheetData = header;
-    const workSheet = XLSX.utils.aoa_to_sheet(workSheetData);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, workSheet, 'sheet title');
-    XLSX.writeFile(workBook, '업로드 예제.xlsx');
-  }; */
+  }, []);
 
   const handleDeliveryCreation = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      let deliveries = [];
+      const deliveries = [];
 
       for (let i = 0; i < excelToJSON.length; i += 1) {
-        const { customerIdx, driverId, productName } = excelToJSON[i];
+        const { customerIdx, driverId, productName, createdAt } = excelToJSON[i];
+
 
         const item = {
           customerIdx,
           driverId,
           productName,
+          createdAt,
         };
+
         deliveries.push(item);
       }
 
@@ -206,8 +193,6 @@ const ManageDeliveryListContainer = () => {
       const { status } = err.response;
       failedUploadProduct(status);
       setIsLoading(false);
-
-      return err;
     }
   }, [excelToJSON]);
 
@@ -215,18 +200,41 @@ const ManageDeliveryListContainer = () => {
     setIsOpen(!isOpen);
   };
 
+  const excelList = excelToJSON.map((data: IExcelItem) => {
+    const {
+      customerIdx,
+      customerName,
+      driverId,
+      driverName,
+      productName,
+      createdAt,
+    } = data;
+
+    return (
+      <>
+        <ManageDeliveryListInnerItemTemplate
+          customerIdx={customerIdx}
+          customerName={customerName}
+          driverId={driverId}
+          driverName={driverName}
+          productName={productName}
+          createdAt={createdAt}
+        />
+      </>
+    );
+  });
+
   return (
     <>
       {isLoading && <Loading />}
       <ManageDeliveryList
-        onFileInputChage={onFileInputChage}
-        onDropFile={onDropFile}
+        onDropFile={handleFetchFile}
         uploadFileName={uploadFileName || '파일을 드롭하거나 클릭해 주세요.'}
         excelList={excelList}
-        handleExportExcel={handleExportExcel}
+        handleExportMemberExcel={handleExportMemberExcel}
         handleDeliveryCreation={handleDeliveryCreation}
         openModal={openModal}
-        fileHandler={fileHandler}
+        onFileChanged={onFileChanged}
       />
       {isOpen && <ManageDeliveryListModalContainer openModal={openModal} />}
     </>

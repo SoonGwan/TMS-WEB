@@ -11,7 +11,17 @@ export const successUploadProduct = (status: number) => {
   });
 };
 
-export const failedUploadProduct = (status: number) => {
+export const failedUploadProduct = (status: number | string) => {
+  if (typeof status === 'string') {
+    ShowToast({
+      backgroundColor: Colors.redError,
+      message: status,
+      icon: <Icon.Alert fillColor={Colors.white} />,
+      timeout: 3000,
+    });
+    return;
+  }
+
   let errorMessage = '';
   if (status === 400) errorMessage = '엑셀에 값이 누락되었습니다.';
   else if (status === 401) errorMessage = '인증이 되지 않았습니다.';

@@ -1,5 +1,6 @@
 import React from 'react';
 import './ManageDeliveryListInnerItemTemplate.scss';
+import dtil from 'dtil'
 
 interface IManageDeliveryListInnerItemTemplate {
   customerIdx: number;
@@ -7,6 +8,7 @@ interface IManageDeliveryListInnerItemTemplate {
   driverId: string;
   driverName: string;
   productName: string;
+  createdAt: Date;
 }
 
 const ManageDeliveryListInnerItemTemplate = ({
@@ -15,7 +17,10 @@ const ManageDeliveryListInnerItemTemplate = ({
   driverId,
   driverName,
   productName,
+  createdAt,
 }: IManageDeliveryListInnerItemTemplate) => {
+  console.log(createdAt);
+
   return (
     <div className="ManageDeliveryListInnerItemTemplate" key={customerIdx}>
       <div className="ManageDeliveryListInnerItemTemplate-Client">
@@ -26,6 +31,9 @@ const ManageDeliveryListInnerItemTemplate = ({
       </div>
       <div className="ManageDeliveryListInnerItemTemplate-Product">
         {productName}
+      </div>
+      <div className="ManageDeliveryListInnerItemTemplate-CreatedAt">
+        {dtil(createdAt.toString()).format('yyyy-MM-dd')}
       </div>
     </div>
   );
