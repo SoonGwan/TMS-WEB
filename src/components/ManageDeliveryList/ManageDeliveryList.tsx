@@ -62,6 +62,9 @@ const ManageDeliveryList = ({
           >
             업로드 하기
           </div>
+          <div className="ManageDeliveryList-ImportCSVWrapper-ApplyButton" onClick={openModal}>
+            개별 업로드
+          </div>
           <div
             className="ManageDeliveryList-ImportCSVWrapper-ApplyButton"
             onClick={handleExportMemberExcel}
@@ -72,11 +75,6 @@ const ManageDeliveryList = ({
       </div>
       <div className="ManageDeliveryList-ViewExcelList">
         <div className="ManageDeliveryList-ViewExcelList-Header">
-          <div className="ManageDeliveryList-ViewExcelList-Header-Wrapper">
-            <div className="ManageDeliveryList-OpenModal" onClick={openModal}>
-              따로 물품 업로드 하기
-            </div>
-          </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Client">
             고객 이름, 고유번호
           </div>
@@ -85,6 +83,9 @@ const ManageDeliveryList = ({
           </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Product">
             물품 정보
+          </div>
+          <div className="ManageDeliveryList-ViewExcelList-Header-CreatedAt">
+            배송 날짜
           </div>
         </div>
         <div className="ManageDeliveryList-ViewExcelList-ListWrapper">

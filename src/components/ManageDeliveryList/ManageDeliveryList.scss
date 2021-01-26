@@ -2,11 +2,11 @@
 
 .ManageDeliveryList {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: $gray_F9F9F9;
   display: flex;
   flex-direction: column;
-  padding: 1vw;
+  padding: 30px;
 
   &-OpenModal {
     height: 100%;
@@ -14,33 +14,33 @@
     color: white;
     border-radius: 4px;
     display: flex;
-    padding: 0.7vw;
     align-items: center;
     cursor: pointer;
   }
 
   &-ImportCSVWrapper {
-    width: 100%;
+    margin: 0 auto;
+    width: 80%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1vw 2vw;
+    align-items: flex-end;
 
     &-Section {
       height: 100%;
-      // width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      align-content: center;
+      justify-content: flex-end;
     }
 
     &-ImportSection {
-      width: 82%;
-      height: 14vh;
-      border: 3px solid $blue_C4CBD6;
-      border-radius: 4px;
+      width: 100%;
+      height: 200px;
+      border: 3px dashed $blue_C4CBD6;
+      border-radius: 3px;
       display: flex;
       position: relative;
+      background-color: $white_FFFFFF;
+      margin-right: 20px;
 
       &-DropDown {
         width: 100%;
@@ -49,64 +49,64 @@
         align-items: center;
         justify-content: center;
         color: $blue_C4CBD6;
-        font-size: 24px;
-        font-weight: 600;
+        font-size: 18px;
+        font-weight: normal;
         cursor: pointer;
         position: relative;
         transition: all 0.25s ease;
         cursor: pointer;
-        box-shadow: 1px 4px 24px rgba($color: $blue_C4CBD6, $alpha: 0.3);
         & > input {
           width: 100%;
           height: 100%;
           position: absolute;
           opacity: 0;
-          //   visibility: hidden;
         }
       }
     }
+
     &-ApplyButton {
-      box-shadow: 1px 4px 24px rgba($color: $blue_C4CBD6, $alpha: 0.3);
-      padding: 1vw;
-      height: 6vh;
-      border-radius: 4px;
+      margin-top: 10px;
+      height: 36px;
+      min-width: 120px;
+      border-radius: 3px;
       background-color: $blue_C4CBD6;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 14px;
       color: $white_FFFFFF;
-      font-weight: 500;
+      font-weight: normal;
       cursor: pointer;
     }
   }
+
   &-ViewExcelList {
-    width: 100%;
-    padding: 1vw 1vw;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
     overflow: hidden;
 
     &-Header {
       width: 100%;
-      border-radius: 4px;
+      border-radius: 3px;
       background-color: white;
       display: flex;
-      box-shadow: 1px 4px 24px rgba(0, 0, 0, 0.05);
       align-items: center;
-      color: $gray_C6C6C6;
-      font-weight: 500;
+      color: $gray_C4C4C4;
       font-size: 14px;
-      padding: 1vw 1vw;
+      padding: 12px;
       position: relative;
+      border-bottom: 1px solid $gray_E6E6E6;
 
-      &-Wrapper {
-        right: 1vw;
-        display: flex;
-        position: absolute;
-        height: 100%;
-        & > * + * {
-          margin-left: 1vw;
-        }
-      }
+      // &-Wrapper {
+      //   right: 1vw;
+      //   display: flex;
+      //   position: absolute;
+      //   height: 100%;
+      //   & > * + * {
+      //     margin-left: 1vw;
+      //   }
+      // }
 
       &-ExampleExcel {
         height: 100%;
@@ -119,6 +119,7 @@
         display: flex;
         align-items: center;
       }
+
       &-Client {
         width: 20%;
       }
@@ -128,14 +129,18 @@
       }
 
       &-Product {
-        width: 55%;
+        width: 30%;
+      }
+
+      &CreatedAt {
+        width: 30%;
       }
     }
 
     &-ListWrapper {
       width: 100%;
-      height: calc(100% - 3vw);
-      margin-top: 1vw;
+      height: (100%);
+      // margin-top: 1vw;
       overflow-y: auto;
     }
   }
