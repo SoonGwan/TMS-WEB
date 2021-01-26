@@ -11,7 +11,7 @@ interface IDeliveryStatusListItemElement {
   driverName: string;
   productName: string;
   driverAddress: string;
-  endOrderNumber: string;
+  endOrderNumber: number | string | null;
   customerPhone: string;
   driverPhone: string;
   driverTruckNumber: string;

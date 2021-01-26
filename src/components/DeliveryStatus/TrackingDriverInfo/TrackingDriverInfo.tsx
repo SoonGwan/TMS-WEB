@@ -19,6 +19,7 @@ const TrackingDriverInfo = ({ distance }: ITrackingDriverInfo) => {
   const [isModal, setIsModal] = useState<Boolean>(false);
   const [, setIsOpenInfoModal] = useRecoilState(trackingInfoModal);
   const deliveriesLists = useRecoilValue(deliveriesList);
+  console.log(deliveriesLists);
 
   const imageSelected = (clickImg: string | null) => {
     setImg(clickImg);

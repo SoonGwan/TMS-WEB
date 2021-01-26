@@ -10,18 +10,27 @@ import {
 import { DeliveryTable } from 'enum/DeliveryTable';
 import moment from 'moment';
 import MemberRepository from 'repository/MemberRepository';
-import { IDeliveries, IDriverList } from 'interface/DeliveryStatus';
+import {
+  IDeliveries,
+  IDriverCompleted,
+  IDriverCompletedCustom,
+  IDriverList,
+} from 'interface/DeliveryStatus';
 import TrackingDriverInfo from 'components/DeliveryStatus/TrackingDriverInfo';
 import TrackingDriverList from 'components/DeliveryStatus/TrackingDriverList';
 import TrackDriverInfoImageModal from 'components/DeliveryStatus/TrackDriverInfoImageModal';
 import Loading from 'components/common/Loading';
 
 const DeliveryStatusContainer = () => {
-  const [, setProductList] = useRecoilState(allProductList);
+  const [, setProductList] = useRecoilState<IDriverCompletedCustom[]>(
+    allProductList
+  );
   const [isOpenInfoModal, setIsOpenInfoModal] = useRecoilState(
     trackingInfoModal
   );
-  const [, setDeliveriesList] = useRecoilState(deliveriesList);
+  const [, setDeliveriesList] = useRecoilState<IDriverCompleted[]>(
+    deliveriesList
+  );
   const [tableValue, setTableValue] = useState(DeliveryTable.ALL);
   const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD') || '');
   const [driverListElement, setDriverListElement] = useState<HTMLElement>();
@@ -78,7 +87,7 @@ const DeliveryStatusContainer = () => {
       } = await DeliveryStatusRepository.deliveryList(date);
       const { deliveries } = data;
 
-      let driveriesTemp = [];
+      let driveriesTemp = [] as IDriverCompletedCustom[];
 
       for (let i = 0; i < deliveries.length; i += 1) {
         const {
@@ -88,7 +97,8 @@ const DeliveryStatusContainer = () => {
           endTime,
           productName,
         } = deliveries[i];
-        const temp = {
+
+        const temp: IDriverCompletedCustom = {
           customerIdx: customer.idx,
           customerName: customer.name,
           customerAddress: customer.address,
