@@ -5,7 +5,7 @@ import TrackDriverInfoImageModal from '../TrackDriverInfoImageModal';
 
 import classNames from 'classnames/bind';
 import { ClassNamesFn } from 'classnames/types';
-import { deliveriesList, testAtom } from 'atom/DeliveryStatusAtom';
+import { deliveriesList, trackingInfoModal } from 'atom/DeliveryStatusAtom';
 
 const style = require('./TrackingDriverInfo.scss');
 const cx: ClassNamesFn = classNames.bind(style);
@@ -17,7 +17,7 @@ interface ITrackingDriverInfo {
 const TrackingDriverInfo = ({ distance }: ITrackingDriverInfo) => {
   const [img, setImg] = useState<string | null>('');
   const [isModal, setIsModal] = useState<Boolean>(false);
-  const [, setIsOpenInfoModal] = useRecoilState(testAtom);
+  const [, setIsOpenInfoModal] = useRecoilState(trackingInfoModal);
   const deliveriesLists = useRecoilValue(deliveriesList);
 
   const imageSelected = (clickImg: string | null) => {

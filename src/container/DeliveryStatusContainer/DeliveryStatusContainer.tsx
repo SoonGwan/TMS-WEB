@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   allProductList,
   deliveriesList,
-  testAtom,
+  trackingInfoModal,
 } from 'atom/DeliveryStatusAtom';
 import { DeliveryTable } from 'enum/DeliveryTable';
 import moment from 'moment';
@@ -18,7 +18,9 @@ import Loading from 'components/common/Loading';
 
 const DeliveryStatusContainer = () => {
   const [, setProductList] = useRecoilState(allProductList);
-  const [isOpenInfoModal, setIsOpenInfoModal] = useRecoilState(testAtom);
+  const [isOpenInfoModal, setIsOpenInfoModal] = useRecoilState(
+    trackingInfoModal
+  );
   const [, setDeliveriesList] = useRecoilState(deliveriesList);
   const [tableValue, setTableValue] = useState(DeliveryTable.ALL);
   const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD') || '');

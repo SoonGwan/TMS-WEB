@@ -5,8 +5,8 @@ export const allProductList: RecoilState<any[]> = atom({
   default: [] as any[],
 });
 
-export const testAtom = atom({
-  key: 'default',
+export const trackingInfoModal = atom({
+  key: 'trackingInfoModal',
   default: false,
 });
 
