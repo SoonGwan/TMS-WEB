@@ -1,6 +1,5 @@
 import React, {
   DragEvent as ReactDragEvent,
-  MutableRefObject,
   useState,
 } from 'react';
 import { FileDrop } from 'react-file-drop';
@@ -9,31 +8,29 @@ import classNames from 'classnames/bind';
 import { ClassNamesFn } from 'classnames/types';
 
 interface IManageDeliveryList {
-  onFileInputChage: (evnet: DragEvent) => void;
   onDropFile: (
     files: FileList | null,
     event: ReactDragEvent<HTMLDivElement>
   ) => void;
   uploadFileName: string;
   excelList: JSX.Element[];
-  handleExportExcel: () => void;
+  handleExportMemberExcel: () => void;
   handleDeliveryCreation: () => void;
   openModal: () => void;
-  fileHandler: (e: any) => void;
+  onFileChanged: (e: any) => void;
 }
 
 const style = require('./ManageDeliveryList.scss');
 const cx: ClassNamesFn = classNames.bind(style);
 
 const ManageDeliveryList = ({
-  onFileInputChage,
   onDropFile,
   uploadFileName,
   excelList,
-  handleExportExcel,
+  handleExportMemberExcel,
   handleDeliveryCreation,
   openModal,
-  fileHandler,
+  onFileChanged,
 }: IManageDeliveryList) => {
   useBeforeunload((event) => event.preventDefault());
   const [drag, setDrag] = useState(false);
@@ -46,13 +43,12 @@ const ManageDeliveryList = ({
               'ExcelUpload-drag': drag === true,
             })}
             type="file"
-            onChange={fileHandler}
+            onChange={onFileChanged}
           />
           <FileDrop
-            onFrameDragEnter={(event) => setDrag(true)}
-            onFrameDragLeave={(event) => onFileInputChage(event)}
-            onFrameDrop={(event) => setDrag(false)}
-            onDrop={(event, files) => onDropFile(event, files)}
+            onFrameDragEnter={() => setDrag(true)}
+            onFrameDrop={() => setDrag(false)}
+            onDrop={onDropFile}
           >
             <div className="ManageDeliveryList-ImportCSVWrapper-ImportSection-DropDown">
               {uploadFileName}
@@ -66,9 +62,12 @@ const ManageDeliveryList = ({
           >
             업로드 하기
           </div>
+          <div className="ManageDeliveryList-ImportCSVWrapper-ApplyButton" onClick={openModal}>
+            개별 업로드
+          </div>
           <div
             className="ManageDeliveryList-ImportCSVWrapper-ApplyButton"
-            onClick={handleExportExcel}
+            onClick={handleExportMemberExcel}
           >
             유저정보 보기
           </div>
@@ -76,11 +75,6 @@ const ManageDeliveryList = ({
       </div>
       <div className="ManageDeliveryList-ViewExcelList">
         <div className="ManageDeliveryList-ViewExcelList-Header">
-          <div className="ManageDeliveryList-ViewExcelList-Header-Wrapper">
-            <div className="ManageDeliveryList-OpenModal" onClick={openModal}>
-              따로 물품 업로드 하기
-            </div>
-          </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Client">
             고객 이름, 고유번호
           </div>
@@ -89,6 +83,9 @@ const ManageDeliveryList = ({
           </div>
           <div className="ManageDeliveryList-ViewExcelList-Header-Product">
             물품 정보
+          </div>
+          <div className="ManageDeliveryList-ViewExcelList-Header-CreatedAt">
+            배송 날짜
           </div>
         </div>
         <div className="ManageDeliveryList-ViewExcelList-ListWrapper">
