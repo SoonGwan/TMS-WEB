@@ -219,10 +219,16 @@ const DeliveryStatusContainer = () => {
       return err;
     }
   }, [handleOpenInfoModal, handleTrackingForDriver, selectDriver, selectedIdx]);
-
   useEffect(() => {
     handleDeliveryList();
     handleDriverList();
+  }, [handleDeliveryList, handleDriverList]);
+
+  useEffect(() => {
+    setInterval(() => {
+      handleDeliveryList();
+      handleDriverList();
+    }, 300000);
   }, [handleDeliveryList, handleDriverList]);
 
   return (
