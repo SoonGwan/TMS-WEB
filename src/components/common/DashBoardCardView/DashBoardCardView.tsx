@@ -34,25 +34,6 @@ const DashBoardCardView = ({
         <div className={cx('DashBoardCardView-ConditionWrapper-Condition')}>
           {condition}
         </div>
-        {/* <div
-          className={cx(
-            'DashBoardCardView-ConditionWrapper-ComparedPreviousDay',
-            {
-              'DashBoardCardView-ConditionWrapper-ComparedPreviousDay-Increase':
-                comparedYesterday >= 0,
-            },
-            {
-              'DashBoardCardView-ConditionWrapper-ComparedPreviousDay-Reduction':
-                comparedYesterday < 0,
-            }
-          )}
-        >
-          (
-          {comparedYesterday > 0
-            ? `+${comparedYesterday}%`
-            : `-${comparedYesterday * -1}%`}
-          )
-        </div> */}
       </div>
     </div>
   );

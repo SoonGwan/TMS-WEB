@@ -21,8 +21,14 @@
     background-color: red;
   }
 
+  &-Product {
+    width: 25%;
+    margin-right: 2.5%;
+  }
+
   &-DriverName {
     width: 15%;
+    margin-right: 2.5%;
   }
 
   &-CustomerName {
@@ -32,10 +38,35 @@
 
   &-CustomerAddress {
     width: 40%;
-    margin-right: 2.5%;
+  }
+}
+
+.TrackingDriverInfoModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  &-Wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    z-index: 10;
   }
 
-  &-Product {
-    width: 25%;
+  &-Modal {
+    width: 640px;
+    height: 440px;
+    background-color: $white_FFFFFF;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
   }
 }

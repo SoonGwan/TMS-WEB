@@ -15,6 +15,7 @@ interface ITrackingDriverList {
   phone: string;
   truckNumber: string;
   selectDriver: (arg1: string, arg2: string) => void;
+  handleOpenInfoModal: () => void;
 }
 
 const style = require('./TrackingDriverList.scss');
@@ -33,7 +34,27 @@ const TrackingDriverList = ({
   phone,
   truckNumber,
   selectDriver,
+  handleOpenInfoModal,
 }: ITrackingDriverList) => {
+  const composeDeliveryCountLabel = () => {
+    if (totalCount === completedCount) {
+      return (
+        <div className="DriverTableItem-DeliveryCount-Completed">
+          <span>
+            {completedCount} / {totalCount}
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <div className="DriverTableItem-DeliveryCount-Delivery">
+        <span>
+          {completedCount} / {totalCount}
+        </span>
+      </div>
+    );
+  };
   return (
     <div
       className={cx('TrackingDriverInfo', {
@@ -42,6 +63,7 @@ const TrackingDriverList = ({
       onClick={() => {
         handleTrackingForDriver(id);
         selectDriver(name, id);
+        handleOpenInfoModal();
       }}
       key={idx}
     >
@@ -49,7 +71,7 @@ const TrackingDriverList = ({
       <div className={cx('TrackingDriverInfo-PhoneNumber')}>{phone}</div>
       <div className={cx('TrackingDriverInfo-TruckNumber')}>{truckNumber}</div>
       <div className={cx('TrackingDriverInfo-TotalCount')}>
-        {completedCount} / {totalCount}
+        {composeDeliveryCountLabel()}
       </div>
     </div>
   );

@@ -11,11 +11,12 @@ interface IDeliveryStatusListItemElement {
   driverName: string;
   productName: string;
   driverAddress: string;
-  endOrderNumber: string;
+  endOrderNumber: number | string | null;
   customerPhone: string;
   driverPhone: string;
   driverTruckNumber: string;
   driverTruckSize: number;
+  endTime: string | null;
 }
 
 const DeliveryStatusListItemElement = ({
@@ -30,6 +31,7 @@ const DeliveryStatusListItemElement = ({
   driverPhone,
   driverTruckNumber,
   driverTruckSize,
+  endTime,
 }: IDeliveryStatusListItemElement) => {
   const HtmlTooltip = withStyles((theme) => ({
     tooltip: {
@@ -43,6 +45,23 @@ const DeliveryStatusListItemElement = ({
       borderRadius: '2px',
     },
   }))(Tooltip);
+
+  const shippingState = () => {
+    if (endTime === null) {
+      return (
+        <div className="DeliveryStatusListItemElement-ShippingState-Shipping">
+          <span>배송중</span>
+        </div>
+      );
+    }
+
+    return (
+      <div className="DeliveryStatusListItemElement-ShippingState-Completion">
+        <span>배송완료</span>
+      </div>
+    );
+  };
+  // endTime
 
   const generateTooltipItem = (title: string, content: string | number) => {
     return (
@@ -122,6 +141,7 @@ const DeliveryStatusListItemElement = ({
         <div className="DeliveryStatusListItemElement-Product">
           {productName}
         </div>
+        <div>{shippingState()}</div>
       </div>
     </>
   );

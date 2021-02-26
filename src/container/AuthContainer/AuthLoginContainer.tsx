@@ -43,12 +43,12 @@ const AuthLoginContainer = ({ history }: IAuthLoginContainer) => {
           localStorage.setItem('x-access-token', token);
           sessionStorage.removeItem('x-access-token');
 
-          history.push('/member');
+          history.push('/delivery');
         } else {
           sessionStorage.setItem('x-access-token', token);
           localStorage.removeItem('x-access-token');
 
-          history.push('/member');
+          history.push('/delivery');
         }
       }
     } catch (err) {

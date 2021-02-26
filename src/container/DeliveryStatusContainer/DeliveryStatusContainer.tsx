@@ -1,19 +1,36 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import DeliveryStatus from 'components/DeliveryStatus';
 import DeliveryStatusRepository from 'repository/DeliveryStatusRepository';
-import { useRecoilState } from 'recoil';
-import { allProductList } from 'atom/DeliveryStatusAtom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  allProductList,
+  deliveriesList,
+  trackingInfoModal,
+} from 'atom/DeliveryStatusAtom';
 import { DeliveryTable } from 'enum/DeliveryTable';
 import moment from 'moment';
 import MemberRepository from 'repository/MemberRepository';
-import { IDeliveries, IDriverList } from 'interface/DeliveryStatus';
+import {
+  IDeliveries,
+  IDriverCompleted,
+  IDriverCompletedCustom,
+  IDriverList,
+} from 'interface/DeliveryStatus';
 import TrackingDriverInfo from 'components/DeliveryStatus/TrackingDriverInfo';
 import TrackingDriverList from 'components/DeliveryStatus/TrackingDriverList';
 import TrackDriverInfoImageModal from 'components/DeliveryStatus/TrackDriverInfoImageModal';
 import Loading from 'components/common/Loading';
 
 const DeliveryStatusContainer = () => {
-  const [, setProductList] = useRecoilState(allProductList);
+  const [, setProductList] = useRecoilState<IDriverCompletedCustom[]>(
+    allProductList
+  );
+  const [isOpenInfoModal, setIsOpenInfoModal] = useRecoilState(
+    trackingInfoModal
+  );
+  const [, setDeliveriesList] = useRecoilState<IDriverCompleted[]>(
+    deliveriesList
+  );
   const [tableValue, setTableValue] = useState(DeliveryTable.ALL);
   const [date, setDate] = useState<string>(moment().format('YYYY-MM-DD') || '');
   const [driverListElement, setDriverListElement] = useState<HTMLElement>();
@@ -22,11 +39,15 @@ const DeliveryStatusContainer = () => {
   >();
   const [deliveriesListLeng, setDeliveriesListLeng] = useState<number>(0);
   const [selectedIdx, setSelectedIdx] = useState<string>('');
-  const [isOpenModal, setIsOpenModal] = useState<Boolean>(false);
   const [selectedDriverName, setSelectedDriverName] = useState<string>('');
   const [distance, setDistance] = useState<number>();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [distaceLoading, setDistanceLoading] = useState<Boolean>(false);
+
+  const handleOpenInfoModal = useCallback(() => {
+    setIsOpenInfoModal(!isOpenInfoModal);
+  }, [isOpenInfoModal, setIsOpenInfoModal]);
+
   const handleDriverDistance = useCallback(async (id: string) => {
     try {
       setDistanceLoading(true);
@@ -66,7 +87,7 @@ const DeliveryStatusContainer = () => {
       } = await DeliveryStatusRepository.deliveryList(date);
       const { deliveries } = data;
 
-      let driveriesTemp = [];
+      let driveriesTemp = [] as IDriverCompletedCustom[];
 
       for (let i = 0; i < deliveries.length; i += 1) {
         const {
@@ -76,7 +97,8 @@ const DeliveryStatusContainer = () => {
           endTime,
           productName,
         } = deliveries[i];
-        const temp = {
+
+        const temp: IDriverCompletedCustom = {
           customerIdx: customer.idx,
           customerName: customer.name,
           customerAddress: customer.address,
@@ -124,40 +146,28 @@ const DeliveryStatusContainer = () => {
   //   setIsOpenModal(!isOpenModal);
   // }, [isOpenModal]);
 
-  const handleTrackingForDriver = useCallback(async (idx: string) => {
-    try {
-      setIsLoading(true);
+  const handleTrackingForDriver = useCallback(
+    async (idx: string) => {
+      try {
+        setIsLoading(true);
 
-      const {
-        data: { data },
-      } = await DeliveryStatusRepository.trackingForDriver(idx);
-      const { deliveries } = data;
-      setSelectedIdx(idx);
-      setDeliveriesListLeng(deliveries.length);
-      const deliveriesInfo = deliveries.map((data: IDeliveries) => {
-        const { createdAt, customer, driver, productName, image, idx } = data;
-        // setSelectedDriverName(d)
+        const {
+          data: { data },
+        } = await DeliveryStatusRepository.trackingForDriver(idx);
+        const { deliveries } = data;
+        setSelectedIdx(idx);
+        setDeliveriesListLeng(deliveries.length);
 
-        return (
-          <TrackingDriverInfo
-            customerIdx={customer.idx}
-            customerName={customer.name}
-            customerAddress={customer.address}
-            driverName={driver.name}
-            product={productName}
-            image={image}
-            idx={idx}
-          />
-        );
-      });
-      setDeliveriesInfoElement(deliveriesInfo);
-      setIsLoading(false);
-    } catch (err) {
-      setIsLoading(false);
+        setDeliveriesList(deliveries);
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
 
-      return err;
-    }
-  }, []);
+        return err;
+      }
+    },
+    [setDeliveriesList]
+  );
 
   const handleDriverList = useCallback(async () => {
     try {
@@ -183,6 +193,7 @@ const DeliveryStatusContainer = () => {
         return (
           <>
             <TrackingDriverList
+              handleOpenInfoModal={handleOpenInfoModal}
               handleTrackingForDriver={handleTrackingForDriver}
               id={id}
               idx={idx}
@@ -207,11 +218,17 @@ const DeliveryStatusContainer = () => {
 
       return err;
     }
-  }, [handleTrackingForDriver, selectDriver, selectedIdx]);
-
+  }, [handleOpenInfoModal, handleTrackingForDriver, selectDriver, selectedIdx]);
   useEffect(() => {
     handleDeliveryList();
     handleDriverList();
+  }, [handleDeliveryList, handleDriverList]);
+
+  useEffect(() => {
+    setInterval(() => {
+      handleDeliveryList();
+      handleDriverList();
+    }, 300000);
   }, [handleDeliveryList, handleDriverList]);
 
   return (
@@ -233,6 +250,7 @@ const DeliveryStatusContainer = () => {
       {/* {isOpenModal && (
         <TrackDriverInfoImageModal openImageModal={openImageModal} />
       )} */}
+      {isOpenInfoModal ? <TrackingDriverInfo distance={distance} /> : null}
     </>
   );
 };
