@@ -25,8 +25,6 @@ class DriverSocket {
       DriverSocket.instance.socket.on('read-driver-location', (data: any) => {
         uiHandler(data);
       });
-
-      console.log('connected');
     }
 
     return DriverSocket.instance;

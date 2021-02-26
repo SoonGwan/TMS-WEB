@@ -1,8 +1,8 @@
 import { allProductList } from 'atom/DeliveryStatusAtom';
 import { DeliveryTable } from 'enum/DeliveryTable';
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { map } from 'underscore';
+import DeliveryStatusListItemElement from '../DeliveryStatusListItemElement';
 import './DeliveryStatusListItemTemplate.scss';
 
 interface IDeliveryStatusListItemTemplate {
@@ -21,24 +21,31 @@ const DeliveryStatusListItemTemplate = ({
             customerIdx,
             customerName,
             customerAddress,
-            driverIdx,
             driverName,
+            productName,
             driverAddress,
             endOrderNumber,
             endTime,
+            customerPhone,
+            driverPhone,
+            driverTruckNumber,
+            driverTruckSize,
           } = data;
+
           return (
-            <div className="DeliveryStatusListItemTemplate">
-              <div className="DeliveryStatusListItemTemplate-DriverId">
-                {driverName}({driverIdx})
-              </div>
-              <div className="DeliveryStatusListItemTemplate-ClientId">
-                {customerName}({customerIdx})
-              </div>
-              <div className="DeliveryStatusListItemTemplate-StartAdress">
-                {customerAddress}
-              </div>
-            </div>
+            <DeliveryStatusListItemElement
+              customerIdx={customerIdx}
+              customerName={customerName}
+              customerAddress={customerAddress}
+              driverName={driverName}
+              productName={productName}
+              driverAddress={driverAddress}
+              endOrderNumber={endOrderNumber}
+              customerPhone={customerPhone}
+              driverPhone={driverPhone}
+              driverTruckNumber={driverTruckNumber}
+              driverTruckSize={driverTruckSize}
+            />
           );
         })
       : tableValue === DeliveryTable.DELIVERING
@@ -49,25 +56,32 @@ const DeliveryStatusListItemTemplate = ({
               customerIdx,
               customerName,
               customerAddress,
-              driverIdx,
+
               driverName,
+              productName,
               driverAddress,
               endOrderNumber,
               endTime,
+              customerPhone,
+              driverPhone,
+              driverTruckNumber,
+              driverTruckSize,
             } = data;
 
             return (
-              <div className="DeliveryStatusListItemTemplate">
-                <div className="DeliveryStatusListItemTemplate-DriverId">
-                  {driverName}({driverIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-ClientId">
-                  {customerName}({customerIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-StartAdress">
-                  {customerAddress}
-                </div>
-              </div>
+              <DeliveryStatusListItemElement
+                customerIdx={customerIdx}
+                customerName={customerName}
+                customerAddress={customerAddress}
+                driverName={driverName}
+                productName={productName}
+                driverAddress={driverAddress}
+                endOrderNumber={endOrderNumber}
+                customerPhone={customerPhone}
+                driverPhone={driverPhone}
+                driverTruckNumber={driverTruckNumber}
+                driverTruckSize={driverTruckSize}
+              />
             );
           })
       : tableValue === DeliveryTable.DONE
@@ -78,24 +92,30 @@ const DeliveryStatusListItemTemplate = ({
               customerIdx,
               customerName,
               customerAddress,
-              driverIdx,
               driverName,
+              productName,
               driverAddress,
               endOrderNumber,
               endTime,
+              customerPhone,
+              driverPhone,
+              driverTruckNumber,
+              driverTruckSize,
             } = data;
             return (
-              <div className="DeliveryStatusListItemTemplate">
-                <div className="DeliveryStatusListItemTemplate-DriverId">
-                  {driverName}({driverIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-ClientId">
-                  {customerName}({customerIdx})
-                </div>
-                <div className="DeliveryStatusListItemTemplate-StartAdress">
-                  {customerAddress}
-                </div>
-              </div>
+              <DeliveryStatusListItemElement
+                customerIdx={customerIdx}
+                customerName={customerName}
+                customerAddress={customerAddress}
+                driverName={driverName}
+                productName={productName}
+                driverAddress={driverAddress}
+                endOrderNumber={endOrderNumber}
+                customerPhone={customerPhone}
+                driverPhone={driverPhone}
+                driverTruckNumber={driverTruckNumber}
+                driverTruckSize={driverTruckSize}
+              />
             );
           })
       : null;

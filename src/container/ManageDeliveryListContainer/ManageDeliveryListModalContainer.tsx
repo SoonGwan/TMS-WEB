@@ -22,9 +22,10 @@ const ManageDeliveryListModalContainer = ({
 }: IManageDeliveryListModalContainer) => {
   const [customerList, setCustomerList] = useState<ICustomerList[]>();
   const [driverList, setDriverList] = useState<IDriverList[]>();
-  const [driverIdx, setDriverIdx] = useState<number>();
+  const [driverId, setDriverId] = useState<string>();
   const [customerIdx, setCustomerIdx] = useState<number>();
   const [product, setProduct] = useState<string>();
+
   const handleMemberList = useCallback(async () => {
     try {
       const user = await MemberRepository.getCustomers();
@@ -34,7 +35,7 @@ const ManageDeliveryListModalContainer = ({
       const { drivers } = driver.data.data;
 
       let customerTemp = [{ label: '고객을 선택해주세요.', value: 0 }];
-      let driverTemp = [{ label: '드라이버를 선택해주세요.', value: 0 }];
+      let driverTemp = [{ label: '배송기사를 선택해주세요.', value: '' }];
 
       for (let i = 0; i < customers.length; i += 1) {
         const { idx, id, name, address } = customers[i];
@@ -46,11 +47,11 @@ const ManageDeliveryListModalContainer = ({
       }
 
       for (let i = 0; i < drivers.length; i += 1) {
-        const { idx, id, name, address } = drivers[i];
+        const { idx, id, name, phone } = drivers[i];
 
         const temp = {
-          label: `${name}(${idx}) ${address}`,
-          value: Number(idx),
+          label: `${name}(${id}) ${phone}`,
+          value: String(id),
         };
 
         driverTemp.push(temp);
@@ -67,7 +68,7 @@ const ManageDeliveryListModalContainer = ({
     try {
       const delivery: IDeliveryItem = {
         customerIdx,
-        driverIdx,
+        driverId,
         productName: product,
       };
 
@@ -91,7 +92,7 @@ const ManageDeliveryListModalContainer = ({
 
         openModal();
         setCustomerIdx(undefined);
-        setDriverIdx(undefined);
+        setDriverId(undefined);
         setProduct(undefined);
       }
       return data;
@@ -101,7 +102,7 @@ const ManageDeliveryListModalContainer = ({
 
       return err;
     }
-  }, [customerIdx, driverIdx, openModal, product]);
+  }, [customerIdx, driverId, openModal, product]);
 
   useEffect(() => {
     handleMemberList();
@@ -112,8 +113,8 @@ const ManageDeliveryListModalContainer = ({
       openModal={openModal}
       customerList={customerList}
       driverList={driverList}
-      driverIdx={driverIdx}
-      setDriverIdx={setDriverIdx}
+      driverId={driverId}
+      setDriverId={setDriverId}
       customerIdx={customerIdx}
       setCustomerIdx={setCustomerIdx}
       product={product}

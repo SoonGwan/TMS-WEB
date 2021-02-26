@@ -18,6 +18,8 @@ interface IDeliveryStatus {
   driverListElement: HTMLElement | undefined;
   deliveriesInfoElement: HTMLElement | undefined;
   deliveriesListLeng: number;
+  selectedDriverName: string;
+  distance: number | undefined;
 }
 
 const style = require('./DeliveryStatus.scss');
@@ -32,6 +34,8 @@ const DeliveryStatus = ({
   driverListElement,
   deliveriesInfoElement,
   deliveriesListLeng,
+  selectedDriverName,
+  distance,
 }: IDeliveryStatus) => {
   const product = useRecoilValue(allProductList);
   const today = dtil().format('YYYY-MM-DD');
@@ -136,10 +140,17 @@ const DeliveryStatus = ({
 
               <div
                 className={cx(
-                  'DeliveryStatus-OverView-AllItemsList-Header-StartAdress'
+                  'DeliveryStatus-OverView-AllItemsList-Header-Address'
                 )}
               >
-                배송 시작 주소
+                주소
+              </div>
+              <div
+                className={cx(
+                  'DeliveryStatus-OverView-AllItemsList-Header-Product'
+                )}
+              >
+                상품명
               </div>
             </div>
             <div
@@ -152,7 +163,7 @@ const DeliveryStatus = ({
         <div className={cx('DeliveryStatus-SubInfo')}>
           <div className={cx('DeliveryStatus-SubInfo-DriverList')}>
             <div className={cx('DeliveryStatus-SubInfo-DriverList-Header')}>
-              드라이버 리스트
+              배송기사 리스트
             </div>
             <div
               className={cx('DeliveryStatus-SubInfo-DriverList-ItemWrapper')}
@@ -167,21 +178,21 @@ const DeliveryStatus = ({
                     'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-DriverName'
                   )}
                 >
-                  아이디
+                  배송기사
                 </div>
                 <div
                   className={cx(
-                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Customer'
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-PhoneNumber'
                   )}
                 >
-                  이름
+                  전화번호
                 </div>
                 <div
                   className={cx(
-                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-Address'
+                    'DeliveryStatus-SubInfo-DriverList-ItemWrapper-Header-TruckNumber'
                   )}
                 >
-                  주소
+                  차량 번호
                 </div>
                 <div
                   className={cx(
@@ -202,7 +213,11 @@ const DeliveryStatus = ({
           </div>
           <div className={cx('DeliveryStatus-SubInfo-DriverInfo')}>
             <div className={cx('DeliveryStatus-SubInfo-DriverInfo-Header')}>
-              드라이버별 배달 완료 내역 ({today})
+              <div>
+                {selectedDriverName} 배송기사 배달 완료 내역
+                <span>({today})</span>
+              </div>
+              <div>{!distance ? '0' : distance}km</div>
             </div>
             <div
               className={cx('DeliveryStatus-SubInfo-DriverInfo-ItemWrapper')}
@@ -217,7 +232,7 @@ const DeliveryStatus = ({
                     'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Header-DriverName'
                   )}
                 >
-                  드라이버
+                  배송기사
                 </div>
                 <div
                   className={cx(
@@ -253,7 +268,7 @@ const DeliveryStatus = ({
                         'DeliveryStatus-SubInfo-DriverInfo-ItemWrapper-Empty'
                       )}
                     >
-                      해당 드라이버는 내역이 없습니다.
+                      해당 배송기사는 내역이 없습니다.
                     </div>
                   </>
                 ) : (
@@ -268,4 +283,4 @@ const DeliveryStatus = ({
   );
 };
 
-export default DeliveryStatus;
+export default React.memo(DeliveryStatus);

@@ -5,13 +5,15 @@ import { MemberLevel } from 'enum/Member';
 import './MemberTable.scss';
 
 interface IMemberTable {
-  memberItems: JSX.Element[],
+  driverItems: JSX.Element[],
+  customerItems: JSX.Element[],
   handleFilterMember: () => void;
   memberLevel: MemberLevel;
 }
 
 const MemberTable = ({
-  memberItems,
+  driverItems,
+  customerItems,
   handleFilterMember,
   memberLevel,
 }: IMemberTable): JSX.Element => {
@@ -35,26 +37,43 @@ const MemberTable = ({
           title={composeMemberLevelText()}
           className="MemberTable-Util-Filter" />
       </div>
+      {
+        memberLevel === MemberLevel.DRIVER ?
+          <div className="MemberTable-Wrapper">
+            <table className="MemberTable-Wrapper-Table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>이름</th>
+                  <th>번호</th>
+                  <th>차량 번호</th>
+                  <th>차량 용량</th>
+                  <th>배송 상태</th>
+                </tr>
+              </thead>
 
-      <div className="MemberTable-Wrapper">
-        <table className="MemberTable-Wrapper-Table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>이름</th>
-              <th>주소</th>
-              {
-                memberLevel === MemberLevel.DRIVER &&
-                <th>배달 상태</th>
-              }
-            </tr>
-          </thead>
+              <tbody>
+                {driverItems}
+              </tbody>
+            </table>
+          </div >
+          :
+          <div className="MemberTable-Wrapper">
+            <table className="MemberTable-Wrapper-Table">
+              <thead>
+                <tr>
+                  <th>이름</th>
+                  <th>번호</th>
+                  <th>주소</th>
+                </tr>
+              </thead>
 
-          <tbody>
-            {memberItems}
-          </tbody>
-        </table>
-      </div >
+              <tbody>
+                {customerItems}
+              </tbody>
+            </table>
+          </div >
+      }
     </div >
   )
 }

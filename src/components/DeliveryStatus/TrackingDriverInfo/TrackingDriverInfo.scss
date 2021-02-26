@@ -2,10 +2,10 @@
 
 .TrakingDriverInfo {
   width: 100%;
-  padding: 1vw;
+  padding: 0.7vw 1vw;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid $blue_C4CBD6;
+  border-bottom: 1px solid $gray_F1F3F5;
   font-size: 14px;
   cursor: pointer;
 
@@ -27,11 +27,12 @@
 
   &-CustomerName {
     width: 15%;
+    margin-right: 2.5%;
   }
 
   &-CustomerAddress {
     width: 40%;
-    margin-right: 5%;
+    margin-right: 2.5%;
   }
 
   &-Product {

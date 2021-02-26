@@ -52,9 +52,8 @@ const AuthLoginContainer = ({ history }: IAuthLoginContainer) => {
         }
       }
     } catch (err) {
-      // const { status } = err.response;
-      // console.log(err.response);
-      // loginError(status);
+      const { status } = err.response;
+      loginError(status);
 
       localStorage.removeItem('x-access-token');
       sessionStorage.removeItem('x-access-token');

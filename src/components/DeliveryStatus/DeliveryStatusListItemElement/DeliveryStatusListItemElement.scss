@@ -1,33 +1,33 @@
 @import 'styles/palette.scss';
 
-.DeliveryStatusListItemTemplate {
+.DeliveryStatusListItemElement {
   width: 100%;
   display: flex;
   align-items: center;
   padding: 1vw 0vw;
-  border-bottom: 1px solid $gray_C4C4C4;
+  border-bottom: 1px solid $gray_F1F3F5;
   font-size: 13px;
   font-weight: 400;
 
   &-DriverId {
     width: 15%;
-    height: 100%;
+    word-break: break-all;
+    cursor: pointer;
   }
 
   &-ClientId {
     width: 15%;
-    height: 100%;
+    margin-right: 2.5%;
+    cursor: pointer;
   }
 
   &-StartAddress {
     width: 35%;
     height: 100%;
-    margin-right: 5%;
-    word-break: break-all;
+    margin-right: 2.5%;
   }
 
   &-Product {
-    width: 32.5%;
-    word-break: break-all;
+    width: 20%;
   }
 }

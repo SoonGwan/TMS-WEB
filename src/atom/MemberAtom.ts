@@ -1,12 +1,12 @@
-import { IDriver, IMember } from 'interface/Member';
+import { IDriver, IDriverWithCount, IMember, INewCustomerElement, INewDriverElement } from 'interface/Member';
 import { atom, RecoilState } from 'recoil';
 
-export const DriverState: RecoilState<IDriver[]> = atom({
+export const DriverState: RecoilState<IDriverWithCount[]> = atom({
   key: 'DriverState',
-  default: [] as IDriver[],
+  default: [] as IDriverWithCount[],
 });
 
-export const CustomerState: RecoilState<IMember[]> = atom({
+export const CustomerState: RecoilState<INewCustomerElement[]> = atom({
   key: 'CustomerState',
-  default: [] as IMember[],
+  default: [] as INewCustomerElement[],
 })

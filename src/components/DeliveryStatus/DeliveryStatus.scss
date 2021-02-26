@@ -12,9 +12,9 @@
   display: flex;
   align-items: center;
   padding: 0vw 1vw;
-  box-shadow: 1px 6px 18px rgba(0, 0, 0, 0.1);
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
+  color: $blue_6685A8;
 }
 
 .DeliveryStatus {
@@ -35,8 +35,9 @@
       margin-bottom: 1vw;
 
       &-DatePicker {
+        font-weight: 500;
         border-radius: 4px;
-        padding: 1vw;
+        padding: 0.5vw;
         border: none;
         box-shadow: 1px 4px 24px rgba(0, 0, 0, 0.1);
         cursor: pointer;
@@ -64,13 +65,13 @@
         width: 100%;
         height: 4.512vh;
         padding: 0vh 1vw;
+        color: $blue_6685A8;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 1px -1px 10px rgba($color: $black_000000, $alpha: 0.1);
 
         &-Title {
-          font-size: 18px;
+          font-size: 22px;
           font-weight: 500;
         }
 
@@ -80,8 +81,7 @@
           }
 
           &-Button {
-            height: 3vh;
-            padding: 0vw 0.6vw;
+            padding: 0.22vw 0.6vw;
             font-size: 12px;
             border: none;
             background-color: $white_FFFFFF;
@@ -133,17 +133,17 @@
         &-ClientId {
           width: 15%;
           height: 100%;
+          margin-right: 2.5%;
         }
 
-        &-Distance {
-          width: 10%;
+        &-Address {
+          width: 35%;
           height: 100%;
-          margin-right: 5%;
+          margin-right: 2.5%;
         }
 
-        &-StartAdress {
-          width: 55%;
-          height: 100%;
+        &-Product {
+          width: 20%;
         }
       }
 
@@ -211,16 +211,17 @@
           font-weight: 500;
           border-bottom: 1px solid $gray_C4C4C4;
           &-DriverName {
-            width: 25%;
-          }
-
-          &-Customer {
             width: 15%;
           }
 
-          &-Address {
-            width: 30%;
-            margin-right: 5%;
+          &-PhoneNumber {
+            width: 20%;
+            margin-right: 2.5%;
+          }
+
+          &-TruckNumber {
+            width: 20%;
+            margin-right: 2.5%;
           }
 
           &-Product {
@@ -236,6 +237,13 @@
 
       &-Header {
         @include tableHeaderStyle();
+        display: flex;
+        justify-content: space-between;
+
+        & > div > span {
+          font-size: 16px;
+          margin-left: 0.5vw;
+        }
       }
       &-ItemWrapper {
         width: 100%;
@@ -255,17 +263,19 @@
           padding: 1vw;
           font-weight: 500;
           border-bottom: 1px solid $gray_C4C4C4;
+
           &-DriverName {
             width: 15%;
           }
 
           &-Customer {
             width: 15%;
+            margin-right: 2.5%;
           }
 
           &-Address {
             width: 40%;
-            margin-right: 5%;
+            margin-right: 2.5%;
           }
 
           &-Product {
@@ -279,9 +289,9 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 24px;
+          font-size: 18px;
           color: $gray_C4C4C4;
-          font-weight: 500;
+          font-weight: 600;
         }
       }
     }

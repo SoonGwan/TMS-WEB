@@ -8,8 +8,13 @@ interface ITrackingDriverList {
   idx: number;
   isDelivering: Boolean;
   name: string;
-  handleTrackingForDriver: (args: number) => void;
-  selectedIdx: number;
+  handleTrackingForDriver: (args: string) => void;
+  selectedIdx: string;
+  totalCount: number;
+  completedCount: number;
+  phone: string;
+  truckNumber: string;
+  selectDriver: (arg1: string, arg2: string) => void;
 }
 
 const style = require('./TrackingDriverList.scss');
@@ -23,24 +28,28 @@ const TrackingDriverList = ({
   name,
   handleTrackingForDriver,
   selectedIdx,
+  totalCount,
+  completedCount,
+  phone,
+  truckNumber,
+  selectDriver,
 }: ITrackingDriverList) => {
   return (
     <div
       className={cx('TrackingDriverInfo', {
-        'TrackingDriverInfo-selected': selectedIdx === idx,
+        'TrackingDriverInfo-selected': selectedIdx === id,
       })}
       onClick={() => {
-        handleTrackingForDriver(idx);
+        handleTrackingForDriver(id);
+        selectDriver(name, id);
       }}
       key={idx}
     >
-      <div className={cx('TrackingDriverInfo-DriverId')}>
-        {id}({idx})
-      </div>
       <div className={cx('TrackingDriverInfo-DriverName')}>{name}</div>
-      <div className={cx('TrackingDriverInfo-DriverAddress')}>{address}</div>
-      <div className={cx('TrackingDriverInfo-IsDelivering')}>
-        {isDelivering ? '온라인' : '오프라인'}
+      <div className={cx('TrackingDriverInfo-PhoneNumber')}>{phone}</div>
+      <div className={cx('TrackingDriverInfo-TruckNumber')}>{truckNumber}</div>
+      <div className={cx('TrackingDriverInfo-TotalCount')}>
+        {completedCount} / {totalCount}
       </div>
     </div>
   );
