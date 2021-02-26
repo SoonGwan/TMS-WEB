@@ -1,0 +1,51 @@
+@import 'styles/palette.scss';
+
+.RiderStatusHeader {
+  margin: 5vh 0vw 1vh 0vw;
+}
+
+.RiderStatusList {
+  width: 100%;
+  height: 60vh;
+  border: 1px solid $gray_E6E6E6;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  &-Header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 4.6vh;
+    padding: 0px 0.7vw;
+    font-size: 1rem;
+    font-weight: 500;
+    border-bottom: 1px solid $gray_E6E6E6;
+
+    &-Idx {
+      width: 20%;
+      color: $brown_9C5C63;
+    }
+
+    &-Status {
+      width: 20%;
+      color: $blue_6685A8;
+      margin-right: 2.5%;
+    }
+
+    &-Adress {
+      width: 35%;
+      color: $black_000000;
+      margin-right: 2.5%;
+    }
+
+    &-Time {
+      width: 20%;
+      color: $black_000000;
+    }
+  }
+
+  &-ItemsWrapper {
+    width: 100%;
+    overflow-y: auto;
+  }
+}

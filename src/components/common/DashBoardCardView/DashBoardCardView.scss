@@ -1,0 +1,45 @@
+@import 'styles/palette.scss';
+
+.DashBoardCardView {
+  width: 17.6vw;
+  height: calc(14.87vh / 2);
+  background-color: $white_FFFFFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 4px 24px rgba($color: $black_000000, $alpha: 0.1);
+  border-radius: 4px;
+  padding: 1vw;
+  justify-content: center;
+
+  &-Explanation {
+    font-size: 18px;
+    font-weight: 400;
+    color: $blue_C4CBD6;
+  }
+
+  &-ConditionWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    &-Condition {
+      font-size: 18px;
+      font-weight: 600;
+      color: $blue_3F4452;
+    }
+
+    &-ComparedPreviousDay {
+      font-weight: 600;
+      margin-left: 1vw;
+      font-size: 16px;
+
+      &-Increase {
+        color: $mint_6BBDA8;
+      }
+
+      &-Reduction {
+        color: $red_E47B7F;
+      }
+    }
+  }
+}

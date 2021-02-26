@@ -1,0 +1,29 @@
+@import 'styles/palette.scss';
+
+.RiderStatusListItemTemplate {
+  padding: 0.4vh 0.7vw;
+  font-size: 0.8rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-bottom: 1px solid $gray_C4C4C4;
+  &-Idx {
+    width: 20%;
+  }
+
+  &-Status {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    margin-right: 2.5%;
+  }
+
+  &-Adress {
+    width: 35%;
+    margin-right: 2.5%;
+  }
+
+  &-Time {
+    width: 20%;
+  }
+}

@@ -1,0 +1,40 @@
+@import 'styles/palette.scss';
+
+.TrakingDriverInfo {
+  width: 100%;
+  padding: 1vw;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $blue_C4CBD6;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($color: $white_FFFFFF, $amount: 10);
+  }
+
+  &:active {
+    background-color: darken($color: $white_FFFFFF, $amount: 15);
+  }
+
+  &-Selected {
+    background-color: red;
+  }
+
+  &-DriverName {
+    width: 15%;
+  }
+
+  &-CustomerName {
+    width: 15%;
+  }
+
+  &-CustomerAddress {
+    width: 40%;
+    margin-right: 5%;
+  }
+
+  &-Product {
+    width: 25%;
+  }
+}

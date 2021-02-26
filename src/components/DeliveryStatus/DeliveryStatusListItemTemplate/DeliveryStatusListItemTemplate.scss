@@ -1,0 +1,33 @@
+@import 'styles/palette.scss';
+
+.DeliveryStatusListItemTemplate {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1vw 0vw;
+  border-bottom: 1px solid $gray_C4C4C4;
+  font-size: 13px;
+  font-weight: 400;
+
+  &-DriverId {
+    width: 15%;
+    height: 100%;
+  }
+
+  &-ClientId {
+    width: 15%;
+    height: 100%;
+  }
+
+  &-Distance {
+    width: 10%;
+    height: 100%;
+    margin-right: 5%;
+  }
+
+  &-StartAdress {
+    width: 55%;
+    height: 100%;
+    word-break: break-all;
+  }
+}

@@ -1,0 +1,23 @@
+@import 'styles/palette.scss';
+
+.ManageDeliveryListInnerItemTemplate {
+  width: 100%;
+  padding: 1vw 1vw;
+  background-color: $white_FFFFFF;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1vw;
+  box-shadow: 1px 4px 24px rgba(0, 0, 0, 0.02);
+
+  &-Client {
+    width: 20%;
+  }
+
+  &-Driver {
+    width: 20%;
+  }
+
+  &-Product {
+    width: 55%;
+  }
+}

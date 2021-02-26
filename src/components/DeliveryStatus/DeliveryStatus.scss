@@ -1,0 +1,294 @@
+@import 'styles/palette.scss';
+
+@mixin boxStyle {
+  box-shadow: 1px 4px 24px rgba($color: $black_000000, $alpha: 0.1);
+  border-radius: 4px;
+}
+
+@mixin tableHeaderStyle {
+  width: 100%;
+  height: 4.512vh;
+  background-color: $white_FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0vw 1vw;
+  box-shadow: 1px 6px 18px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.DeliveryStatus {
+  width: 100%;
+  height: 100%;
+  background-color: $blue_F5F7FA;
+  padding: 1vw;
+  display: flex;
+
+  &-OverView {
+    width: 55vw;
+    height: 100%;
+    margin-right: 1vw;
+    display: flex;
+    flex-direction: column;
+
+    &-Date {
+      margin-bottom: 1vw;
+
+      &-DatePicker {
+        border-radius: 4px;
+        padding: 1vw;
+        border: none;
+        box-shadow: 1px 4px 24px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        outline: none;
+      }
+    }
+
+    &-CardView {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-AllItemsList {
+      margin-top: 1vw;
+      width: 100%;
+      height: 100%;
+
+      background-color: $white_FFFFFF;
+      @include boxStyle();
+      position: relative;
+      overflow: hidden;
+
+      &-TitleWrapper {
+        width: 100%;
+        height: 4.512vh;
+        padding: 0vh 1vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 1px -1px 10px rgba($color: $black_000000, $alpha: 0.1);
+
+        &-Title {
+          font-size: 18px;
+          font-weight: 500;
+        }
+
+        &-ButtonSection {
+          & > * + * {
+            margin-left: 30px;
+          }
+
+          &-Button {
+            height: 3vh;
+            padding: 0vw 0.6vw;
+            font-size: 12px;
+            border: none;
+            background-color: $white_FFFFFF;
+            border: 2px solid $blue_6685A8;
+            border-radius: 4px;
+            color: $blue_6685A8;
+            font-weight: 500;
+            box-shadow: 1px -1px 10px rgba($color: $blue_6685A8, $alpha: 0.1);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            outline: none;
+            user-select: none;
+
+            &:hover {
+              background-color: $blue_6685A8;
+              color: $white_FFFFFF;
+            }
+
+            &-Selected {
+              background-color: $blue_6685A8;
+              color: $white_FFFFFF;
+            }
+          }
+        }
+      }
+
+      &-Header {
+        width: 100%;
+        height: 4vh;
+        // background-color: blue;
+        padding: 0vh 1vw;
+        border-bottom: 1px solid $gray_C4C4C4;
+        display: flex;
+        font-size: 26px;
+        font-weight: 600;
+
+        & > * {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        &-DriverId {
+          width: 15%;
+          height: 100%;
+        }
+
+        &-ClientId {
+          width: 15%;
+          height: 100%;
+        }
+
+        &-Distance {
+          width: 10%;
+          height: 100%;
+          margin-right: 5%;
+        }
+
+        &-StartAdress {
+          width: 55%;
+          height: 100%;
+        }
+      }
+
+      &-ListItem {
+        width: 100%;
+        padding: 0vw 1vw 1vw 1vw;
+        height: calc(100% - 7.512vh);
+        overflow: auto;
+        // background-color: red;
+      }
+
+      &-ChangeChartButton {
+        width: 3.745vw;
+        height: 3.512vh;
+        position: absolute;
+        top: 1vw;
+        right: 1vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        background-color: $blue_292C3A;
+        cursor: pointer;
+
+        & > * {
+          color: $white_FFFFFF;
+        }
+      }
+    }
+  }
+
+  &-SubInfo {
+    width: 38vw;
+    height: 100%;
+    background-color: $white_FFFFFF;
+    @include boxStyle();
+
+    &-DriverList {
+      width: 100%;
+      height: 50%;
+
+      &-Header {
+        @include tableHeaderStyle();
+        background-color: white;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+      &-ItemWrapper {
+        width: 100%;
+        height: calc(100% - 4.512vh);
+        overflow-y: auto;
+        // background-color: red;
+        // &::before {
+        //   content: 'asdfasfasf';
+        // }
+        &-Section {
+          width: 100%;
+          height: calc(100% - 5.4vh);
+          overflow-y: auto;
+        }
+
+        &-Header {
+          display: flex;
+          padding: 1vw;
+          font-weight: 500;
+          border-bottom: 1px solid $gray_C4C4C4;
+          &-DriverName {
+            width: 25%;
+          }
+
+          &-Customer {
+            width: 15%;
+          }
+
+          &-Address {
+            width: 30%;
+            margin-right: 5%;
+          }
+
+          &-Product {
+            width: 25%;
+          }
+        }
+      }
+    }
+
+    &-DriverInfo {
+      width: 100%;
+      height: 50%;
+
+      &-Header {
+        @include tableHeaderStyle();
+      }
+      &-ItemWrapper {
+        width: 100%;
+        height: calc(100% - 4.512vh);
+
+        &-Section {
+          width: 100%;
+          height: calc(100% - 5.4vh);
+          overflow-y: auto;
+        }
+        // background-color: red;
+        // &::before {
+        //   content: 'asdfasfasf';
+        // }
+        &-Header {
+          display: flex;
+          padding: 1vw;
+          font-weight: 500;
+          border-bottom: 1px solid $gray_C4C4C4;
+          &-DriverName {
+            width: 15%;
+          }
+
+          &-Customer {
+            width: 15%;
+          }
+
+          &-Address {
+            width: 40%;
+            margin-right: 5%;
+          }
+
+          &-Product {
+            width: 25%;
+          }
+        }
+
+        &-Empty {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          color: $gray_C4C4C4;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+.DeliveryStatus-OverView-Date-DatePicker {
+  & > input {
+    width: 100%;
+  }
+}
